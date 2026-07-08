@@ -1,0 +1,19 @@
+{
+  "name": "dich2000s-website",
+  "version": "1.0.0",
+  "description": "Dịch 2000s — Nhóm Việt Hóa Game Hoài Niệm",
+  "private": true,
+  "scripts": {
+    "postinstall": "echo 'Dependencies installed successfully'"
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "^1.0.12"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ryo147/Dich2000s-WEBSITE.git"
+  },
+  "author": "Dịch 2000s Team",
+  "license": "SEE LICENSE IN LICENSE"
+}
