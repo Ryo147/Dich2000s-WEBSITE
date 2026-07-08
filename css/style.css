@@ -266,10 +266,20 @@ body{
 .spec-row{
   display:flex;
   justify-content:space-between;
+  align-items:flex-start;
+  gap:16px;
   padding:12px 0;
   border-bottom:1px solid var(--border);
 }
 .spec-row:last-child{border-bottom:none}
+.spec-row>span:first-child{
+  flex-shrink:0;
+  white-space:nowrap;
+  color:var(--muted);
+}
+.spec-row>span:last-child{
+  text-align:right;
+}
 .gallery-thumb{
   aspect-ratio:4/3;
   background-size:cover;
