@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danh sách dự án — Dịch 2000s</title>
+<meta name="description" content="Toàn bộ dự án Việt hóa game của nhóm Dịch 2000s — đã hoàn thành, đang thực hiện và sắp tới.">
+<link rel="icon" href="assets/favicon.ico">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 z-50 nav-blur">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 no-underline">
+      <img src="assets/logo.png" alt="Dịch 2000s" class="nav-logo">
+      <div>
+        <div class="font-pixel text-2xl leading-none text-[var(--fg)]">DỊCH 2000s</div>
+        <div class="text-[10px] text-[var(--muted)] tracking-widest uppercase">NHÓM VIỆT HÓA GAME</div>
+      </div>
+    </a>
+    <div class="hidden md:flex items-center gap-7 font-pixel text-lg">
+      <a href="index.html#about" class="text-[var(--fg)] hover:text-[var(--cam)] transition no-underline">/about</a>
+      <a href="projects.html" class="text-[var(--cam)] no-underline">/projects</a>
+      <a href="download.html" class="btn-pixel !py-2 !px-4 !text-base">Tải Patch</a>
+    </div>
+    <button class="md:hidden font-display text-3xl text-[var(--fg)]" id="menuBtn" aria-label="Mở menu">≡</button>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 font-display text-lg space-y-2">
+    <a href="index.html#about" class="block text-[var(--fg)] hover:text-[var(--cam)] no-underline">/about</a>
+    <a href="projects.html" class="block text-[var(--cam)] no-underline">/projects</a>
+    <a href="download.html" class="block text-[var(--fg)] hover:text-[var(--cam)] no-underline">/tai-patch</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="relative pt-40 pb-16 px-6 overflow-hidden border-b border-[var(--border)]">
+  <div class="absolute inset-0 grid-bg"></div>
+  <div class="relative max-w-7xl mx-auto">
+    <div class="section-label mb-4 reveal">// KHO DỰ ÁN</div>
+    <h1 class="font-display text-5xl md:text-7xl leading-tight reveal">
+      Toàn bộ <span class="text-[var(--cam)]">dự án</span><br>đã và đang Việt hóa
+    </h1>
+    <p class="text-[var(--muted)] mt-5 max-w-2xl reveal">
+      Mỗi dự án được nhóm làm tới nơi tới chốn trước khi nhận dự án tiếp theo.
+      Bấm vào từng dự án để xem chi tiết bản dịch, tiến độ và link tải patch.
+    </p>
+
+    <div class="flex flex-wrap gap-3 mt-8 reveal">
+      <button data-filter="all" class="filter-btn btn-pixel !py-2 !px-4 !text-base is-active">Tất cả</button>
+      <button data-filter="done" class="filter-btn btn-pixel btn-ghost !py-2 !px-4 !text-base">Hoàn thành</button>
+      <button data-filter="wip" class="filter-btn btn-pixel btn-ghost !py-2 !px-4 !text-base">Đang làm</button>
+      <button data-filter="plan" class="filter-btn btn-pixel btn-ghost !py-2 !px-4 !text-base">Dự kiến</button>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT GRID -->
+<section class="py-20 px-6">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="projectGrid">
+
+      <!--
+        ==========================================================
+        [KHU VỰC DÀNH CHO TEAM] — THÊM DỰ ÁN MỚI TẠI ĐÂY
+        ==========================================================
+        1. Copy nguyên khối <article class="game-card reveal" data-status="..."> bên dưới.
+        2. data-status nhận 1 trong 3 giá trị: done / wip / plan (dùng cho nút lọc phía trên).
+        3. Đổi ảnh nền game-thumb (background-image), badge trạng thái
+           (badge-done / badge-wip / badge-plan), thể loại, tên game,
+           mô tả ngắn, và link "Xem chi tiết" trỏ tới file trong thư mục
+           projects/ (ví dụ projects/plague-inc.html).
+        4. File này độc lập với danh sách rút gọn ở trang chủ (index.html)
+           — thêm dự án mới thì nhớ cập nhật cả hai nơi nếu muốn nó
+           xuất hiện ở trang chủ.
+        ==========================================================
+      -->
+
+      <!-- Game 1: Plague Inc. -->
+      <article class="game-card reveal" data-status="done">
+        <div class="game-thumb" style="background-image:url('https://cdn.discordapp.com/attachments/1495049586140512256/1524299708661501992/PlagueInc.png?ex=6a4f3e3a&is=6a4decba&hm=adf5ea35082eb2b62fb28f0f647c6f11ec150c034a6280836a8d8c2501f9b7f3&')">
+          <span class="badge badge-done absolute top-3 right-3 z-10">Hoàn thành</span>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-display text-sm text-[var(--muted)]">Strategy / Simulation</span>
+            <span class="font-display text-sm text-[var(--xanh-la)]">v1.23.0.12</span>
+          </div>
+          <h3 class="font-display text-2xl mb-1">Plague Inc. Evolved</h3>
+          <p class="text-sm text-[var(--muted)] mb-4">Việt hóa toàn bộ tên bệnh, mô tả triệu chứng, sự kiện và giao diện chiến lược.</p>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-[var(--muted)]"><i class="fa-solid fa-download"></i> Đã phát hành</span>
+            <a href="projects/plague-inc.html" class="text-[var(--cam)] font-display text-lg hover:underline">Xem chi tiết →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Game 2: Resident Evil 2 Remake -->
+      <article class="game-card reveal" data-status="wip">
+        <div class="game-thumb" style="background-image:url('https://cdn.discordapp.com/attachments/1495049586140512256/1524268116639481866/RE2R_VH.png?ex=6a4f20ce&is=6a4dcf4e&hm=0dcbd463dee5e8bf9d74c9066bf1d365eb76dbdd30dc3151d2001034cb824bed&')">
+          <span class="badge badge-wip absolute top-3 right-3 z-10">Đang hoàn thiện</span>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-display text-sm text-[var(--muted)]">Survival Horror</span>
+            <span class="font-display text-sm text-[var(--vang)]">Đang làm</span>
+          </div>
+          <h3 class="font-display text-2xl mb-1">Resident Evil 2 Remake</h3>
+          <p class="text-sm text-[var(--muted)] mb-4">Dịch hội thoại, hồ sơ, ghi chú trong game. Giữ nguyên không khí kinh dị của Racoon City.</p>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-[var(--muted)]"><i class="fa-solid fa-hourglass-half"></i> Chưa phát hành</span>
+            <a href="projects/re2-remake.html" class="text-[var(--cam)] font-display text-lg hover:underline">Xem chi tiết →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- [KHU VỰC TEAM] Kết thúc — thêm <article> mới ngay phía trên dòng này -->
+
+    </div>
+
+    <div id="emptyState" class="hidden text-center py-20 reveal">
+      <div class="font-pixel text-2xl text-[var(--muted)]">// Chưa có dự án nào ở trạng thái này</div>
+    </div>
+
+    <div class="mt-16 text-center reveal">
+      <a href="download.html" class="btn-pixel">Tải công cụ cài đặt Patch →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-[var(--border)] py-14 px-6" style="background:var(--bg-2)">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-3 gap-8 mb-10">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3 mb-4">
+          <img src="assets/logo.png" alt="Dịch 2000s" class="nav-logo">
+          <div>
+            <div class="font-display text-2xl">DỊCH 2000s</div>
+            <div class="text-xs text-[var(--muted)] tracking-widest uppercase">Dịch Những Năm 2000</div>
+          </div>
+        </div>
+        <p class="text-[var(--muted)] max-w-md leading-relaxed">
+          Từng từ ngữ, từng câu chữ, cho từng game thủ Việt.
+        </p>
+        <div class="flex items-center gap-3 mt-5">
+          <a href="https://discord.gg/mxsAU6BDye" class="w-10 h-10 border border-[var(--border)] flex items-center justify-center hover:border-[var(--cam)] hover:text-[var(--cam)] transition"><i class="fa-brands fa-discord"></i></a>
+          <a href="https://github.com/Ryo147/PatchVietHoaInstaller" target="_blank" rel="noopener" class="w-10 h-10 border border-[var(--border)] flex items-center justify-center hover:border-[var(--cam)] hover:text-[var(--cam)] transition"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-display text-lg mb-4 text-[var(--cam)]">Khám phá</div>
+        <ul class="space-y-2 text-[var(--muted)]">
+          <li><a href="index.html#about" class="hover:text-[var(--fg)] transition no-underline">Giới thiệu</a></li>
+          <li><a href="projects.html" class="hover:text-[var(--fg)] transition no-underline">Dự án</a></li>
+          <li><a href="download.html" class="hover:text-[var(--fg)] transition no-underline">Tải Patch</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pt-8 border-t border-[var(--border)] flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="font-display text-sm text-[var(--muted)]">
+        © Dịch 2000s · 2026
+    </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Đã sao chép!</div>
+
+<script src="js/main.js"></script>
+<script>
+  // Lọc dự án theo trạng thái (all / done / wip / plan)
+  (function () {
+    const buttons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('#projectGrid .game-card');
+    const emptyState = document.getElementById('emptyState');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => {
+          b.classList.remove('is-active');
+          b.classList.add('btn-ghost');
+        });
+        btn.classList.add('is-active');
+        btn.classList.remove('btn-ghost');
+
+        const filter = btn.getAttribute('data-filter');
+        let visibleCount = 0;
+        cards.forEach(card => {
+          const match = filter === 'all' || card.getAttribute('data-status') === filter;
+          card.style.display = match ? '' : 'none';
+          if (match) visibleCount++;
+        });
+        emptyState.classList.toggle('hidden', visibleCount !== 0);
+      });
+    });
+  })();
+</script>
+</body>
+</html>

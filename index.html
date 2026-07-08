@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dịch 2000s — Nhóm Việt Hóa Game Hoài Niệm</title>
+<meta name="description" content="Dịch 2000s — nhóm việt hóa game indie, phi lợi nhuận. Xem các dự án Việt hóa và tải patch tại đây.">
+<link rel="icon" href="assets/favicon.ico">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 z-50 nav-blur">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 no-underline">
+      <img src="assets/logo.png" alt="Dịch 2000s" class="nav-logo">
+      <div>
+        <div class="font-pixel text-2xl leading-none text-[var(--fg)]">DỊCH 2000s</div>
+        <div class="text-[10px] text-[var(--muted)] tracking-widest uppercase">NHÓM VIỆT HÓA GAME</div>
+      </div>
+    </a>
+    <div class="hidden md:flex items-center gap-7 font-pixel text-lg">
+      <a href="#about" class="text-[var(--fg)] hover:text-[var(--cam)] transition no-underline">/about</a>
+      <a href="projects.html" class="text-[var(--fg)] hover:text-[var(--cam)] transition no-underline">/projects</a>
+      <a href="download.html" class="btn-pixel !py-2 !px-4 !text-base">Tải Patch</a>
+    </div>
+    <button class="md:hidden font-pixel text-3xl text-[var(--fg)]" id="menuBtn" aria-label="Mở menu">≡</button>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 font-pixel text-lg space-y-2">
+    <a href="#about" class="block text-[var(--fg)] hover:text-[var(--cam)] no-underline">/about</a>
+    <a href="projects.html" class="text-[var(--fg)] hover:text-[var(--cam)] transition no-underline">/projects</a>
+    <a href="download.html" class="block text-[var(--cam)] no-underline">/tai-patch</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="top" class="relative min-h-screen pt-32 pb-20 overflow-hidden">
+  <div class="absolute inset-0 grid-bg"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+    <!-- Left -->
+    <div class="space-y-7">
+      <div class="inline-flex items-center gap-3 px-4 py-2 border border-[var(--border)] bg-[var(--card)]">
+        <span class="led"></span>
+        <span class="font-pixel text-lg text-[var(--xanh-la)]">ĐANG HOẠT ĐỘNG</span>
+      </div>
+
+      <h1 class="font-pixel leading-[0.85]">
+        <span class="block text-[var(--muted)] text-2xl md:text-3xl mb-4">// NHÓM VIỆT HÓA GAME</span>
+        <span class="block text-7xl md:text-8xl text-[var(--fg)]">DỊCH</span>
+        <span class="block text-7xl md:text-8xl" style="background:linear-gradient(90deg,var(--cam),var(--hong),var(--vang));-webkit-background-clip:text;background-clip:text;color:transparent">2000s</span>
+      </h1>
+
+      <p class="text-lg md:text-xl text-[var(--muted)] max-w-xl leading-relaxed">
+        Một nhóm nhỏ lẻ, với niềm đam mê và yêu thích các
+        tựa game đã khiến họ nảy sinh ý định Việt hóa.
+        Để được nhìn vẻ đẹp tiếng mẹ đẻ trên tựa game yêu thích của mình.
+      </p>
+
+      <div class="flex flex-wrap gap-4">
+        <a href="#games" class="btn-pixel">Xem dự án</a>
+        <a href="download.html" class="btn-pixel btn-ghost">Tải Patch Việt Hóa</a>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4 pt-7 border-t border-[var(--border)]">
+        <div>
+          <div class="font-display text-4xl text-[var(--xanh-la)]">1</div>
+          <div class="text-xs text-[var(--muted)] uppercase tracking-wider">Dự án hoàn thành</div>
+        </div>
+        <div>
+          <div class="font-display text-4xl text-[var(--vang)]">1</div>
+          <div class="text-xs text-[var(--muted)] uppercase tracking-wider">Đang thực hiện</div>
+        </div>
+        <div>
+          <div class="font-display text-4xl text-[var(--cyan)]">3</div>
+          <div class="text-xs text-[var(--muted)] uppercase tracking-wider">Thành viên cộng tác</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Terminal dịch thuật -->
+    <div class="relative">
+      <div class="relative bg-[var(--card)] border-2 border-[var(--border)] p-5" style="border-radius:18px">
+        <div class="aspect-[4/3] overflow-hidden relative" style="border-radius:10px">
+          <div class="term-window">
+            <div class="term-header">
+              <span class="term-dot" style="background:#ff5f56"></span>
+              <span class="term-dot" style="background:#ffbd2e"></span>
+              <span class="term-dot" style="background:#27c93f"></span>
+              <span class="font-pixel text-sm text-[var(--muted)] ml-2"></span>
+              <span class="ml-auto flex items-center gap-2 font-pixel text-xs text-[var(--xanh-la)]">
+                <span class="led"></span> LIVE
+              </span>
+            </div>
+            <div class="term-body font-pixel" id="heroTerminal" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between mt-4 px-2">
+          <span class="font-pixel text-xs text-[var(--muted)] tracking-widest"></span>
+          <div class="flex items-center gap-3">
+            <span class="led"></span>
+            <div class="w-7 h-7 rounded-full" style="background:radial-gradient(circle at 30% 30%, #4a4155, #1a1525)"></div>
+            <div class="w-7 h-7 rounded-full" style="background:radial-gradient(circle at 30% 30%, #4a4155, #1a1525)"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="absolute -bottom-4 -left-4 bg-[var(--vang)] text-[#1a1525] px-3 py-1 font-pixel text-base border-2 border-[#1a1525]" style="transform:rotate(-2deg)">EN → VI</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track font-pixel text-xl">
+    ★ VIỆT HÓA GAME ★ PLAGUE INC. EVOLVED ★ RESIDENT EVIL 2 REMAKE ★ PHI LỢI NHUẬN ★ LÀM VÌ ĐAM MÊ ★ TỪ TRÁI TIM GAME THỦ 
+    ★ VIỆT HÓA GAME ★ PLAGUE INC. EVOLVED ★ RESIDENT EVIL 2 REMAKE ★ PHI LỢI NHUẬN ★ LÀM VÌ ĐAM MÊ ★ TỪ TRÁI TIM GAME THỦ 
+    ★ VIỆT HÓA GAME ★ PLAGUE INC. EVOLVED ★ RESIDENT EVIL 2 REMAKE ★ PHI LỢI NHUẬN ★ LÀM VÌ ĐAM MÊ ★ TỪ TRÁI TIM GAME THỦ 
+    ★ VIỆT HÓA GAME ★ PLAGUE INC. EVOLVED ★ RESIDENT EVIL 2 REMAKE ★ PHI LỢI NHUẬN ★ LÀM VÌ ĐAM MÊ ★ TỪ TRÁI TIM GAME THỦ 
+    ★ VIỆT HÓA GAME ★ PLAGUE INC. EVOLVED ★ RESIDENT EVIL 2 REMAKE ★ PHI LỢI NHUẬN ★ LÀM VÌ ĐAM MÊ ★ TỪ TRÁI TIM GAME THỦ &nbsp;&nbsp;
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-14">
+      <div class="section-label mb-4">// 01 — GIỚI THIỆU</div>
+      <h2 class="font-display text-4xl md:text-6xl leading-tight">
+        Chúng tôi <span class="text-[var(--cam)]">dịch</span> game.<br>
+        Chúng tôi <span class="text-[var(--hong)]">tái bản</span> ký ức.
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 reveal">
+      <div class="space-y-3">
+        <div class="text-4xl font-display text-[var(--cam)]">01.</div>
+        <h3 class="font-display text-2xl">Nguồn gốc</h3>
+        <p class="text-[var(--muted)] leading-relaxed">
+          Là những người vốn đã quá quen thuộc với các giao diện tiếng Anh,
+          nhóm bạn này lại nảy sinh niềm đam mê lớn hơn: Việt hóa game,
+          để vẽ nên bức tranh nơi ngôn ngữ toàn cầu được kết hợp cùng tiếng mẹ đẻ.
+        </p>
+      </div>
+      <div class="space-y-3">
+        <div class="text-4xl font-display text-[var(--hong)]">02.</div>
+        <h3 class="font-display text-2xl">Triết lý</h3>
+        <p class="text-[var(--muted)] leading-relaxed">
+          Dịch không phải thay thế — mà là truyền tải.<br>
+          Từng câu chữ, từ ngữ phải được chăm chút kỹ càng.
+          Không qua loa, hay dịch cho xong.
+        </p>
+      </div>
+      <div class="space-y-3">
+        <div class="text-4xl font-display text-[var(--cyan)]">03.</div>
+        <h3 class="font-display text-2xl">Cam kết</h3>
+        <p class="text-[var(--muted)] leading-relaxed">
+          Phi lợi nhuận. Bản patch luôn miễn phí,
+          không thu phí dưới bất kỳ hình thức nào.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-16 reveal">
+      <blockquote class="font-display text-2xl md:text-4xl text-[var(--fg)] leading-tight max-w-4xl">
+        "Dịch cho vui, dịch cho mọi người, <br>
+        <span class="text-[var(--cam)]">dịch để phục vụ công chúng.</span>"<br>
+      </blockquote>
+      <div class="mt-5 font-display text-lg text-[var(--muted)]">— Nhand —</div>
+    </div>
+    <div class="mt-16 reveal">
+      <blockquote class="font-display text-2xl md:text-4xl text-[var(--fg)] leading-tight max-w-4xl">
+        "Một tựa game sẽ trở nên mới lạ hơn<br>
+        <span class="text-[var(--cam)]">khi được thấy tiếng mẹ đẻ trên thứ mình yêu thích.</span>"<br>
+      </blockquote>
+      <div class="mt-5 font-display text-lg text-[var(--muted)]">— Nhựa Inox —</div>
+    </div>
+    <div class="mt-16 reveal">
+      <blockquote class="font-display text-2xl md:text-4xl text-[var(--fg)] leading-tight max-w-4xl">
+        "Một tựa game sẽ trở nên mới lạ hơn<br>
+        <span class="text-[var(--cam)]">khi được thấy tiếng mẹ đẻ trên thứ mình yêu thích.</span>"<br>
+      </blockquote>
+      <div class="mt-5 font-display text-lg text-[var(--muted)]">— Nhựa Inox —</div>
+    </div>
+  </div>
+</section>
+
+<!-- GAMES -->
+<section id="games" class="py-24 px-6 border-t border-[var(--border)]" style="background:var(--bg-2)">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal mb-12">
+      <div class="section-label mb-4">// 02 — DỰ ÁN</div>
+      <h2 class="font-display text-4xl md:text-6xl leading-tight">
+        Bộ sưu tập <span class="text-[var(--cam)]">ký ức game thủ</span>
+      </h2>
+      <p class="text-[var(--muted)] mt-4 max-w-2xl">
+        Nhóm còn nhỏ nên chúng mình chỉ nhận từng dự án một, làm cho tới nơi tới chốn.<br>
+        Bấm vào để xem chi tiết bản dịch.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <!--
+        ==========================================================
+        [KHU VỰC DÀNH CHO TEAM] — THÊM DỰ ÁN MỚI TẠI ĐÂY
+        ==========================================================
+        1. Copy nguyên khối <article class="game-card reveal"> ... </article> bên dưới.
+        2. Đổi ảnh nền game-thumb (background-image), badge trạng thái
+           (badge-done / badge-wip / badge-plan), năm + thể loại, tên game,
+           mô tả ngắn, số lượt tải và link "Xem chi tiết" trỏ tới file
+           trong thư mục projects/ (tạo file mới dựa theo mẫu có sẵn,
+           ví dụ projects/plague-inc.html).
+        3. Nhớ cập nhật lại số liệu ở phần HERO (Dự án hoàn thành /
+           Đang thực hiện) phía trên nếu cần.
+        ==========================================================
+      -->
+
+      <!-- Game 1: Plague Inc. -->
+      <article class="game-card reveal">
+        <div class="game-thumb" style="background-image:url('https://cdn.discordapp.com/attachments/1495049586140512256/1524299708661501992/PlagueInc.png?ex=6a4f3e3a&is=6a4decba&hm=adf5ea35082eb2b62fb28f0f647c6f11ec150c034a6280836a8d8c2501f9b7f3&')">
+          <span class="badge badge-done absolute top-3 right-3 z-10">Hoàn thành</span>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-display text-sm text-[var(--muted)]">Strategy / Simulation</span>
+            <span class="font-display text-sm text-[var(--xanh-la)]">v1.23.0.12</span>
+          </div>
+          <h3 class="font-display text-2xl mb-1">Plague Inc. Evolved</h3>
+          <p class="text-sm text-[var(--muted)] mb-4">Việt hóa toàn bộ tên bệnh, mô tả triệu chứng, sự kiện và giao diện chiến lược.</p>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-[var(--muted)]"><i class="fa-solid fa-download"></i> Đã phát hành</span>
+            <a href="projects/plague-inc.html" class="text-[var(--cam)] font-display text-lg hover:underline">Xem chi tiết →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Game 2: Resident Evil 2 Remake -->
+      <article class="game-card reveal">
+        <div class="game-thumb" style="background-image:url('https://cdn.discordapp.com/attachments/1495049586140512256/1524268116639481866/RE2R_VH.png?ex=6a4f20ce&is=6a4dcf4e&hm=0dcbd463dee5e8bf9d74c9066bf1d365eb76dbdd30dc3151d2001034cb824bed&')">
+          <span class="badge badge-wip absolute top-3 right-3 z-10">Đang hoàn thiện</span>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-display text-sm text-[var(--muted)]">Survival Horror</span>
+            <span class="font-display text-sm text-[var(--vang)]">Đang làm</span>
+          </div>
+          <h3 class="font-display text-2xl mb-1">Resident Evil 2 Remake</h3>
+          <p class="text-sm text-[var(--muted)] mb-4">Dịch hội thoại, hồ sơ, ghi chú trong game. Giữ nguyên không khí kinh dị của Racoon City.</p>
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-[var(--muted)]"><i class="fa-solid fa-hourglass-half"></i> Chưa phát hành</span>
+            <a href="projects/re2-remake.html" class="text-[var(--cam)] font-display text-lg hover:underline">Xem chi tiết →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- [KHU VỰC TEAM] Kết thúc — thêm <article> mới ngay phía trên dòng này -->
+
+    </div>
+
+    <div class="mt-12 text-center reveal">
+      <a href="download.html" class="btn-pixel btn-ghost">Tải công cụ cài đặt Patch →</a>
+    </div>
+  </div>
+</section>
+<!-- DONATE -->
+<section id="donate" class="py-24 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal mb-12">
+      <div class="section-label mb-4">// 03 — ỦNG HỘ</div>
+      <h2 class="font-display text-4xl md:text-6xl leading-tight">
+        Mời nhóm <span class="text-[var(--hong)]">một ly cà phê</span>
+      </h2>
+      <p class="text-[var(--muted)] mt-4 max-w-2xl">
+        Mọi bản dịch đều miễn phí và sẽ luôn miễn phí. Nếu bạn thấy công sức
+        của nhóm đáng giá một ly cà phê, đây là cách bạn có thể ủng hộ —
+        hoàn toàn tự nguyện, không đổi lấy bất kỳ đặc quyền nào.
+      </p>
+    </div>
+
+    <div class="download-card reveal flex flex-col md:flex-row gap-8 md:items-center">
+      <!-- Thông tin chuyển khoản -->
+      <div class="flex-1 w-full">
+        <div class="font-pixel text-2xl mb-4 flex items-center gap-3">
+          <i class="fa-solid fa-building-columns text-[var(--cam)]"></i> Chuyển khoản
+        </div>
+        <div class="spec-row">
+          <span class="text-[var(--muted)]">Ngân hàng</span>
+          <span class="font-pixel">MB Bank</span>
+        </div>
+        <div class="spec-row">
+          <span class="text-[var(--muted)]">Chủ tài khoản</span>
+          <span class="font-pixel">NGUYEN LE MINH NHUT</span>
+        </div>
+        <div class="spec-row">
+          <span class="text-[var(--muted)]">Số tài khoản</span>
+          <span class="font-pixel">051899958386</span>
+        </div>
+        <button data-copy="051899958386" class="btn-pixel w-full text-center mt-6">
+          <i class="fa-solid fa-copy"></i> Sao chép số tài khoản
+        </button>
+      </div>
+
+      <!-- Mã QR -->
+      <div class="w-full md:w-56 flex-shrink-0 flex flex-col items-center gap-3">
+        <div class="bg-white p-2" style="width:200px;height:200px;border:2px solid var(--border)">
+          <!-- TODO: thay src bằng ảnh QR thật của bạn -->
+          <img src="assets/QR-donate.png" alt="Mã QR chuyển khoản ủng hộ" class="w-full h-full object-contain">
+        </div>
+        <span class="font-pixel text-xs text-[var(--muted)] text-center">Quét mã để chuyển khoản nhanh</span>
+      </div>
+    </div>
+
+    <div class="notice-box reveal mt-8 text-sm leading-relaxed">
+      <i class="fa-solid fa-circle-info"></i>
+      Donate không ảnh hưởng đến tiến độ hay thứ tự ưu tiên dự án. Toàn bộ
+      đóng góp dùng để duy trì nhóm và mua game gốc phục vụ dịch thuật.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-[var(--border)] py-14 px-6" style="background:var(--bg-2)">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-3 gap-8 mb-10">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3 mb-4">
+          <img src="assets/logo.png" alt="Dịch 2000s" class="nav-logo">
+          <div>
+            <div class="font-display text-2xl">DỊCH 2000s</div>
+            <div class="text-xs text-[var(--muted)] tracking-widest uppercase">Dịch Những Năm 2000</div>
+          </div>
+        </div>
+        <p class="text-[var(--muted)] max-w-md leading-relaxed">
+          Từng từ ngữ, từng câu chữ, cho từng game thủ Việt.
+        </p>
+        <div class="flex items-center gap-3 mt-5">
+          <a href="https://discord.gg/mxsAU6BDye" class="w-10 h-10 border border-[var(--border)] flex items-center justify-center hover:border-[var(--cam)] hover:text-[var(--cam)] transition"><i class="fa-brands fa-discord"></i></a>
+          <a href="https://github.com/Ryo147/PatchVietHoaInstaller" target="_blank" rel="noopener" class="w-10 h-10 border border-[var(--border)] flex items-center justify-center hover:border-[var(--cam)] hover:text-[var(--cam)] transition"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-display text-lg mb-4 text-[var(--cam)]">Khám phá</div>
+        <ul class="space-y-2 text-[var(--muted)]">
+          <li><a href="#about" class="hover:text-[var(--fg)] transition no-underline">Giới thiệu</a></li>
+          <li><a href="#games" class="hover:text-[var(--fg)] transition no-underline">Dự án</a></li>
+          <li><a href="download.html" class="hover:text-[var(--fg)] transition no-underline">Tải Patch</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pt-8 border-t border-[var(--border)] flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="font-display text-sm text-[var(--muted)]">
+        © Dịch 2000s · 2026
+      </div>
+      <div class="font-display text-xs text-[var(--muted)]">
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Đã sao chép!</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

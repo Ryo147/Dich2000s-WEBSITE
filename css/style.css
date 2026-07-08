@@ -1,0 +1,314 @@
+/* =========================================================
+   DỊCH 2000s — stylesheet dùng chung cho toàn bộ website
+   ========================================================= */
+
+:root{
+  --bg:#0a0810;
+  --bg-2:#13101c;
+  --fg:#f5e6d3;
+  --muted:#8a8595;
+  --cam:#ff6b1a;
+  --hong:#ff2d6d;
+  --cyan:#00e5ff;
+  --vang:#ffd966;
+  --xanh-la:#7fff5a;
+  --card:#16121f;
+  --border:#2a2335;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:'Be Vietnam Pro', sans-serif;
+  overflow-x:hidden;
+}
+
+.font-pixel{font-family:'VT323',monospace;letter-spacing:.02em}
+.font-display{font-family:'Playfair Display',serif;font-weight:400;letter-spacing:.02em}
+
+/* Lưới nền nhẹ */
+.grid-bg{
+  background-image:
+    linear-gradient(rgba(255,107,26,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,45,109,0.06) 1px, transparent 1px);
+  background-size:60px 60px;
+  background-position:center;
+  -webkit-mask-image:radial-gradient(ellipse at center, black 30%, transparent 75%);
+  mask-image:radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+/* Nút bấm */
+.btn-pixel{
+  display:inline-block;
+  padding:12px 24px;
+  font-family:'VT323',monospace;
+  font-size:20px;
+  letter-spacing:.05em;
+  background:var(--cam);
+  color:#0a0810;
+  border:none;
+  cursor:pointer;
+  transition:all .15s;
+  box-shadow:5px 5px 0 var(--hong);
+  text-transform:uppercase;
+  text-decoration:none;
+}
+.btn-pixel:hover{
+  transform:translate(2px,2px);
+  box-shadow:3px 3px 0 var(--hong);
+}
+.btn-pixel:active{
+  transform:translate(5px,5px);
+  box-shadow:0 0 0 var(--hong);
+}
+.btn-ghost{
+  background:transparent;
+  color:var(--fg);
+  border:2px solid var(--border);
+  box-shadow:5px 5px 0 var(--border);
+}
+.btn-ghost:hover{
+  border-color:var(--cyan);
+  box-shadow:5px 5px 0 var(--cyan);
+  color:var(--cyan);
+}
+
+/* Card game */
+.game-card{
+  background:var(--card);
+  border:2px solid var(--border);
+  transition:transform .2s, border-color .2s;
+  overflow:hidden;
+}
+.game-card:hover{
+  border-color:var(--cam);
+  transform:translateY(-4px);
+}
+.game-thumb{
+  background-size:cover;
+  background-position:center;
+  aspect-ratio:4/3;
+  position:relative;
+  filter:saturate(0.85) contrast(1.05);
+}
+.game-thumb::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, transparent 50%, rgba(10,8,16,0.9) 100%);
+}
+
+/* Badge trạng thái */
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:3px 10px;
+  font-family:'VT323',monospace;
+  font-size:16px;
+  border:1px solid;
+  text-transform:uppercase;
+}
+.badge-done{color:var(--xanh-la);border-color:var(--xanh-la);background:rgba(127,255,90,0.08)}
+.badge-wip{color:var(--vang);border-color:var(--vang);background:rgba(255,217,102,0.08)}
+.badge-plan{color:var(--cyan);border-color:var(--cyan);background:rgba(0,229,255,0.08)}
+
+/* LED chỉ báo */
+.led{
+  display:inline-block;
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--xanh-la);
+  box-shadow:0 0 6px var(--xanh-la);
+}
+
+/* Section label */
+.section-label{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-family:'VT323',monospace;
+  font-size:20px;
+  color:var(--cam);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+.section-label::before{
+  content:'';
+  width:30px;height:2px;
+  background:var(--cam);
+}
+
+/* Reveal animation - đơn giản */
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity .6s, transform .6s;
+}
+.reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+}
+
+/* Nav */
+.nav-blur{
+  background:rgba(10,8,16,0.85);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{width:40px;height:40px;object-fit:contain}
+
+/* Toast (thông báo nhỏ, dùng cho copy link / form) */
+.toast{
+  position:fixed;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%) translateY(120px);
+  background:var(--card);
+  border:2px solid var(--xanh-la);
+  padding:14px 22px;
+  font-family:'VT323',monospace;
+  font-size:18px;
+  color:var(--xanh-la);
+  z-index:200;
+  transition:transform .35s cubic-bezier(.5,1.5,.5,1);
+  box-shadow:0 8px 30px rgba(0,0,0,0.5);
+  max-width:90vw;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* Marquee đơn giản */
+.marquee{
+  overflow:hidden;
+  white-space:nowrap;
+  background:var(--cam);
+  color:#0a0810;
+}
+.marquee-track{
+  display:inline-block;
+  animation:marquee 32s linear infinite;
+  padding:10px 0;
+}
+@keyframes marquee{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+/* Terminal dịch thuật (hero) */
+.term-window{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  background:#050409;
+}
+.term-header{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 14px;
+  background:#0f0c17;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.term-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.term-body{
+  flex:1;
+  padding:16px 18px;
+  overflow-y:auto;
+  font-size:17px;
+  line-height:1.55;
+  scrollbar-width:none;
+}
+.term-body::-webkit-scrollbar{display:none}
+.term-line{white-space:pre-wrap;word-break:break-word;margin-bottom:2px}
+.term-prompt{color:var(--xanh-la)}
+.term-en{color:var(--muted)}
+.term-vi{color:var(--cam)}
+.term-ok{color:var(--xanh-la);opacity:.85}
+.term-cursor{
+  display:inline-block;
+  width:8px;height:15px;
+  background:var(--fg);
+  margin-left:2px;
+  vertical-align:-2px;
+  animation:term-blink 1s steps(1) infinite;
+}
+@keyframes term-blink{50%{opacity:0}}
+
+/* Stat number */
+.stat-num{
+  font-family:'VT323',monospace;
+  color:var(--cam);
+  line-height:0.9;
+}
+
+/* Trang chi tiết dự án */
+.project-hero{
+  aspect-ratio:16/9;
+  background-size:cover;
+  background-position:center;
+  position:relative;
+  border:2px solid var(--border);
+}
+.project-hero::after{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(10,8,16,0.1) 40%, rgba(10,8,16,0.95) 100%);
+}
+.spec-row{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid var(--border);
+}
+.spec-row:last-child{border-bottom:none}
+.gallery-thumb{
+  aspect-ratio:4/3;
+  background-size:cover;
+  background-position:center;
+  border:2px solid var(--border);
+  filter:saturate(0.85) contrast(1.05);
+}
+
+/* Trang tải patch */
+.download-card{
+  background:var(--card);
+  border:2px solid var(--border);
+  padding:32px;
+}
+.step-box{
+  display:flex;
+  gap:18px;
+  padding:20px 0;
+  border-bottom:1px solid var(--border);
+}
+.step-box:last-child{border-bottom:none}
+.step-index{
+  font-family:'VT323',monospace;
+  font-size:40px;
+  color:var(--cam);
+  line-height:1;
+  min-width:44px;
+}
+.notice-box{
+  border:1px solid var(--vang);
+  background:rgba(255,217,102,0.06);
+  padding:16px 20px;
+  color:var(--vang);
+}
+
+/* Selection */
+::selection{background:var(--cam);color:#0a0810}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--cam)}
