@@ -65,7 +65,93 @@ document.addEventListener('DOMContentLoaded', () => {
   // Terminal dịch thuật ở hero trang chủ
   initHeroTerminal();
 
+  // Lightbox zoom ảnh trong gallery
+  initGalleryLightbox();
+
 });
+
+function initGalleryLightbox() {
+  // Gom các thumbnail theo từng nhóm gallery (data-gallery trên div cha)
+  const groups = document.querySelectorAll('[data-gallery]');
+  if (!groups.length) return;
+
+  // Tạo sẵn overlay 1 lần, dùng chung cho toàn trang
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox-overlay';
+  overlay.innerHTML = `
+    <div class="lightbox-img-wrap">
+      <button type="button" class="lightbox-close" aria-label="Đóng">×</button>
+      <button type="button" class="lightbox-nav lightbox-prev" aria-label="Ảnh trước">‹</button>
+      <img src="" alt="Xem ảnh phóng to">
+      <button type="button" class="lightbox-nav lightbox-next" aria-label="Ảnh sau">›</button>
+      <div class="lightbox-counter"></div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  const imgEl = overlay.querySelector('img');
+  const counterEl = overlay.querySelector('.lightbox-counter');
+  const closeBtn = overlay.querySelector('.lightbox-close');
+  const prevBtn = overlay.querySelector('.lightbox-prev');
+  const nextBtn = overlay.querySelector('.lightbox-next');
+
+  let currentList = [];
+  let currentIndex = 0;
+
+  function updateNavVisibility() {
+    const multi = currentList.length > 1;
+    prevBtn.style.display = multi ? 'flex' : 'none';
+    nextBtn.style.display = multi ? 'flex' : 'none';
+    counterEl.style.display = multi ? 'block' : 'none';
+  }
+
+  function show(index) {
+    currentIndex = (index + currentList.length) % currentList.length;
+    const thumb = currentList[currentIndex];
+    const full = thumb.getAttribute('data-full') ||
+      (thumb.style.backgroundImage.match(/url\(['"]?(.*?)['"]?\)/) || [])[1];
+    imgEl.src = full || '';
+    counterEl.textContent = `${currentIndex + 1} / ${currentList.length}`;
+  }
+
+  function open(list, index) {
+    currentList = list;
+    updateNavVisibility();
+    show(index);
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    imgEl.src = '';
+  }
+
+  groups.forEach(group => {
+    const thumbs = Array.from(group.querySelectorAll('.gallery-thumb'));
+    thumbs.forEach((thumb, i) => {
+      thumb.addEventListener('click', () => open(thumbs, i));
+    });
+  });
+
+  closeBtn.addEventListener('click', close);
+  prevBtn.addEventListener('click', () => show(currentIndex - 1));
+  nextBtn.addEventListener('click', () => show(currentIndex + 1));
+
+  // Click ra ngoài ảnh (nền overlay) để đóng
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) close();
+  });
+
+  // Bàn phím: ESC đóng, ←/→ chuyển ảnh
+  document.addEventListener('keydown', (e) => {
+    if (!overlay.classList.contains('show')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(currentIndex - 1);
+    if (e.key === 'ArrowRight') show(currentIndex + 1);
+  });
+}
 
 function initHeroTerminal() {
   const term = document.getElementById('heroTerminal');

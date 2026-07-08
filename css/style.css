@@ -286,6 +286,105 @@ body{
   background-position:center;
   border:2px solid var(--border);
   filter:saturate(0.85) contrast(1.05);
+  cursor:zoom-in;
+  transition:filter .2s, transform .2s;
+}
+.gallery-thumb:hover{
+  filter:saturate(1) contrast(1.05);
+  transform:translateY(-2px);
+}
+
+/* Lightbox */
+.lightbox-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(5,4,9,0.92);
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .25s ease;
+  padding:24px;
+}
+.lightbox-overlay.show{
+  opacity:1;
+  visibility:visible;
+}
+.lightbox-img-wrap{
+  max-width:min(92vw,1100px);
+  max-height:88vh;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.lightbox-img-wrap img{
+  max-width:100%;
+  max-height:88vh;
+  border:2px solid var(--border);
+  box-shadow:0 20px 60px rgba(0,0,0,0.6);
+  object-fit:contain;
+  background:var(--bg-2);
+}
+.lightbox-close{
+  position:absolute;
+  top:-46px;
+  right:0;
+  font-family:'VT323',monospace;
+  font-size:28px;
+  color:var(--fg);
+  background:var(--card);
+  border:2px solid var(--border);
+  width:40px;height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:border-color .15s, color .15s;
+}
+.lightbox-close:hover{
+  border-color:var(--hong);
+  color:var(--hong);
+}
+.lightbox-nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-family:'VT323',monospace;
+  font-size:34px;
+  color:var(--fg);
+  background:rgba(19,16,28,0.85);
+  border:2px solid var(--border);
+  width:48px;height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:border-color .15s, color .15s;
+  user-select:none;
+}
+.lightbox-nav:hover{
+  border-color:var(--cam);
+  color:var(--cam);
+}
+.lightbox-prev{left:-64px}
+.lightbox-next{right:-64px}
+@media (max-width:768px){
+  .lightbox-prev{left:8px}
+  .lightbox-next{right:8px}
+  .lightbox-close{top:8px;right:8px}
+}
+.lightbox-counter{
+  position:absolute;
+  bottom:-40px;
+  left:50%;
+  transform:translateX(-50%);
+  font-family:'VT323',monospace;
+  font-size:18px;
+  color:var(--muted);
+  letter-spacing:.1em;
 }
 
 /* Trang tải patch */
