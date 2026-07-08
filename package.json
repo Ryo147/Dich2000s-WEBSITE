@@ -1,0 +1,17 @@
+{
+  "name": "dich2000s-website",
+  "version": "1.0.0",
+  "description": "Dịch 2000s — nhóm việt hóa game website",
+  "type": "module",
+  "scripts": {
+    "build": "echo 'Static site - no build needed'",
+    "test": "echo 'No tests configured'"
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "^1.1.0"
+  },
+  "devDependencies": {},
+  "keywords": ["static-site", "vercel", "speed-insights"],
+  "author": "Dịch 2000s",
+  "license": "MIT"
+}
