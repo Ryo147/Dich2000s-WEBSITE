@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const text = btn.getAttribute('data-copy');
       try {
         await navigator.clipboard.writeText(text);
-        window.showToast('Đã sao chép liên kết!');
+        window.showToast('Đã sao chép!');
       } catch (e) {
         window.showToast('Không thể sao chép, vui lòng copy thủ công.');
       }
