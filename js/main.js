@@ -68,6 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Thanh nạp tiếng Việt ở hero trang chủ
   initHeroLoader();
 
+  // Thống kê lượt tải GitHub
+  initGithubDownloadStats();
+
 });
 
 function initGalleryLightbox() {
@@ -215,4 +218,45 @@ function initHeroLoader() {
   }
 
   run();
+}
+
+// Thống kê lượt tải release trên GitHub
+function initGithubDownloadStats() {
+  const el = document.getElementById('githubDownloadCount');
+  if (!el) return;
+
+  const REPO = 'Ryo147/PatchVietHoaInstaller';
+  const CACHE_KEY = 'gh_download_count_cache';
+  const CACHE_TTL = 60 * 60 * 1000; // 1 giờ — tránh gọi API liên tục, GitHub giới hạn 60 req/giờ/IP cho request không xác thực
+
+  function render(count) {
+    el.textContent = count.toLocaleString('vi-VN');
+  }
+
+  try {
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+    if (cached && Date.now() - cached.time < CACHE_TTL) {
+      render(cached.count);
+      return;
+    }
+  } catch (e) {}
+
+  fetch(`https://api.github.com/repos/${REPO}/releases`)
+    .then(res => {
+      if (!res.ok) throw new Error('GitHub API error');
+      return res.json();
+    })
+    .then(releases => {
+      const total = releases.reduce((sum, release) => {
+        const assetsSum = (release.assets || []).reduce((s, a) => s + (a.download_count || 0), 0);
+        return sum + assetsSum;
+      }, 0);
+      render(total);
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ count: total, time: Date.now() }));
+      } catch (e) {}
+    })
+    .catch(() => {
+      el.textContent = '—'; // API lỗi hoặc bị rate-limit thì hiện gạch ngang thay vì số sai
+    });
 }

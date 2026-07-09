@@ -41,31 +41,33 @@
 <main class="pt-32 pb-24 px-6">
   <div class="max-w-4xl mx-auto">
 
-    <div class="reveal mb-10">
-      <div class="section-label mb-4">// TẢI PATCH</div>
+  <div class="reveal mb-10">
+    <div class="section-label mb-4">// TẢI PATCH</div>
+    <div class="flex flex-wrap items-center justify-between gap-4">
       <h1 class="font-display text-4xl md:text-6xl leading-tight">
         Patch Việt Hóa <span class="text-[var(--cam)]">Installer</span>
       </h1>
-      <p class="text-[var(--muted)] mt-5 text-lg max-w-2xl leading-relaxed">
-        Phần mềm cài đặt riêng của nhóm Dịch 2000s. Chỉ áp dụng cho những
-        tựa game mà nhóm đã dịch xong — hiện tại là <strong class="text-[var(--fg)]">Plague Inc.</strong>
-        Phần mềm giúp việc cài đặt bản Việt hóa gọn nhẹ, không cần thao tác thủ công phức tạp.
-      </p>
-    </div>
-
-    <div class="download-card reveal mb-8">
-      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div>
-          <div class="font-pixel text-2xl mb-1">PatchVietHoaInstaller</div>
-          <div class="text-[var(--muted)]">Phiên bản mới nhất trên GitHub Releases</div>
-        </div>
-        <div class="flex gap-3 shrink-0">
-          <a href="https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/2.0.0/PatchVietHoaInstaller.exe" target="_blank" rel="noopener" class="btn-pixel">
-            <i class="fa-solid fa-download"></i> Tải về
-          </a>
-        </div>
+      <div class="inline-flex items-center gap-2 px-4 py-2 border border-[var(--cam)] bg-[var(--card)] font-pixel text-lg text-[var(--cam)] shrink-0">
+        <i class="fa-solid fa-download"></i>
+        <span id="githubDownloadCount">···</span> lượt tải
       </div>
     </div>
+    <p class="text-[var(--muted)] mt-5 text-lg max-w-2xl leading-relaxed">
+      Phần mềm cài đặt riêng của nhóm Dịch 2000s. Chỉ áp dụng cho những
+      tựa game mà nhóm đã dịch xong — hiện tại là <strong class="text-[var(--fg)]">Plague Inc.</strong>
+      Phần mềm giúp việc cài đặt bản Việt hóa gọn nhẹ, không cần thao tác thủ công phức tạp.
+    </p>
+  </div>
+
+<div class="download-card reveal mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+  <div>
+    <div class="font-pixel text-2xl mb-1">PatchVietHoaInstaller</div>
+    <div class="text-[var(--muted)]">Phiên bản mới nhất trên GitHub Releases</div>
+  </div>
+  <a href="https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/2.0.0/PatchVietHoaInstaller.exe" target="_blank" rel="noopener" class="btn-pixel shrink-0">
+    <i class="fa-solid fa-download"></i> Tải về
+  </a>
+</div>
 
     <div class="notice-box reveal mb-12">
       <i class="fa-solid fa-circle-info"></i>
