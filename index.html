@@ -38,80 +38,56 @@
   </div>
 </nav>
 
-<!-- HERO -->
-<section id="top" class="relative min-h-screen pt-32 pb-20 overflow-hidden">
+<section id="top" class="relative min-h-screen pt-32 pb-20 overflow-hidden flex items-center">
   <div class="absolute inset-0 grid-bg"></div>
+  <div class="absolute inset-0 scanlines" aria-hidden="true"></div>
 
-  <div class="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-    <!-- Left -->
-    <div class="space-y-7">
-      <div class="inline-flex items-center gap-3 px-4 py-2 border border-[var(--border)] bg-[var(--card)]">
-        <span class="led"></span>
-        <span class="font-pixel text-lg text-[var(--xanh-la)]">ĐANG HOẠT ĐỘNG</span>
-      </div>
-
-      <h1 class="font-pixel leading-[0.85]">
-        <span class="block text-[var(--muted)] text-2xl md:text-3xl mb-4">// NHÓM VIỆT HÓA GAME</span>
-        <span class="block text-7xl md:text-8xl text-[var(--fg)]">DỊCH</span>
-        <span class="block text-7xl md:text-8xl" style="background:linear-gradient(90deg,var(--cam),var(--hong),var(--vang));-webkit-background-clip:text;background-clip:text;color:transparent">2000s</span>
-      </h1>
-
-      <p class="text-lg md:text-xl text-[var(--muted)] max-w-xl leading-relaxed">
-        Một nhóm nhỏ lẻ, với niềm đam mê và yêu thích các
-        tựa game đã khiến họ nảy sinh ý định Việt hóa.
-        Để được nhìn vẻ đẹp tiếng mẹ đẻ trên tựa game yêu thích của mình.
-      </p>
-
-      <div class="flex flex-wrap gap-4">
-        <a href="#games" class="btn-pixel">Xem dự án</a>
-        <a href="download.html" class="btn-pixel btn-ghost">Tải Patch Việt Hóa</a>
-      </div>
-
-      <div class="grid grid-cols-3 gap-4 pt-7 border-t border-[var(--border)]">
-        <div>
-          <div class="font-display text-4xl text-[var(--xanh-la)]">1</div>
-          <div class="text-xs text-[var(--muted)] uppercase tracking-wider">Dự án hoàn thành</div>
-        </div>
-        <div>
-          <div class="font-display text-4xl text-[var(--vang)]">1</div>
-          <div class="text-xs text-[var(--muted)] uppercase tracking-wider">Đang thực hiện</div>
-        </div>
-        <div>
-          <div class="font-display text-4xl text-[var(--cyan)]">3</div>
-          <div class="text-xs text-[var(--muted)] uppercase tracking-wider">Thành viên cộng tác</div>
-        </div>
-      </div>
+  <div class="relative max-w-4xl mx-auto px-6 text-center">
+    <div class="inline-flex items-center gap-3 px-4 py-2 border border-[var(--border)] bg-[var(--card)] mb-8">
+      <span class="led"></span>
+      <span class="font-pixel text-base md:text-lg text-[var(--xanh-la)] tracking-widest">SYSTEM: DICH2000S.EXE</span>
     </div>
 
-    <!-- Right: Terminal dịch thuật -->
-    <div class="relative">
-      <div class="relative bg-[var(--card)] border-2 border-[var(--border)] p-5" style="border-radius:18px">
-        <div class="aspect-[4/3] overflow-hidden relative" style="border-radius:10px">
-          <div class="term-window">
-            <div class="term-header">
-              <span class="term-dot" style="background:#ff5f56"></span>
-              <span class="term-dot" style="background:#ffbd2e"></span>
-              <span class="term-dot" style="background:#27c93f"></span>
-              <span class="font-pixel text-sm text-[var(--muted)] ml-2"></span>
-              <span class="ml-auto flex items-center gap-2 font-pixel text-xs text-[var(--xanh-la)]">
-                <span class="led"></span> LIVE
-              </span>
-            </div>
-            <div class="term-body font-pixel" id="heroTerminal" aria-live="polite"></div>
-          </div>
-        </div>
+    <h1 class="font-display glitch-text leading-none text-6xl md:text-8xl lg:text-9xl mb-3" data-text="DỊCH 2000s">
+      DỊCH <span style="color:var(--cam)">2000s</span>
+    </h1>
+    <div class="font-pixel text-[var(--muted)] text-lg md:text-xl tracking-widest mb-10">// NHÓM VIỆT HÓA GAME</div>
 
-        <div class="flex items-center justify-between mt-4 px-2">
-          <span class="font-pixel text-xs text-[var(--muted)] tracking-widest"></span>
-          <div class="flex items-center gap-3">
-            <span class="led"></span>
-            <div class="w-7 h-7 rounded-full" style="background:radial-gradient(circle at 30% 30%, #4a4155, #1a1525)"></div>
-            <div class="w-7 h-7 rounded-full" style="background:radial-gradient(circle at 30% 30%, #4a4155, #1a1525)"></div>
-          </div>
-        </div>
+    <div class="max-w-xl mx-auto mb-10">
+      <div class="flex items-center justify-between font-pixel text-sm text-[var(--muted)] mb-2">
+        <span id="loadFile">plague_inc/events.txt</span>
+        <span id="loadPercent">0%</span>
       </div>
+      <div class="loadbar">
+        <div class="loadbar-fill" id="loadbarFill"></div>
+      </div>
+      <div class="font-pixel text-xs text-[var(--muted)] mt-2 tracking-widest">ĐANG NẠP TIẾNG VIỆT VÀO GAME...</div>
+    </div>
 
-      <div class="absolute -bottom-4 -left-4 bg-[var(--vang)] text-[#1a1525] px-3 py-1 font-pixel text-base border-2 border-[#1a1525]" style="transform:rotate(-2deg)">EN → VI</div>
+    <p class="text-lg md:text-xl text-[var(--muted)] max-w-2xl mx-auto leading-relaxed mb-10">
+      Một nhóm nhỏ lẻ, với niềm đam mê và yêu thích các tựa game đã khiến họ
+      nảy sinh ý định Việt hóa. Để được nhìn vẻ đẹp tiếng mẹ đẻ trên tựa game
+      yêu thích của mình.
+    </p>
+
+    <div class="flex flex-wrap gap-4 justify-center mb-10">
+      <a href="projects.html" class="btn-pixel">Xem dự án</a>
+      <a href="download.html" class="btn-pixel btn-ghost">Tải Patch Việt Hóa</a>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-3">
+      <div class="stat-chip">
+        <span class="font-pixel text-2xl text-[var(--xanh-la)]">1</span>
+        <span class="text-xs text-[var(--muted)] uppercase tracking-wider">Dự án hoàn thành</span>
+      </div>
+      <div class="stat-chip">
+        <span class="font-pixel text-2xl text-[var(--vang)]">1</span>
+        <span class="text-xs text-[var(--muted)] uppercase tracking-wider">Đang thực hiện</span>
+      </div>
+      <div class="stat-chip">
+        <span class="font-pixel text-2xl text-[var(--cyan)]">3</span>
+        <span class="text-xs text-[var(--muted)] uppercase tracking-wider">Thành viên cộng tác</span>
+      </div>
     </div>
   </div>
 </section>

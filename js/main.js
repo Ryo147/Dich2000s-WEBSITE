@@ -62,11 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Terminal dịch thuật ở hero trang chủ
-  initHeroTerminal();
-
   // Lightbox zoom ảnh trong gallery
   initGalleryLightbox();
+
+    // Thanh nạp tiếng Việt ở hero trang chủ
+  initHeroLoader();
 
 });
 
@@ -152,93 +152,67 @@ function initGalleryLightbox() {
     if (e.key === 'ArrowRight') show(currentIndex + 1);
   });
 }
+// Thanh nạp tiếng Việt ở hero trang chủ
+function initHeroLoader() {
+  const fill = document.getElementById('loadbarFill');
+  const percentEl = document.getElementById('loadPercent');
+  const fileEl = document.getElementById('loadFile');
+  if (!fill || !percentEl || !fileEl) return;
 
-function initHeroTerminal() {
-  const term = document.getElementById('heroTerminal');
-  if (!term) return;
-
-  // Các dòng ví dụ, lấy cảm hứng từ 2 dự án đang dịch
-  const entries = [
-    { file: 'plague_inc/events.txt', en: 'A new outbreak has been reported.', vi: 'Một ổ dịch mới vừa được ghi nhận.' },
-    { file: 'plague_inc/ui_menu.txt', en: 'New Game', vi: 'Ván Chơi Mới' },
-    { file: 're2_remake/dialogue_leon.txt', en: 'Watch your back down there.', vi: 'Cẩn thận đằng sau lưng đấy.' },
-    { file: 're2_remake/notes_diary.txt', en: 'Something is not right in this city.', vi: 'Có gì đó sai sai ở thành phố này.' },
-    { file: 'plague_inc/symptoms.txt', en: 'Coughing', vi: 'Ho' },
+  const files = [
+    'plague_inc/events.txt',
+    'plague_inc/scenarios.txt',
+    'plague_inc/thecure.txt',
+    'plague_inc/xenolith.txt',
+    'plague_inc/outbreak.txt',
+    're2_remake/leon.txt',
+    're2_remake/claire.txt',
+    're2_remake/the_4th_survivors.txt',
+    're2_remake/files.txt',
+    're2_remake/records.txt',
   ];
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let fileIndex = 0;
 
   if (reduceMotion) {
-    // Không animation: render tĩnh vài dòng cho người dùng ưu tiên giảm chuyển động
-    entries.slice(0, 3).forEach(e => {
-      term.insertAdjacentHTML('beforeend', `
-        <div class="term-line term-prompt">$ dich --file ${e.file}</div>
-        <div class="term-line term-en">EN: ${e.en}</div>
-        <div class="term-line term-vi">VI: ${e.vi}</div>
-      `);
-    });
+    fileEl.textContent = files[0];
+    fill.style.width = '100%';
+    percentEl.textContent = '100%';
     return;
   }
 
-  let i = 0;
+  function run() {
+    fileEl.textContent = files[fileIndex % files.length];
+    fileIndex++;
 
-  function addLine(cls) {
-    const div = document.createElement('div');
-    div.className = 'term-line ' + (cls || '');
-    term.appendChild(div);
-    return div;
-  }
+    let pct = 0;
+    fill.style.width = '0%';
+    percentEl.textContent = '0%';
 
-  function scrollBottom() {
-    term.scrollTop = term.scrollHeight;
-  }
+    function tick() {
+      // Tốc độ nạp biến thiên: có lúc vọt nhanh, có lúc khựng lại như cài đặt thật
+      const burst = Math.random() < 0.15;           // ~15% khả năng "khựng" rồi vọt
+      const step = burst
+        ? Math.floor(Math.random() * 3) + 1          // khựng: nhích rất ít
+        : Math.floor(Math.random() * 9) + 3;         // bình thường: nhích 3–11%
+      const delay = burst
+        ? Math.random() * 500 + 350                   // khựng: chờ lâu (350–850ms)
+        : Math.random() * 120 + 40;                    // bình thường: nhanh (40–160ms)
 
-  function typeInto(el, text, speed, done) {
-    let idx = 0;
-    const cursor = document.createElement('span');
-    cursor.className = 'term-cursor';
-    function step() {
-      el.textContent = text.slice(0, idx);
-      el.appendChild(cursor);
-      scrollBottom();
-      idx++;
-      if (idx <= text.length) {
-        setTimeout(step, speed);
+      pct = Math.min(pct + step, 100);
+      fill.style.width = pct + '%';
+      percentEl.textContent = pct + '%';
+
+      if (pct < 100) {
+        setTimeout(tick, delay);
       } else {
-        cursor.remove();
-        done && done();
+        setTimeout(() => run(), 700);
       }
     }
-    step();
+
+    setTimeout(tick, Math.random() * 120 + 40);
   }
 
-  function trimOldLines() {
-    while (term.children.length > 20) {
-      term.removeChild(term.firstChild);
-    }
-  }
-
-  function runEntry() {
-    const e = entries[i % entries.length];
-    i++;
-
-    const promptLine = addLine('term-prompt');
-    typeInto(promptLine, `$ dich --file ${e.file}`, 16, () => {
-      setTimeout(() => {
-        const enLine = addLine('term-en');
-        typeInto(enLine, `${e.en}`, 12, () => {
-          setTimeout(() => {
-            const viLine = addLine('term-vi');
-            typeInto(viLine, `${e.vi}`, 12, () => {
-              scrollBottom();
-              trimOldLines();
-              setTimeout(runEntry, 1100);
-            });
-          }, 250);
-        });
-      }, 250);
-    });
-  }
-
-  runEntry();
+  run();
 }

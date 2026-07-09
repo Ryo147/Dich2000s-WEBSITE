@@ -419,6 +419,76 @@ body{
 /* Selection */
 ::selection{background:var(--cam);color:#0a0810}
 
+/* ===== Hero: boot-screen concept ===== */
+
+.scanlines{
+  pointer-events:none;
+  background:repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.035) 0px,
+    rgba(255,255,255,0.035) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode:overlay;
+}
+
+.glitch-text{
+  position:relative;
+  display:inline-block;
+  color:var(--fg);
+}
+.glitch-text::before,
+.glitch-text::after{
+  content:attr(data-text);
+  position:absolute;
+  inset:0;
+  opacity:0;
+  pointer-events:none;
+}
+.glitch-text::before{color:var(--hong)}
+.glitch-text::after{color:var(--cyan)}
+.glitch-text::before{animation:glitch-1 6s infinite}
+.glitch-text::after{animation:glitch-2 6s infinite}
+@keyframes glitch-1{
+  0%,92%,100%{opacity:0;transform:translate(0,0);clip-path:inset(0 0 100% 0)}
+  93%{opacity:.7;transform:translate(-3px,1px);clip-path:inset(10% 0 60% 0)}
+  95%{opacity:.7;transform:translate(3px,-1px);clip-path:inset(55% 0 15% 0)}
+  97%{opacity:0}
+}
+@keyframes glitch-2{
+  0%,92%,100%{opacity:0;transform:translate(0,0);clip-path:inset(0 0 100% 0)}
+  93%{opacity:.7;transform:translate(3px,-1px);clip-path:inset(20% 0 45% 0)}
+  95%{opacity:.7;transform:translate(-3px,1px);clip-path:inset(65% 0 5% 0)}
+  97%{opacity:0}
+}
+
+.loadbar{
+  height:14px;
+  background:var(--card);
+  border:1px solid var(--border);
+  overflow:hidden;
+}
+.loadbar-fill{
+  height:100%;
+  width:0%;
+  background:repeating-linear-gradient(45deg,var(--cam) 0 10px,var(--hong) 10px 20px);
+}
+
+.stat-chip{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 16px;
+  border:1px solid var(--border);
+  background:var(--card);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .glitch-text::before,.glitch-text::after{display:none}
+  .scanlines{display:none}
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar{width:10px}
 ::-webkit-scrollbar-track{background:var(--bg)}
