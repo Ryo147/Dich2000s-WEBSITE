@@ -129,6 +129,58 @@
         </div>
       </div>
     </div>
+    <div class="reveal mb-12">
+      <div class="section-label mb-4">KẾT QUẢ BẢO MẬT</div>
+      <p class="text-[var(--muted)] leading-relaxed mb-6 max-w-2xl">
+        Để các bạn yên tâm hơn khi tải công cụ, nhóm mình đã gửi file cài đặt
+        lên các dịch vụ quét mã độc uy tín. Kết quả bên dưới là của bản
+        <strong class="text-[var(--fg)]">2.2.0</strong>.
+      </p>
+      <div class="grid sm:grid-cols-2 gap-6">
+
+        <!-- VirusTotal Card -->
+        <div class="download-card border-l-4" style="border-left-color:#22c55e">
+          <div class="flex items-center justify-between mb-4">
+            <div class="font-pixel text-lg flex items-center gap-2">
+              <i class="fa-solid fa-shield-halved" style="color:#22c55e"></i> VirusTotal
+            </div>
+            <span class="text-xs px-2 py-1 rounded font-pixel" style="background:#22c55e22;color:#22c55e">CLEAN</span>
+          </div>
+          <div class="font-display text-4xl mb-1" style="color:#22c55e">0<span class="text-xl text-[var(--muted)]">/69</span></div>
+          <div class="text-[var(--muted)] text-sm mb-4">engine phát hiện mã độc</div>
+          <div class="text-xs text-[var(--muted)] mb-4">Quét gần nhất: 18/07/2026 18:58:46 (GMT+7)</div>
+          <a href="https://www.virustotal.com/gui/file/d96d601739f74b863d9c20efa2fdbbe89f66ba49c07fbc8720fd3a8bfb076468"
+             target="_blank" rel="noopener"
+             class="btn-pixel btn-ghost !py-2 !text-sm inline-flex items-center gap-2">
+            Xem chi tiết <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Hybrid Analysis Card -->
+        <div class="download-card border-l-4" style="border-left-color:#f59e0b">
+          <div class="flex items-center justify-between mb-4">
+            <div class="font-pixel text-lg flex items-center gap-2">
+              <i class="fa-solid fa-magnifying-glass" style="color:#f59e0b"></i> Hybrid Analysis
+            </div>
+            <span class="text-xs px-2 py-1 rounded font-pixel" style="background:#f59e0b22;color:#f59e0b">SUSPICIOUS</span>
+          </div>
+          <div class="font-display text-4xl mb-1" style="color:#f59e0b">35<span class="text-xl text-[var(--muted)]">/100</span></div>
+          <div class="text-[var(--muted)] text-sm mb-4">Threat Score — AV Detection: Clean</div>
+          <div class="text-xs text-[var(--muted)] mb-4">Sandbox behavior analysis</div>
+          <a href="https://hybrid-analysis.com/sample/d96d601739f74b863d9c20efa2fdbbe89f66ba49c07fbc8720fd3a8bfb076468"
+             target="_blank" rel="noopener"
+             class="btn-pixel btn-ghost !py-2 !text-sm inline-flex items-center gap-2">
+            Xem chi tiết <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+
+      </div>
+      <p class="text-xs text-[var(--muted)] mt-4">
+        <i class="fa-solid fa-circle-info"></i>
+        Điểm "Suspicious" của Hybrid Analysis thường đến từ hành vi sandbox thông thường
+        (tải file, ghi file cài đặt...), không nhất thiết là mã độc — AV vẫn xác nhận sạch.
+      </p>
+    </div>
     <div class="reveal">
       <div class="section-label mb-4">MÃ NGUỒN</div>
       <div class="download-card flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
