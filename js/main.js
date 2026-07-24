@@ -227,7 +227,7 @@ function initGithubDownloadStats() {
 
   const REPO = 'Ryo147/PatchVietHoaInstaller';
   const CACHE_KEY = 'gh_download_count_cache';
-  const CACHE_TTL = 60 * 60 * 1000; // 1 giờ — tránh gọi API liên tục, GitHub giới hạn 60 req/giờ/IP cho request không xác thực
+  const CACHE_TTL = 5 * 60 * 1000; // 1 giờ — tránh gọi API liên tục, GitHub giới hạn 60 req/giờ/IP cho request không xác thực
 
   function render(count) {
     el.textContent = count.toLocaleString('vi-VN');

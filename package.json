@@ -11,7 +11,7 @@
     "@vercel/speed-insights": "^1.1.0"
   },
   "devDependencies": {},
-  "keywords": ["static-site", "vercel", "speed-insights"],
+  "keywords": ["static-site", "vercel", "speed-insights", "web-analytics"],
   "author": "Dịch 2000s",
   "license": "MIT"
 }

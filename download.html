@@ -11,6 +11,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="css/style.css">
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </head>
 <body>
 
@@ -61,10 +65,10 @@
 
 <div class="download-card reveal mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
   <div>
-    <div class="font-pixel text-2xl mb-1">PatchVietHoaInstaller 2.2.0</div>
+    <div class="font-pixel text-2xl mb-1">PatchVietHoaInstaller 3.0.1</div>
     <div class="text-[var(--muted)]">Phiên bản mới nhất trên GitHub Releases</div>
   </div>
-  <a href="https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/2.2.0/PatchVietHoaInstaller.exe" target="_blank" rel="noopener" class="btn-pixel shrink-0">
+  <a href="https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/3.0.1/PatchVietHoaInstaller.exe" target="_blank" rel="noopener" class="btn-pixel shrink-0">
     <i class="fa-solid fa-download"></i> Tải về
   </a>
 </div>
@@ -109,7 +113,74 @@
         </div>
       </div>
     </div>
+    <div class="reveal mb-12">
+      <div class="section-label mb-4">VIDEO HƯỚNG DẪN</div>
+      <div class="download-card">
+        <div class="aspect-video w-full overflow-hidden">
+          <iframe
+            class="w-full h-full"
+            src="https://www.youtube.com/embed/JJMjFN_pxLM?si=lMZLo6IJ40ZWQsP-"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+    <div class="reveal mb-12">
+      <div class="section-label mb-4">KẾT QUẢ BẢO MẬT</div>
+      <p class="text-[var(--muted)] leading-relaxed mb-6 max-w-2xl">
+        Để các bạn yên tâm hơn khi tải công cụ, nhóm mình đã gửi file cài đặt
+        lên các dịch vụ quét mã độc uy tín. Kết quả bên dưới là của bản
+        <strong class="text-[var(--fg)]">3.0.0</strong>.
+      </p>
+      <div class="grid sm:grid-cols-2 gap-6">
 
+        <!-- VirusTotal Card -->
+        <div class="download-card border-l-4" style="border-left-color:#22c55e">
+          <div class="flex items-center justify-between mb-4">
+            <div class="font-pixel text-lg flex items-center gap-2">
+              <i class="fa-solid fa-shield-halved" style="color:#22c55e"></i> VirusTotal
+            </div>
+            <span class="text-xs px-2 py-1 rounded font-pixel" style="background:#22c55e22;color:#22c55e">CLEAN</span>
+          </div>
+          <div class="font-display text-4xl mb-1" style="color:#22c55e">0<span class="text-xl text-[var(--muted)]">/68</span></div>
+          <div class="text-[var(--muted)] text-sm mb-4">engine phát hiện mã độc</div>
+          <div class="text-xs text-[var(--muted)] mb-4">Quét gần nhất: 21/07/2026 21:39:57 (GMT+7)</div>
+          <a href="https://www.virustotal.com/gui/file/ffa41204189bb8f27de5b4488d221b8764cc50aa603f50c5d56aeb4d015fe607"
+             target="_blank" rel="noopener"
+             class="btn-pixel btn-ghost !py-2 !text-sm inline-flex items-center gap-2">
+            Xem chi tiết <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Hybrid Analysis Card -->
+        <div class="download-card border-l-4" style="border-left-color:#f59e0b">
+          <div class="flex items-center justify-between mb-4">
+            <div class="font-pixel text-lg flex items-center gap-2">
+              <i class="fa-solid fa-magnifying-glass" style="color:#f59e0b"></i> Hybrid Analysis
+            </div>
+            <span class="text-xs px-2 py-1 rounded font-pixel" style="background:#f59e0b22;color:#f59e0b">SUSPICIOUS</span>
+          </div>
+          <div class="font-display text-4xl mb-1" style="color:#f59e0b">35<span class="text-xl text-[var(--muted)]">/100</span></div>
+          <div class="text-[var(--muted)] text-sm mb-4">Threat Score — AV Detection: Clean</div>
+          <div class="text-xs text-[var(--muted)] mb-4">Sandbox behavior analysis</div>
+          <a href="https://hybrid-analysis.com/sample/ffa41204189bb8f27de5b4488d221b8764cc50aa603f50c5d56aeb4d015fe607"
+             target="_blank" rel="noopener"
+             class="btn-pixel btn-ghost !py-2 !text-sm inline-flex items-center gap-2">
+            Xem chi tiết <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+
+      </div>
+      <p class="text-xs text-[var(--muted)] mt-4">
+        <i class="fa-solid fa-circle-info"></i>
+        Điểm "Suspicious" của Hybrid Analysis thường đến từ hành vi sandbox thông thường
+        (tải file, ghi file cài đặt...), không nhất thiết là mã độc — AV vẫn xác nhận sạch.
+      </p>
+    </div>
     <div class="reveal">
       <div class="section-label mb-4">MÃ NGUỒN</div>
       <div class="download-card flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
