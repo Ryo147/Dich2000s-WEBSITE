@@ -220,6 +220,54 @@ function initHeroLoader() {
   run();
 }
 
+  (function () {
+    const buttons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('#projectGrid .game-card');
+    const emptyState = document.getElementById('emptyState');
+    const heading = document.getElementById('pageHeading');
+    const subtitle = document.getElementById('pageSubtitle');
+
+    function applyFilter(btn) {
+      buttons.forEach(b => {
+        b.classList.remove('is-active');
+        b.classList.add('btn-ghost');
+      });
+      btn.classList.add('is-active');
+      btn.classList.remove('btn-ghost');
+
+      const filter = btn.getAttribute('data-filter');
+      let visibleCount = 0;
+      cards.forEach(card => {
+        const status = card.getAttribute('data-status');
+        const match = status === 'other'
+          ? filter === 'other'
+          : (filter === 'all' || status === filter);
+        card.style.display = match ? '' : 'none';
+        if (match) visibleCount++;
+      });
+      emptyState.classList.toggle('hidden', visibleCount !== 0);
+
+      if (heading) {
+        heading.innerHTML = filter === 'other'
+          ? heading.getAttribute('data-other')
+          : heading.getAttribute('data-default');
+      }
+      if (subtitle) {
+        subtitle.innerHTML = filter === 'other'
+          ? subtitle.getAttribute('data-other')
+          : subtitle.getAttribute('data-default');
+      }
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => applyFilter(btn));
+    });
+
+// Chạy 1 lần lúc load trang để ẩn "other" ngay từ đầu, dựa theo nút đang active mặc định
+const initialBtn = document.querySelector('.filter-btn.is-active') || buttons[0];
+applyFilter(initialBtn);
+  })();
+
 // Thống kê lượt tải release trên GitHub
 function initGithubDownloadStats() {
   const el = document.getElementById('githubDownloadCount');

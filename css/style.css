@@ -118,6 +118,7 @@ body{
 .badge-done{color:var(--xanh-la);border-color:var(--xanh-la);background:rgba(127,255,90,0.08)}
 .badge-wip{color:var(--vang);border-color:var(--vang);background:rgba(255,217,102,0.08)}
 .badge-plan{color:var(--cyan);border-color:var(--cyan);background:rgba(0,229,255,0.08)}
+.badge-other{color:var(--hong);border-color:var(--hong);background:rgba(255,45,109,0.08)}
 
 /* LED chỉ báo */
 .led{
@@ -493,4 +494,3 @@ body{
 ::-webkit-scrollbar{width:10px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--cam)}
-
