@@ -24,6 +24,7 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Các dự án chi tiết -->
   <url>
     <loc>https://dich2000s.vercel.app/projects/plague-inc</loc>
     <lastmod>2026-07-27</lastmod>
@@ -40,13 +41,6 @@
 
   <url>
     <loc>https://dich2000s.vercel.app/projects/dreamcore_1</loc>
-    <lastmod>2026-07-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://dich2000s.vercel.app/#about</loc>
     <lastmod>2026-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
