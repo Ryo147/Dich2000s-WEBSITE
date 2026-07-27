@@ -494,3 +494,81 @@ body{
 ::-webkit-scrollbar{width:10px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--cam)}
+
+/* ===== Trang tải patch: chọn HĐH + tab ===== */
+
+.os-choice-btn{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 20px;
+  border:2px solid var(--border);
+  background:var(--bg-2);
+  text-decoration:none;
+  color:var(--fg);
+  transition:border-color .15s, transform .15s;
+  flex:1 1 200px;
+}
+.os-choice-btn i{font-size:22px;color:var(--muted);transition:color .15s}
+.os-choice-btn:hover{border-color:var(--cam);transform:translateY(-2px)}
+.os-choice-btn:hover i{color:var(--cam)}
+.os-choice-btn.is-recommended{border-color:var(--cam)}
+.os-choice-btn.is-recommended i{color:var(--cam)}
+
+.os-tabs{
+  display:inline-flex;
+  border:2px solid var(--border);
+  overflow:hidden;
+}
+.os-tab-btn{
+  font-family:'VT323',monospace;
+  font-size:18px;
+  letter-spacing:.03em;
+  padding:9px 18px;
+  background:var(--card);
+  color:var(--muted);
+  border:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  transition:background .15s, color .15s;
+}
+.os-tab-btn + .os-tab-btn{border-left:2px solid var(--border)}
+.os-tab-btn:hover{color:var(--fg)}
+.os-tab-btn.is-active{
+  background:var(--cam);
+  color:#0a0810;
+}
+
+.code-block{
+  margin-top:10px;
+  padding:12px 14px;
+  background:var(--bg-2);
+  border:1px solid var(--border);
+  font-family:'VT323',monospace;
+  font-size:16px;
+  color:var(--xanh-la);
+  overflow-x:auto;
+  white-space:pre;
+}
+
+.faq-item summary{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{
+  content:'+';
+  font-family:'VT323',monospace;
+  font-size:24px;
+  color:var(--cam);
+  flex-shrink:0;
+  transition:transform .15s;
+}
+.faq-item[open] summary::after{
+  content:'−';
+}

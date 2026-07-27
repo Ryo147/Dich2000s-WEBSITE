@@ -71,6 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Thống kê lượt tải GitHub
   initGithubDownloadStats();
 
+  // Bộ lọc dự án (trang projects.html)
+  initProjectFilters();
+
+  // Trang tải patch: nhận diện HĐH + tab hướng dẫn/bảo mật
+  initDownloadPage();
+
 });
 
 function initGalleryLightbox() {
@@ -220,53 +226,62 @@ function initHeroLoader() {
   run();
 }
 
-  (function () {
-    const buttons = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('#projectGrid .game-card');
-    const emptyState = document.getElementById('emptyState');
-    const heading = document.getElementById('pageHeading');
-    const subtitle = document.getElementById('pageSubtitle');
+// Bộ lọc dự án (trang projects.html)
+// LƯU Ý: đã thêm guard "nếu không có nút filter thì thoát" — trước đây đoạn
+// này chạy ngay khi script tải (không đợi DOMContentLoaded) và trên các
+// trang không có nút filter (ví dụ download.html) nó ném lỗi TypeError,
+// khiến MỌI code phía sau nó trong cùng file bị dừng theo (kể cả phần
+// đăng ký sự kiện cho tab Windows/Linux). Bọc trong hàm + guard sớm để
+// tránh lặp lại lỗi này trên các trang khác trong tương lai.
+function initProjectFilters() {
+  const buttons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('#projectGrid .game-card');
+  const emptyState = document.getElementById('emptyState');
+  const heading = document.getElementById('pageHeading');
+  const subtitle = document.getElementById('pageSubtitle');
 
-    function applyFilter(btn) {
-      buttons.forEach(b => {
-        b.classList.remove('is-active');
-        b.classList.add('btn-ghost');
-      });
-      btn.classList.add('is-active');
-      btn.classList.remove('btn-ghost');
+  if (!buttons.length) return; // trang này không có bộ lọc dự án -> bỏ qua
 
-      const filter = btn.getAttribute('data-filter');
-      let visibleCount = 0;
-      cards.forEach(card => {
-        const status = card.getAttribute('data-status');
-        const match = status === 'other'
-          ? filter === 'other'
-          : (filter === 'all' || status === filter);
-        card.style.display = match ? '' : 'none';
-        if (match) visibleCount++;
-      });
-      emptyState.classList.toggle('hidden', visibleCount !== 0);
-
-      if (heading) {
-        heading.innerHTML = filter === 'other'
-          ? heading.getAttribute('data-other')
-          : heading.getAttribute('data-default');
-      }
-      if (subtitle) {
-        subtitle.innerHTML = filter === 'other'
-          ? subtitle.getAttribute('data-other')
-          : subtitle.getAttribute('data-default');
-      }
-    }
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => applyFilter(btn));
+  function applyFilter(btn) {
+    buttons.forEach(b => {
+      b.classList.remove('is-active');
+      b.classList.add('btn-ghost');
     });
+    btn.classList.add('is-active');
+    btn.classList.remove('btn-ghost');
 
-// Chạy 1 lần lúc load trang để ẩn "other" ngay từ đầu, dựa theo nút đang active mặc định
-const initialBtn = document.querySelector('.filter-btn.is-active') || buttons[0];
-applyFilter(initialBtn);
-  })();
+    const filter = btn.getAttribute('data-filter');
+    let visibleCount = 0;
+    cards.forEach(card => {
+      const status = card.getAttribute('data-status');
+      const match = status === 'other'
+        ? filter === 'other'
+        : (filter === 'all' || status === filter);
+      card.style.display = match ? '' : 'none';
+      if (match) visibleCount++;
+    });
+    if (emptyState) emptyState.classList.toggle('hidden', visibleCount !== 0);
+
+    if (heading) {
+      heading.innerHTML = filter === 'other'
+        ? heading.getAttribute('data-other')
+        : heading.getAttribute('data-default');
+    }
+    if (subtitle) {
+      subtitle.innerHTML = filter === 'other'
+        ? subtitle.getAttribute('data-other')
+        : subtitle.getAttribute('data-default');
+    }
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => applyFilter(btn));
+  });
+
+  // Chạy 1 lần lúc load trang để ẩn "other" ngay từ đầu, dựa theo nút đang active mặc định
+  const initialBtn = document.querySelector('.filter-btn.is-active') || buttons[0];
+  applyFilter(initialBtn);
+}
 
 // Thống kê lượt tải release trên GitHub
 function initGithubDownloadStats() {
@@ -307,4 +322,64 @@ function initGithubDownloadStats() {
     .catch(() => {
       el.textContent = '—'; // API lỗi hoặc bị rate-limit thì hiện gạch ngang thay vì số sai
     });
+}
+
+/* ===== Trang tải patch: nhận diện HĐH + tab ===== */
+function initDownloadPage() {
+  const primaryBtn = document.getElementById('primaryDownloadBtn');
+  const primaryLabel = document.getElementById('primaryDownloadLabel');
+  const osBadge = document.getElementById('osDetectBadge');
+  if (!primaryBtn) return; // không phải trang tải patch
+
+  const LINKS = {
+    windows: 'https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/4.0.0/PatchVietHoaInstaller.exe',
+    linux: 'https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/4.0.0/PatchVietHoaInstaller-linux.rar'
+  };
+  const LABELS = {
+    windows: 'Tải về cho Windows',
+    linux: 'Tải về cho Linux'
+  };
+
+  function detectOS() {
+    const ua = navigator.userAgent || '';
+    const platform = navigator.platform || '';
+    if (/linux/i.test(ua) && !/android/i.test(ua)) return 'linux';
+    if (/win/i.test(platform) || /windows/i.test(ua)) return 'windows';
+    return null; // không chắc (macOS, mobile, v.v.) -> mặc định Windows nhưng không gắn nhãn "phát hiện"
+  }
+
+  const detected = detectOS();
+  const chosen = detected || 'windows';
+
+  primaryBtn.href = LINKS[chosen];
+  primaryLabel.textContent = LABELS[chosen];
+
+  // Đánh dấu nút HĐH tương ứng là "đề xuất"
+  document.querySelectorAll('.os-choice-btn').forEach(btn => {
+    if (btn.getAttribute('data-os') === chosen) {
+      btn.classList.add('is-recommended');
+    }
+  });
+
+  // Tabs: hướng dẫn sử dụng + kết quả bảo mật (dùng chung logic, phân biệt bằng data-panel / data-scan-panel)
+  function setupTabs(buttonSelector, panelAttr) {
+    const buttons = document.querySelectorAll(buttonSelector);
+    if (!buttons.length) return;
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-tab');
+        buttons.forEach(b => {
+          const active = b === btn;
+          b.classList.toggle('is-active', active);
+          b.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        document.querySelectorAll(`[${panelAttr}]`).forEach(panel => {
+          panel.classList.toggle('hidden', panel.getAttribute(panelAttr) !== target);
+        });
+      });
+    });
+  }
+
+  setupTabs('.os-tab-btn[data-tab]:not([data-scan-tab])', 'data-panel');
+  setupTabs('.os-tab-btn[data-scan-tab]', 'data-scan-panel');
 }
