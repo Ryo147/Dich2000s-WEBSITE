@@ -332,8 +332,8 @@ function initDownloadPage() {
   if (!primaryBtn) return; // không phải trang tải patch
 
   const LINKS = {
-    windows: 'https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/4.0.0/PatchVietHoaInstaller.exe',
-    linux: 'https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/4.0.0/PatchVietHoaInstaller-linux.rar'
+    windows: 'https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/4.2.0/PatchVietHoaInstaller.exe',
+    linux: 'https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/4.2.0/PatchVietHoaInstaller-linux.rar'
   };
   const LABELS = {
     windows: 'Tải về cho Windows',
