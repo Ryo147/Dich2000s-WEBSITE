@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="css/style.css">
+<script defer src="js/live-stats.js"></script>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
@@ -103,7 +104,7 @@
         <span class="text-xs text-[var(--muted)] uppercase tracking-wider">Dự án hoàn thành</span>
       </div>
       <div class="stat-chip">
-        <span class="font-pixel text-2xl text-[var(--vang)]">2</span>
+        <span class="font-pixel text-2xl text-[var(--vang)]">3</span>
         <span class="text-xs text-[var(--muted)] uppercase tracking-wider">Dự án đang thực hiện</span>
       </div>
       <div class="stat-chip">
@@ -238,7 +239,10 @@
           <p class="text-sm text-[var(--muted)] mb-4">Plague Inc. là một trò chơi chiến lược mô phỏng dịch bệnh đang lan truyền trên toàn thế giới. Với đa dạng chế độ chơi, scenario và chiến thuật.</p>
           <div class="flex items-center justify-between text-sm">
             <span class="text-[var(--muted)]"><i class="fa-solid fa-download"></i> Đã phát hành</span>
-            <a href="projects/plague-inc.html" class="text-[var(--cam)] font-display text-lg hover:underline">Xem chi tiết →</a>
+            <div class="flex items-center gap-3">
+              <span class="card-view-count" title="Lượt xem"><i class="fa-solid fa-eye"></i><span data-stat-project="plague-inc">—</span></span>
+              <a href="projects/plague-inc.html" class="text-[var(--cam)] font-display text-lg hover:underline">Xem chi tiết →</a>
+            </div>
           </div>
         </div>
       </article>
@@ -257,7 +261,10 @@
           <p class="text-sm text-[var(--muted)] mb-4">RE2R là bản làm lại của trò chơi nổi tiếng Resident Evil. Nơi nhân vật phải đối mặt với những mối đe dọa trong Raccoon City.</p>
           <div class="flex items-center justify-between text-sm">
             <span class="text-[var(--muted)]"><i class="fa-solid fa-hourglass-half"></i> Chưa phát hành</span>
-            <a href="projects/re2-remake.html" class="text-[var(--cam)] font-display text-lg hover:underline">Xem chi tiết →</a>
+            <div class="flex items-center gap-3">
+              <span class="card-view-count" title="Lượt xem"><i class="fa-solid fa-eye"></i><span data-stat-project="re2-remake">—</span></span>
+              <a href="projects/re2-remake.html" class="text-[var(--cam)] font-display text-lg hover:underline">Xem chi tiết →</a>
+            </div>
           </div>
         </div>
       </article>
@@ -361,6 +368,10 @@
     <div class="pt-8 border-t border-[var(--border)] flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="font-display text-sm text-[var(--muted)]">
         © Dịch 2000s · 2026
+      </div>
+      <div class="site-stats">
+        <span class="stat-item"><span class="led led-pulse"></span> <span class="stat-value" data-stat="online">—</span> đang online</span>
+        <span class="stat-item"><i class="fa-solid fa-eye"></i> <span class="stat-value" data-stat="views-global">—</span> lượt xem</span>
       </div>
       <div class="font-display text-xs text-[var(--muted)] text-right">
         Nhóm mình chỉ là nhóm Việt hóa game nhỏ lẻ. Nên website và phần mềm đều là do Claude x GLM-5.2 lập trình.<br>

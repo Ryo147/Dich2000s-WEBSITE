@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="../css/style.css">
+<script defer src="../js/live-stats.js"></script>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
@@ -50,10 +51,13 @@
   </div>
 </nav>
 
-<main class="pt-32 pb-24 px-6">
+<main class="pt-32 pb-24 px-6" data-project-page="dreamcore_1">
   <div class="max-w-5xl mx-auto">
 
-    <a href="../projects.html" class="font-pixel text-[var(--muted)] hover:text-[var(--cam)] no-underline">← Quay lại danh sách dự án</a>
+    <div class="flex items-center justify-between flex-wrap gap-3">
+      <a href="../projects.html" class="font-pixel text-[var(--muted)] hover:text-[var(--cam)] no-underline">← Quay lại danh sách dự án</a>
+      <span class="card-view-count font-pixel text-base" title="Lượt xem trang này"><i class="fa-solid fa-eye"></i> <span data-stat-project="dreamcore_1">—</span> lượt xem</span>
+    </div>
 
     <div class="project-hero mt-6" style="background-image:url('../assets/dreamcore/Dreamcore.png')">
       <div class="relative z-10 h-full flex flex-col justify-end p-8">
@@ -162,6 +166,10 @@
     <div class="pt-8 border-t border-[var(--border)] flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="font-display text-sm text-[var(--muted)]">
         © Dịch 2000s · 2026
+      </div>
+      <div class="site-stats">
+        <span class="stat-item"><span class="led led-pulse"></span> <span class="stat-value" data-stat="online">—</span> đang online</span>
+        <span class="stat-item"><i class="fa-solid fa-eye"></i> <span class="stat-value" data-stat="views-global">—</span> lượt xem</span>
       </div>
       <div class="font-display text-xs text-[var(--muted)] text-right">
         Nhóm mình chỉ là nhóm Việt hóa game nhỏ lẻ. Nên website và phần mềm đều là do Claude x GLM-5.2 lập trình.<br>

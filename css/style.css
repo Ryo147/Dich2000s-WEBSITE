@@ -128,6 +128,39 @@ body{
   background:var(--xanh-la);
   box-shadow:0 0 6px var(--xanh-la);
 }
+.led-pulse{
+  animation:led-pulse 1.8s ease-in-out infinite;
+}
+@keyframes led-pulse{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.45;transform:scale(.8)}
+}
+
+/* Site stats: đang online + tổng lượt xem */
+.site-stats{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:14px;
+  font-family:'VT323',monospace;
+  font-size:16px;
+  color:var(--muted);
+}
+.site-stats .stat-item{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+}
+.site-stats .stat-value{
+  color:var(--fg);
+}
+.card-view-count{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  color:var(--muted);
+  font-size:13px;
+}
 
 /* Section label */
 .section-label{
