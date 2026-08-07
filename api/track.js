@@ -9,7 +9,7 @@ const VALID_PROJECTS = new Set(['plague-inc', 're2-remake', 'dmc5', 'dreamcore_1
 // Chỉ chấp nhận request bắt nguồn từ chính site (chặn script/site khác gọi thẳng API)
 // Thêm domain custom vào đây nếu bạn gắn thêm domain riêng cho site.
 const ALLOWED_ORIGINS = [
-  'https://dich2000s-website.vercel.app',
+  'https://dich2000s.vercel.app',
 ];
 
 // 1 lượt xem / 1 trang / 1 visitor được tính trong vòng 24h — chặn F5 spam liên tục
