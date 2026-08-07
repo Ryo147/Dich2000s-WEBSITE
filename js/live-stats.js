@@ -15,18 +15,24 @@
 
   function getVisitorId() {
     try {
-      var id = sessionStorage.getItem(VISITOR_KEY);
+      var id = localStorage.getItem(VISITOR_KEY);
       if (!id) {
         id = (window.crypto && crypto.randomUUID)
           ? crypto.randomUUID()
           : 'v-' + Date.now() + '-' + Math.random().toString(36).slice(2);
-        sessionStorage.setItem(VISITOR_KEY, id);
+        localStorage.setItem(VISITOR_KEY, id);
       }
       return id;
     } catch (e) {
-      // sessionStorage có thể bị chặn (chế độ ẩn danh nghiêm ngặt...)
+      // localStorage có thể bị chặn (chế độ ẩn danh nghiêm ngặt...)
       return 'v-' + Date.now() + '-' + Math.random().toString(36).slice(2);
     }
+  }
+
+  function currentPageKey() {
+    // Chuẩn hoá path để cùng 1 trang luôn ra cùng 1 key dedupe
+    var path = location.pathname.replace(/\/+$/, '') || '/';
+    return path.toLowerCase();
   }
 
   function currentProjectSlug() {
@@ -70,7 +76,11 @@
     fetch(API_BASE + '/api/track', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ project: project })
+      body: JSON.stringify({
+        project: project,
+        page: currentPageKey(),
+        visitorId: getVisitorId()
+      })
     }).catch(function () {});
   }
 
