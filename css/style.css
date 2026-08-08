@@ -605,3 +605,97 @@ body{
 .faq-item[open] summary::after{
   content:'−';
 }
+
+.faq-item{
+  border:2px solid var(--border);
+  background:var(--card);
+  margin-bottom:10px;
+  transition:border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+  opacity:0;
+  transform:translateY(10px);
+  animation:faqFadeIn .35s ease forwards;
+}
+@keyframes faqFadeIn{to{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion: reduce){
+  .faq-item{opacity:1;transform:none;animation:none}
+}
+.faq-item:hover{border-color:var(--cam)}
+.faq-item.open{border-color:var(--cam);box-shadow:4px 4px 0 rgba(255,107,26,0.15)}
+.faq-q{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  padding:18px 22px;
+  cursor:pointer;
+  }
+.faq-q .qtext{
+  font-family:'Playfair Display',serif;
+  font-size:19px;
+  color:var(--fg);
+  transition:color .2s ease;
+}
+.faq-item.open .qtext{color:var(--cam)}
+.faq-q .chev{
+  font-family:'VT323',monospace;
+  color:var(--cam);
+  font-size:20px;
+  flex-shrink:0;
+  display:inline-block;
+  transition:transform .3s cubic-bezier(.4,0,.2,1);
+}
+.faq-item.open .chev{transform:rotate(180deg)}
+.faq-a{
+  max-height:0;
+  overflow:hidden;
+  opacity:0;
+  transition:max-height .35s cubic-bezier(.4,0,.2,1), opacity .3s ease .05s;
+}
+.faq-item.open .faq-a{opacity:1}
+.faq-a-inner{
+  padding:0 22px 20px;
+  border-top:1px solid var(--border);
+  padding-top:14px;
+  color:var(--muted);
+  line-height:1.65;
+  font-size:16px;
+}
+.chip-filter{
+  font-family:'VT323',monospace;
+  font-size:17px;
+  letter-spacing:.04em;
+  padding:8px 16px;
+  border:1px solid var(--border);
+  color:var(--muted);
+  background:transparent;
+  cursor:pointer;
+  text-transform:uppercase;
+  transition:border-color .2s ease, color .2s ease, background-color .2s ease, transform .15s ease;
+}
+.chip-filter:hover{border-color:var(--cam);color:var(--fg);transform:translateY(-1px)}
+.chip-filter:active{transform:translateY(0)}
+.chip-filter.active{border-color:var(--cam);color:var(--cam);background:rgba(255,107,26,0.08)}
+.faq-search{
+  width:100%;
+  background:var(--bg-2);
+  border:2px solid var(--border);
+  color:var(--fg);
+  font-family:'Be Vietnam Pro',sans-serif;
+  font-size:16px;
+  padding:14px 18px 14px 44px;
+  outline:none;
+  transition:border-color .2s ease;
+}
+.faq-search:focus{border-color:var(--cam)}
+.faq-search::placeholder{color:var(--muted)}
+.faq-empty{
+  text-align:center;
+  padding:50px 0;
+  font-family:'VT323',monospace;
+  color:var(--muted);
+  font-size:18px;
+  letter-spacing:.05em;
+  animation:faqFadeIn .3s ease forwards;
+}
+#faqResults{transition:opacity .15s ease}
+#faqResults.fading{opacity:0}
