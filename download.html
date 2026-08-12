@@ -1,485 +1,334 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dịch 2000s — Nhóm Việt Hóa Game</title>
-<meta name="description" content="Dịch 2000s — nhóm việt hóa game. Xem các dự án Việt hóa và tải patch tại đây.">
-<link rel="icon" href="./assets/favicon.ico">
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=VT323&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="css/style.css">
-<script defer src="js/live-stats.js"></script>
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5D3W8D9JH1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-5D3W8D9JH1');
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tải Patch — Dịch 2000s</title>
+    <meta name="description"
+        content="Tải PatchVietHoaInstaller — công cụ cài đặt bản Việt hóa game của Dịch 2000s. Miễn phí, mã nguồn mở.">
+    <link rel="icon" href="assets/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
 
-<!-- Navigation -->
-<nav class="fixed top-0 left-0 right-0 z-50 nav-blur">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="index.html" class="flex items-center gap-3 no-underline">
-      <img src="assets/logo.png" alt="Dịch 2000s" class="nav-logo">
-      <div>
-        <div class="font-pixel text-2xl leading-none text-[var(--fg)]">DỊCH 2000s</div>
-        <div class="text-[10px] text-[var(--muted)] tracking-widest uppercase">NHÓM VIỆT HÓA GAME</div>
-      </div>
-    </a>
-    <div class="hidden md:flex items-center gap-7 font-pixel text-lg">
-      <a href="index.html#about" class="text-[var(--fg)] hover:text-[var(--cam)] transition no-underline">/about</a>
-      <a href="projects.html" class="text-[var(--fg)] hover:text-[var(--cam)] transition no-underline">/projects</a>
-      <a href="faq.html" class="text-[var(--fg)] hover:text-[var(--cam)] transition no-underline">/faq</a>
-      <a href="download.html" class="btn-pixel !py-2 !px-4 !text-base">Tải Patch</a>
-    </div>
-    <button class="md:hidden font-pixel text-3xl text-[var(--fg)]" id="menuBtn" aria-label="Mở menu">≡</button>
-  </div>
-  <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 font-pixel text-lg space-y-2">
-    <a href="index.html#about" class="block text-[var(--fg)] hover:text-[var(--cam)] no-underline">/about</a>
-    <a href="projects.html" class="block text-[var(--fg)] hover:text-[var(--cam)] no-underline">/projects</a>
-    <a href="faq.html" class="block text-[var(--fg)] hover:text-[var(--cam)] no-underline">/faq</a>
-    <a href="download.html" class="block text-[var(--cam)] no-underline">/tai-patch</a>
-  </div>
-</nav>
-
-<main class="pt-32 pb-24 px-6">
-  <div class="max-w-4xl mx-auto">
-
-  <div class="reveal mb-10">
-    <div class="section-label mb-4">// TẢI PATCH</div>
-    <div class="flex flex-wrap items-center justify-between gap-4">
-      <h1 class="font-display text-4xl md:text-6xl leading-tight">
-        Patch Việt Hóa <span class="text-[var(--cam)]">Installer</span>
-      </h1>
-      <div class="inline-flex items-center gap-2 px-4 py-2 border border-[var(--cam)] bg-[var(--card)] font-pixel text-lg text-[var(--cam)] shrink-0">
-        <i class="fa-solid fa-download"></i>
-        <span id="githubDownloadCount">···</span> lượt tải
-      </div>
-    </div>
-    <p class="text-[var(--muted)] mt-5 text-lg max-w-2xl leading-relaxed">
-      Phần mềm cài đặt riêng của nhóm Dịch 2000s. Chỉ áp dụng cho những
-      tựa game mà nhóm đã dịch xong.
-      Phần mềm giúp việc cài đặt bản Việt hóa gọn nhẹ, không cần thao tác thủ công phức tạp.
-    </p>
-  </div>
-
-  <!-- ============ TẢI VỀ: TỰ NHẬN DIỆN HĐH ============ -->
-  <div class="download-card reveal mb-4">
-    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-      <div>
-        <div class="font-pixel text-2xl mb-1">PatchVietHoaInstaller 4.2.0.1</div>
-        <div class="text-[var(--muted)] flex items-center gap-2 flex-wrap">
-          <span>Phiên bản mới nhất trên GitHub Releases</span>
-          <span id="osDetectBadge" class="badge badge-plan hidden"></span>
+<body class="bg-background text-foreground">
+    <nav class="fixed top-0 inset-x-0 z-50 nav-blur">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="h-16 flex items-center justify-between gap-4">
+                <a href="index.html" class="flex items-center gap-2.5 shrink-0"><img src="assets/logo-mark.png"
+                        alt="Dịch 2000s" class="w-8 h-8 object-contain">
+                    <div class="hidden sm:block leading-none">
+                        <div class="font-display text-base font-bold tracking-tight">DỊCH 2000s</div>
+                        <div class="text-[10px] text-muted-foreground tracking-[0.18em] uppercase mt-0.5">Nhóm Việt Hóa
+                            Game</div>
+                    </div>
+                </a>
+                <nav class="hidden md:flex items-center gap-1"><a href="index.html#about"
+                        class="px-4 py-2 rounded-full text-sm font-medium transition-colors hover:bg-secondary text-muted-foreground hover:text-foreground">Giới
+                        thiệu</a>
+                    <a href="projects.html"
+                        class="px-4 py-2 rounded-full text-sm font-medium transition-colors hover:bg-secondary text-muted-foreground hover:text-foreground">Dự
+                        án</a>
+                    <a href="faq.html"
+                        class="px-4 py-2 rounded-full text-sm font-medium transition-colors hover:bg-secondary text-muted-foreground hover:text-foreground">FAQ</a>
+                    <a href="download.html"
+                        class="px-4 py-2 rounded-full text-sm font-medium transition-colors hover:bg-secondary text-primary">Tải
+                        Patch</a>
+                </nav>
+                <button class="md:hidden p-2 -mr-2 text-foreground" id="menuBtn" aria-label="Mở menu"><i
+                        class="fa-solid fa-bars text-xl"></i></button>
+            </div>
         </div>
-      </div>
-      <a id="primaryDownloadBtn" href="#" target="_blank" rel="noopener" class="btn-pixel shrink-0">
-        <i class="fa-solid fa-download"></i>
-        <span id="primaryDownloadLabel">Tải về</span>
-      </a>
-    </div>
+        <div id="mobileMenu" class="hidden md:hidden mobile-menu px-6 pb-8 pt-4 border-t border-border">
+            <div class="flex flex-col gap-2"><a href="index.html#about"
+                    class="px-5 py-4 rounded-xl text-2xl font-display font-semibold transition-colors text-foreground hover:bg-secondary">Giới
+                    thiệu</a><a href="projects.html"
+                    class="px-5 py-4 rounded-xl text-2xl font-display font-semibold transition-colors text-foreground hover:bg-secondary">Dự
+                    án</a><a href="faq.html"
+                    class="px-5 py-4 rounded-xl text-2xl font-display font-semibold transition-colors text-foreground hover:bg-secondary">FAQ</a><a
+                    href="download.html"
+                    class="px-5 py-4 rounded-xl text-2xl font-display font-semibold transition-colors text-primary bg-primary/8">Tải
+                    Patch</a></div>
+        </div>
+    </nav>
+    <main class="flex-1 pt-28 sm:pt-32 pb-20 sm:pb-28 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="reveal">
+                <div class="section-label mb-4">Tải Patch</div>
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight">
+                        Patch Việt Hóa <span class="text-primary">Installer</span></h1>
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm font-mono shrink-0">
+                        <i class="fa-solid fa-download text-xs"></i> <span
+                            id="githubDownloadCount">&middot;&middot;&middot;</span> <span class="opacity-70">lượt
+                            tải</span></div>
+                </div>
+                <p class="text-muted-foreground mt-5 text-base sm:text-lg max-w-2xl leading-relaxed">Phần mềm cài đặt
+                    riêng của nhóm Dịch 2000s. Chỉ áp dụng cho những tựa game mà nhóm đã dịch xong. Phần mềm giúp việc
+                    cài đặt bản Việt hóa gọn nhẹ, không cần thao tác thủ công phức tạp.</p>
+            </div>
 
-    <!-- Lựa chọn thủ công theo hệ điều hành -->
-    <div class="mt-6 pt-6 border-t border-[var(--border)]">
-      <div class="text-sm text-[var(--muted)] mb-3 font-pixel tracking-wide uppercase">Hoặc chọn hệ điều hành</div>
-      <div class="flex flex-wrap gap-4">
-        <a href="https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/4.2.0.1/PatchVietHoaInstaller.exe"
-           target="_blank" rel="noopener"
-           class="os-choice-btn" data-os="windows">
-          <i class="fa-brands fa-windows"></i>
-          <div>
-            <div class="font-pixel text-lg leading-none">Windows</div>
-            <div class="text-xs text-[var(--muted)]">.exe · x64</div>
-          </div>
-        </a>
-        <a href="https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/4.2.0.1/PatchVietHoaInstaller-linux.zip"
-           target="_blank" rel="noopener"
-           class="os-choice-btn" data-os="linux">
-          <i class="fa-brands fa-linux"></i>
-          <div>
-            <div class="font-pixel text-lg leading-none">Linux</div>
-            <div class="text-xs text-[var(--muted)]">.zip · x64</div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
+            <div class="reveal mt-8 bg-card border border-border rounded-2xl p-6 sm:p-8" style="transition-delay:120ms">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                    <div>
+                        <div class="font-display text-xl sm:text-2xl font-semibold mb-1">PatchVietHoaInstaller 4.2.0.1
+                        </div>
+                        <div class="text-sm text-muted-foreground flex items-center gap-2 flex-wrap"><span>Phiên bản mới
+                                nhất trên GitHub Releases</span><span id="osDetectBadge"
+                                class="hidden px-2 py-0.5 rounded-full text-xs font-mono bg-status-plan/10 text-status-plan border border-status-plan/30"></span>
+                        </div>
+                    </div>
+                    <a id="primaryDownloadBtn" href="#" target="_blank" rel="noopener noreferrer"
+                        class="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"><i
+                            class="fa-solid fa-download text-xs"></i> <span id="primaryDownloadLabel">Tải về</span></a>
+                </div>
+                <div class="mt-6 pt-6 border-t border-border">
+                    <div class="text-xs font-mono tracking-wide uppercase text-muted-foreground mb-3">Hoặc chọn hệ điều
+                        hành</div>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/4.2.0.1/PatchVietHoaInstaller.exe"
+                            target="_blank" rel="noopener noreferrer" class="os-choice-btn" data-os="windows"><i
+                                class="fa-brands fa-windows text-primary"></i>
+                            <div>
+                                <div class="font-mono text-sm font-semibold">Windows</div>
+                                <div class="text-xs text-muted-foreground">.exe &middot; x64</div>
+                            </div>
+                        </a>
+                        <a href="https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/4.2.0.1/PatchVietHoaInstaller-linux.zip"
+                            target="_blank" rel="noopener noreferrer" class="os-choice-btn" data-os="linux"><i
+                                class="fa-brands fa-linux text-primary"></i>
+                            <div>
+                                <div class="font-mono text-sm font-semibold">Linux</div>
+                                <div class="text-xs text-muted-foreground">.zip &middot; x64</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-    <div class="notice-box reveal mb-12">
-      <i class="fa-solid fa-circle-info"></i>
-      Công cụ này hoàn toàn miễn phí. Nếu bạn thấy nơi nào yêu cầu trả phí
-      để lấy được phần mềm này, đó chắc chắn là lừa đảo — vui lòng chỉ tải
-      từ trang GitHub chính thức của nhóm bên dưới.
-    </div>
+            <div class="reveal mt-4 notice-box notice-warning flex items-start gap-3"><i
+                    class="fa-solid fa-circle-info text-status-wip shrink-0 mt-0.5"></i>
+                <p>Công cụ này hoàn toàn miễn phí. Nếu bạn thấy nơi nào yêu cầu trả phí để lấy được phần mềm này, đó
+                    chắc chắn là lừa đảo — vui lòng chỉ tải từ trang GitHub chính thức của nhóm bên dưới.</p>
+            </div>
 
-    <!-- ============ CÁCH SỬ DỤNG: TAB WINDOWS / LINUX ============ -->
-    <div class="reveal mb-12">
-      <div class="flex items-center justify-between flex-wrap gap-4 mb-4">
-        <div class="section-label">CÁCH SỬ DỤNG</div>
-        <div class="os-tabs" role="tablist" aria-label="Chọn hệ điều hành hướng dẫn">
-          <button type="button" class="os-tab-btn is-active" data-tab="win" role="tab" aria-selected="true">
-            <i class="fa-brands fa-windows"></i> Windows
-          </button>
-          <button type="button" class="os-tab-btn" data-tab="linux" role="tab" aria-selected="false">
-            <i class="fa-brands fa-linux"></i> Linux
-          </button>
-        </div>
-      </div>
-
-      <!-- Windows steps -->
-      <div class="download-card os-tab-panel" data-panel="win">
-        <div class="step-box">
-          <div class="step-index">01</div>
-          <div>
-            <h3 class="font-pixel text-xl mb-1">Tải công cụ</h3>
-            <p class="text-[var(--muted)] leading-relaxed">Bấm nút "Tải về" (Windows) phía trên để lấy file <code>PatchVietHoaInstaller.exe</code> mới nhất từ GitHub Releases.</p>
-          </div>
-        </div>
-        <div class="step-box">
-          <div class="step-index">02</div>
-          <div>
-            <h3 class="font-pixel text-xl mb-1">Mở công cụ</h3>
-            <p class="text-[var(--muted)] leading-relaxed">Chạy file <code>.exe</code> vừa tải về. Nếu Windows SmartScreen cảnh báo, bấm "More info" → "Run anyway". Công cụ sẽ hiển thị danh sách các game đã có bản Việt hóa.</p>
-          </div>
-        </div>
-        <div class="step-box">
-          <div class="step-index">03</div>
-          <div>
-            <h3 class="font-pixel text-xl mb-1">Chọn game &amp; thư mục cài đặt</h3>
-            <p class="text-[var(--muted)] leading-relaxed">Chọn tựa game muốn cài đặt Việt hóa, chọn đến thư mục cài đặt game trên máy bạn (thường trong <code>Program Files</code> hoặc thư mục Steam).</p>
-          </div>
-        </div>
-        <div class="step-box">
-          <div class="step-index">04</div>
-          <div>
-            <h3 class="font-pixel text-xl mb-1">Cài đặt &amp; chơi</h3>
-            <p class="text-[var(--muted)] leading-relaxed">Bấm cài đặt, đợi phần mềm xử lý xong và tận hưởng thôi!</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Linux steps -->
-      <div class="download-card os-tab-panel hidden" data-panel="linux">
-        <div class="step-box">
-          <div class="step-index">01</div>
-          <div>
-            <h3 class="font-pixel text-xl mb-1">Tải &amp; giải nén</h3>
-<p class="text-[var(--muted)] leading-relaxed">Bấm nút "Tải về" (Linux) phía trên để lấy file <code>PatchVietHoaInstaller-linux.zip</code>. Giải nén bằng <code>unzip</code> hoặc trình quản lý file hỗ trợ định dạng .zip:</p>
-            <pre class="code-block">unzip PatchVietHoaInstaller-linux.zip</pre>
-          </div>
-        </div>
-        <div class="step-box">
-          <div class="step-index">02</div>
-          <div>
-            <h3 class="font-pixel text-xl mb-1">Cấp quyền chạy</h3>
-            <p class="text-[var(--muted)] leading-relaxed">Mở terminal tại thư mục vừa giải nén và cấp quyền thực thi cho file:</p>
-            <pre class="code-block">chmod +x PatchVietHoaInstaller
+            <div class="reveal mt-12">
+                <div class="flex items-center justify-between flex-wrap gap-4 mb-5">
+                    <div class="section-label">Cách sử dụng</div>
+                    <div class="os-tabs"><button type="button" class="os-tab-btn is-active" data-tab="win"><i
+                                class="fa-brands fa-windows"></i> Windows</button><button type="button"
+                            class="os-tab-btn" data-tab="linux"><i class="fa-brands fa-linux"></i> Linux</button></div>
+                </div>
+                <div class="bg-card border border-border rounded-2xl p-6 sm:p-8" data-panel="win">
+                    <ol class="space-y-6">
+                        <li class="flex gap-4">
+                            <div class="font-display text-3xl font-bold text-primary/80 leading-none shrink-0 w-12">01
+                            </div>
+                            <div class="flex-1 pt-0.5">
+                                <h3 class="font-display text-lg font-semibold mb-1.5">Tải công cụ</h3>
+                                <p class="text-muted-foreground leading-relaxed text-sm sm:text-base">Bấm nút "Tải về"
+                                    (Windows) phía trên để lấy file <code
+                                        class="px-1.5 py-0.5 rounded bg-secondary text-foreground font-mono text-xs">PatchVietHoaInstaller.exe</code>
+                                    mới nhất từ GitHub Releases.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="font-display text-3xl font-bold text-primary/80 leading-none shrink-0 w-12">02
+                            </div>
+                            <div class="flex-1 pt-0.5">
+                                <h3 class="font-display text-lg font-semibold mb-1.5">Mở công cụ</h3>
+                                <p class="text-muted-foreground leading-relaxed text-sm sm:text-base">Chạy file <code
+                                        class="px-1.5 py-0.5 rounded bg-secondary text-foreground font-mono text-xs">.exe</code>
+                                    vừa tải về. Nếu Windows SmartScreen cảnh báo, bấm "More info" → "Run anyway". Công
+                                    cụ sẽ hiển thị danh sách các game đã có bản Việt hóa.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="font-display text-3xl font-bold text-primary/80 leading-none shrink-0 w-12">03
+                            </div>
+                            <div class="flex-1 pt-0.5">
+                                <h3 class="font-display text-lg font-semibold mb-1.5">Chọn game &amp; thư mục cài đặt
+                                </h3>
+                                <p class="text-muted-foreground leading-relaxed text-sm sm:text-base">Chọn tựa game muốn
+                                    cài đặt Việt hóa, chọn đến thư mục cài đặt game trên máy bạn (thường trong <code
+                                        class="px-1.5 py-0.5 rounded bg-secondary text-foreground font-mono text-xs">Program Files</code>
+                                    hoặc thư mục Steam).</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="font-display text-3xl font-bold text-primary/80 leading-none shrink-0 w-12">04
+                            </div>
+                            <div class="flex-1 pt-0.5">
+                                <h3 class="font-display text-lg font-semibold mb-1.5">Cài đặt &amp; chơi</h3>
+                                <p class="text-muted-foreground leading-relaxed text-sm sm:text-base">Bấm cài đặt, đợi
+                                    phần mềm xử lý xong và tận hưởng thôi!</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <div class="bg-card border border-border rounded-2xl p-6 sm:p-8 hidden" data-panel="linux">
+                    <ol class="space-y-6">
+                        <li class="flex gap-4">
+                            <div class="font-display text-3xl font-bold text-primary/80 leading-none shrink-0 w-12">01
+                            </div>
+                            <div class="flex-1 pt-0.5">
+                                <h3 class="font-display text-lg font-semibold mb-1.5">Tải &amp; giải nén</h3>
+                                <p class="text-muted-foreground leading-relaxed text-sm sm:text-base">Bấm nút "Tải về"
+                                    (Linux) phía trên để lấy file <code
+                                        class="px-1.5 py-0.5 rounded bg-secondary text-foreground font-mono text-xs">PatchVietHoaInstaller-linux.zip</code>.
+                                    Giải nén bằng <code
+                                        class="px-1.5 py-0.5 rounded bg-secondary text-foreground font-mono text-xs">unzip</code>
+                                    hoặc trình quản lý file hỗ trợ định dạng .zip:</p>
+                                <pre class="code-block">unzip PatchVietHoaInstaller-linux.zip</pre>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="font-display text-3xl font-bold text-primary/80 leading-none shrink-0 w-12">02
+                            </div>
+                            <div class="flex-1 pt-0.5">
+                                <h3 class="font-display text-lg font-semibold mb-1.5">Cấp quyền chạy</h3>
+                                <p class="text-muted-foreground leading-relaxed text-sm sm:text-base">Mở terminal tại
+                                    thư mục vừa giải nén và cấp quyền thực thi cho file:</p>
+                                <pre class="code-block">chmod +x PatchVietHoaInstaller
 ./PatchVietHoaInstaller</pre>
-          </div>
-        </div>
-        <div class="step-box">
-          <div class="step-index">03</div>
-          <div>
-            <h3 class="font-pixel text-xl mb-1">Chọn game &amp; thư mục cài đặt</h3>
-            <p class="text-[var(--muted)] leading-relaxed">Chọn tựa game muốn Việt hóa, chọn đến thư mục cài đặt game (ví dụ thư mục Steam Proton: <code>~/.steam/steam/steamapps/common/&lt;tên game&gt;</code>).</p>
-          </div>
-        </div>
-        <div class="step-box">
-          <div class="step-index">04</div>
-          <div>
-            <h3 class="font-pixel text-xl mb-1">Cài đặt &amp; chơi</h3>
-            <p class="text-[var(--muted)] leading-relaxed">Bấm cài đặt, đợi phần mềm xử lý xong và tận hưởng thôi!</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="reveal mb-12">
-      <div class="section-label mb-4">VIDEO HƯỚNG DẪN</div>
-      <div class="download-card">
-              <div class="text-sm text-[var(--muted)] mb-3 font-pixel tracking-wide uppercase">CHỈ DÀNH CHO WINDOWS</div>
-        <div class="aspect-video w-full overflow-hidden">
-          <iframe
-            class="w-full h-full"
-            src="https://www.youtube.com/embed/JJMjFN_pxLM?si=lMZLo6IJ40ZWQsP-"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-    </div>
-
-    <!-- ============ KẾT QUẢ BẢO MẬT: TAB WINDOWS / LINUX ============ -->
-    <div class="reveal mb-12">
-      <div class="flex items-center justify-between flex-wrap gap-4 mb-4">
-        <div class="section-label">KẾT QUẢ BẢO MẬT</div>
-        <div class="os-tabs" role="tablist" aria-label="Chọn hệ điều hành kết quả quét">
-          <button type="button" class="os-tab-btn is-active" data-tab="win" data-scan-tab role="tab" aria-selected="true">
-            <i class="fa-brands fa-windows"></i> Windows
-          </button>
-          <button type="button" class="os-tab-btn" data-tab="linux" data-scan-tab role="tab" aria-selected="false">
-            <i class="fa-brands fa-linux"></i> Linux
-          </button>
-        </div>
-      </div>
-
-      <p class="text-[var(--muted)] leading-relaxed mb-6 max-w-2xl">
-        Để các bạn yên tâm hơn khi tải công cụ, nhóm mình đã gửi file cài đặt
-        lên các dịch vụ quét mã độc uy tín.
-      </p>
-
-      <!-- Kết quả bảo mật: Windows -->
-      <div class="os-tab-panel" data-scan-panel="win">
-        <p class="text-xs text-[var(--muted)] mb-4">
-          Kết quả bên dưới là của bản <strong class="text-[var(--fg)]">4.0.0 (.exe)</strong>.
-        </p>
-        <div class="grid sm:grid-cols-2 gap-6">
-
-          <!-- VirusTotal Card -->
-          <div class="download-card border-l-4" style="border-left-color:#f59e0b">
-            <div class="flex items-center justify-between mb-4">
-              <div class="font-pixel text-lg flex items-center gap-2">
-                <i class="fa-solid fa-shield-halved" style="color:#f59e0b"></i> VirusTotal
-              </div>
-              <span class="text-xs px-2 py-1 rounded font-pixel" style="background:#f59e0b22;color:#f59e0b">1 CẢNH BÁO</span>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="font-display text-3xl font-bold text-primary/80 leading-none shrink-0 w-12">03
+                            </div>
+                            <div class="flex-1 pt-0.5">
+                                <h3 class="font-display text-lg font-semibold mb-1.5">Chọn game &amp; thư mục cài đặt
+                                </h3>
+                                <p class="text-muted-foreground leading-relaxed text-sm sm:text-base">Chọn tựa game muốn
+                                    Việt hóa, chọn đến thư mục cài đặt game (ví dụ thư mục Steam Proton: <code
+                                        class="px-1.5 py-0.5 rounded bg-secondary text-foreground font-mono text-xs">~/.steam/steam/steamapps/common/&lt;tên game&gt;</code>).
+                                </p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="font-display text-3xl font-bold text-primary/80 leading-none shrink-0 w-12">04
+                            </div>
+                            <div class="flex-1 pt-0.5">
+                                <h3 class="font-display text-lg font-semibold mb-1.5">Cài đặt &amp; chơi</h3>
+                                <p class="text-muted-foreground leading-relaxed text-sm sm:text-base">Bấm cài đặt, đợi
+                                    phần mềm xử lý xong và tận hưởng thôi!</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
             </div>
-            <div class="font-display text-4xl mb-1" style="color:#f59e0b">1<span class="text-xl text-[var(--muted)]">/69</span></div>
-            <div class="text-[var(--muted)] text-sm mb-4">engine gắn cờ (Antiy-AVL — nghi false positive, xem bên dưới)</div>
-            <a href="https://www.virustotal.com/gui/file/bf19593291b93b3ef76733c48d8b86f9443b3de5b81034d322d9af06a6572d27"
-               target="_blank" rel="noopener"
-               class="btn-pixel btn-ghost !py-2 !text-sm inline-flex items-center gap-2">
-              Xem chi tiết <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-            </a>
-          </div>
 
-          <!-- Hybrid Analysis Card -->
-          <div class="download-card border-l-4" style="border-left-color:#f59e0b">
-            <div class="flex items-center justify-between mb-4">
-              <div class="font-pixel text-lg flex items-center gap-2">
-                <i class="fa-solid fa-magnifying-glass" style="color:#f59e0b"></i> Hybrid Analysis
-              </div>
-              <span class="text-xs px-2 py-1 rounded font-pixel" style="background:#f59e0b22;color:#f59e0b">SUSPICIOUS</span>
+            <div class="reveal mt-12">
+                <div class="section-label mb-4">Video hướng dẫn</div>
+                <div class="bg-card border border-border rounded-2xl p-5 sm:p-6">
+                    <div class="text-xs font-mono tracking-wide uppercase text-muted-foreground mb-3"><i
+                            class="fa-solid fa-video text-xs"></i> CHỈ DÀNH CHO WINDOWS</div>
+                    <div class="aspect-video w-full overflow-hidden rounded-lg border border-border"><iframe
+                            class="w-full h-full" src="https://www.youtube.com/embed/JJMjFN_pxLM?si=lMZLo6IJ40ZWQsP-"
+                            title="Video hướng dẫn cài đặt" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                </div>
             </div>
-            <div class="font-display text-4xl mb-1" style="color:#f59e0b">35<span class="text-xl text-[var(--muted)]">/100</span></div>
-            <div class="text-[var(--muted)] text-sm mb-4">Threat Score — AV Detection: Clean</div>
-            <div class="text-xs text-[var(--muted)] mb-4">Sandbox behavior analysis (bản 4.0.0)</div>
-            <a href="https://hybrid-analysis.com/sample/bf19593291b93b3ef76733c48d8b86f9443b3de5b81034d322d9af06a6572d27"
-               target="_blank" rel="noopener"
-               class="btn-pixel btn-ghost !py-2 !text-sm inline-flex items-center gap-2">
-              Xem chi tiết <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-            </a>
-          </div>
 
-        </div>
-
-        <!-- Giải thích false positive -->
-        <div class="notice-box mt-6">
-          <i class="fa-solid fa-circle-info"></i>
-          <strong>Về cảnh báo "Trojan[Downloader]/MSIL.BaseLoader" từ Antiy-AVL:</strong><br>
-          Trong số 69 engine trên VirusTotal, chỉ có một engine duy nhất gắn cờ cho file này, trong khi các engine lớn khác không phát hiện bất kỳ điều gì bất thường.
-          Nhãn cảnh báo mà file nhận được dựa trên hành vi của nó.
-          Do bản chất của installer, nhóm ứng dụng này thực sự có khả năng tải và ghi file patch vào máy tính của người dùng.
-          Đây là một trường hợp false positive tương đối phổ biến, đặc biệt đối với các ứng dụng .NET nhỏ mà chưa có chữ ký số thương mại.
-        </div>
-
-        <div class="download-card mt-4">
-          <div class="font-pixel text-lg mb-3">Nếu bạn vẫn còn lo lắng</div>
-          <ul class="text-[var(--muted)] text-sm leading-relaxed space-y-2 list-disc pl-5">
-            <li>Đối chiếu mã băm SHA-256 của file bạn tải với mã băm chính thức trên trang GitHub Releases (xem mục "Kiểm tra toàn vẹn file" bên dưới).</li>
-            <li>Xem chi tiết kết quả 69 engine trực tiếp trên VirusTotal qua nút "Xem chi tiết" ở trên — chỉ 1 engine gắn cờ.</li>
-            <li>Xem mã nguồn công cụ công khai trên GitHub (mục "Mã nguồn" cuối trang) để tự kiểm tra hoặc tự build.</li>
-            <li>Nếu chưa yên tâm, bạn hoàn toàn có thể chờ nhóm cập nhật chữ ký số hoặc phản hồi thêm qua Discord trước khi cài đặt.</li>
-          </ul>
-        </div>
-
-        <p class="text-xs text-[var(--muted)] mt-4">
-          <i class="fa-solid fa-circle-info"></i>
-          Điểm "Suspicious" của Hybrid Analysis thường đến từ hành vi sandbox thông thường
-          (tải file, ghi file cài đặt...), không nhất thiết là mã độc — AV vẫn xác nhận sạch.
-        </p>
-      </div>
-
-      <!-- Kết quả bảo mật: Linux -->
-      <div class="os-tab-panel hidden" data-scan-panel="linux">
-        <p class="text-xs text-[var(--muted)] mb-4">
-          Kết quả bên dưới là của bản <strong class="text-[var(--fg)]">4.0.0 (.rar)</strong>.
-        </p>
-        <div class="grid sm:grid-cols-2 gap-6">
-
-          <!-- VirusTotal Card -->
-          <div class="download-card border-l-4" style="border-left-color:#22c55e">
-            <div class="flex items-center justify-between mb-4">
-              <div class="font-pixel text-lg flex items-center gap-2">
-                <i class="fa-solid fa-shield-halved" style="color:#22c55e"></i> VirusTotal
-              </div>
-              <span class="text-xs px-2 py-1 rounded font-pixel" style="background:#22c55e22;color:#22c55e">CLEAN</span>
+            <div class="reveal mt-12">
+                <div class="section-label mb-4">Mã nguồn</div>
+                <div
+                    class="bg-card border border-border rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                    <p class="text-muted-foreground leading-relaxed max-w-xl text-sm">Công cụ được phát triển mã nguồn
+                        mở. Bạn có thể xem toàn bộ mã nguồn, báo lỗi hoặc đóng góp trực tiếp trên GitHub.</p><a
+                        href="https://github.com/Ryo147/PatchVietHoaInstaller" target="_blank" rel="noopener noreferrer"
+                        class="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-border bg-card hover:border-primary/40 text-sm font-semibold transition-colors"><i
+                            class="fa-brands fa-github"></i> Xem mã nguồn</a>
+                </div>
             </div>
-            <div class="font-display text-4xl mb-1" style="color:#22c55e">0<span class="text-xl text-[var(--muted)]">/63</span></div>
-            <div class="text-[var(--muted)] text-sm mb-4">engine phát hiện mã độc</div>
-            <a href="https://www.virustotal.com/gui/file/5c815dd63127b0bc5d0bb049ef63af1f9bf927d11b0f96505a111c8e65d0905e"
-               target="_blank" rel="noopener"
-               class="btn-pixel btn-ghost !py-2 !text-sm inline-flex items-center gap-2">
-              Xem chi tiết <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-            </a>
-          </div>
 
-          <!-- Hybrid Analysis Card -->
-          <div class="download-card border-l-4" style="border-left-color:#f59e0b">
-            <div class="flex items-center justify-between mb-4">
-              <div class="font-pixel text-lg flex items-center gap-2">
-                <i class="fa-solid fa-magnifying-glass" style="color:#f59e0b"></i> Hybrid Analysis
-              </div>
-              <span class="text-xs px-2 py-1 rounded font-pixel" style="background:#f59e0b22;color:#f59e0b">SUSPICIOUS</span>
+        </div>
+    </main>
+    <footer class="border-t border-border bg-card/40 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+            <div class="grid gap-10 md:grid-cols-3">
+                <div class="md:col-span-2">
+                    <a href="index.html" class="flex items-center gap-3 mb-4"><img src="assets/logo-mark.png"
+                            alt="Dịch 2000s" class="w-9 h-9 object-contain">
+                        <div class="leading-none text-left">
+                            <div class="font-display text-lg font-bold">DỊCH 2000s</div>
+                            <div class="text-[10px] text-muted-foreground tracking-[0.18em] uppercase mt-0.5">Dịch Những
+                                Năm 2000</div>
+                        </div>
+                    </a>
+                    <p class="text-muted-foreground max-w-md leading-relaxed text-sm">Từng từ ngữ, từng câu chữ, cho
+                        từng game thủ Việt.</p>
+                    <div class="flex items-center gap-2 mt-5">
+                        <a href="https://www.facebook.com/Dich2000s" target="_blank" rel="noopener noreferrer"
+                            aria-label="Facebook"
+                            class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://discord.gg/mxsAU6BDye" target="_blank" rel="noopener noreferrer"
+                            aria-label="Discord"
+                            class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"><i
+                                class="fa-brands fa-discord"></i></a>
+                        <a href="https://github.com/Ryo147/PatchVietHoaInstaller" target="_blank"
+                            rel="noopener noreferrer" aria-label="GitHub"
+                            class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"><i
+                                class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-display text-sm font-semibold text-primary mb-4">Khám phá</div>
+                    <ul class="space-y-2.5">
+                        <li><a href="index.html#about"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">Giới
+                                thiệu</a></li>
+                        <li><a href="projects.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">Dự án</a>
+                        </li>
+                        <li><a href="faq.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">FAQ</a>
+                        </li>
+                        <li><a href="download.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">Tải
+                                Patch</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="font-display text-4xl mb-1" style="color:#f59e0b">35<span class="text-xl text-[var(--muted)]">/100</span></div>
-            <div class="text-[var(--muted)] text-sm mb-4">Threat Score — AV Detection: Clean</div>
-            <div class="text-xs text-[var(--muted)] mb-4">Sandbox behavior analysis (bản 4.0.0)</div>
-            <a href="https://hybrid-analysis.com/sample/5c815dd63127b0bc5d0bb049ef63af1f9bf927d11b0f96505a111c8e65d0905e"
-               target="_blank" rel="noopener"
-               class="btn-pixel btn-ghost !py-2 !text-sm inline-flex items-center gap-2">
-              Xem chi tiết <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-            </a>
-          </div>
-
+            <div
+                class="pt-8 mt-10 border-t border-border flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="text-xs text-muted-foreground">&copy; Dịch 2000s &middot; 2026 &middot; Dự án phi lợi nhuận,
+                    không thu phí.</div>
+                <div class="flex items-center gap-5 text-xs font-mono">
+                    <span class="inline-flex items-center gap-1.5 text-muted-foreground"><span
+                            class="relative flex h-2 w-2"><span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                                style="background:var(--status-done)"></span><span
+                                class="relative inline-flex rounded-full h-2 w-2"
+                                style="background:var(--status-done)"></span></span><i
+                            class="fa-solid fa-users text-xs"></i><span data-stat="online">&mdash;</span><span
+                            class="opacity-60">đang online</span></span>
+                    <span class="inline-flex items-center gap-1.5 text-muted-foreground"><i
+                            class="fa-solid fa-eye text-xs"></i><span data-stat="views-global">&mdash;</span><span
+                            class="opacity-60">lượt xem</span></span>
+                </div>
+                <div class="text-xs text-muted-foreground md:text-right max-w-md leading-relaxed">Nhóm mình chỉ là nhóm
+                    Việt hóa game nhỏ lẻ. Nên website và phần mềm đều là do Claude x GLM-5.2 lập trình. Nếu các bạn
+                    không vừa ý, mong các bạn thông cảm và góp ý nhẹ nhàng. Nhóm mình sẽ cố gắng cải thiện hơn trong
+                    tương lai.</div>
+            </div>
         </div>
-        <p class="text-xs text-[var(--muted)] mt-4">
-          <i class="fa-solid fa-circle-info"></i>
-          Điểm "Suspicious" của Hybrid Analysis thường đến từ hành vi sandbox thông thường
-          (tải file, ghi file cài đặt...), không nhất thiết là mã độc — AV vẫn xác nhận sạch.
-          Bản Linux <strong class="text-[var(--fg)]">không</strong> bị engine nào trên VirusTotal gắn cờ.
-        </p>
-      </div>
-    </div>
+    </footer>
+    <div class="toast" id="toast">Đã sao chép!</div>
+    <script src="js/live-stats.js"></script>
+    <script src="js/main.js"></script>
 
-    <!-- ============ KIỂM TRA TOÀN VẸN FILE (CHECKSUM) ============ -->
-    <div class="reveal mb-12">
-      <div class="section-label mb-4">KIỂM TRA TOÀN VẸN FILE</div>
-      <div class="download-card">
-        <p class="text-[var(--muted)] leading-relaxed mb-4 max-w-2xl">
-          Sau khi tải về, bạn có thể tự đối chiếu mã băm SHA-256 để chắc chắn file
-          không bị chỉnh sửa trong quá trình tải. Xem mã băm chính thức trên trang
-          <a href="https://github.com/Ryo147/PatchVietHoaInstaller/releases/tag/4.2.0.1" target="_blank" rel="noopener" class="text-[var(--cam)] hover:underline">GitHub Releases 4.2.0.1</a>.
-        </p>
-        <div class="grid sm:grid-cols-2 gap-4 text-sm">
-          <div class="p-4 border border-[var(--border)] bg-[var(--bg-2)]">
-            <div class="font-pixel text-base mb-2 flex items-center gap-2"><i class="fa-brands fa-windows"></i> Windows</div>
-            <code class="text-xs text-[var(--muted)] break-all">certutil -hashfile PatchVietHoaInstaller.exe SHA256</code>
-          </div>
-          <div class="p-4 border border-[var(--border)] bg-[var(--bg-2)]">
-            <div class="font-pixel text-base mb-2 flex items-center gap-2"><i class="fa-brands fa-linux"></i> Linux</div>
-            <code class="text-xs text-[var(--muted)] break-all">sha256sum PatchVietHoaInstaller-linux.zip</code>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- ============ CÂU HỎI THƯỜNG GẶP ============ -->
-    <div class="reveal mb-12">
-      <div class="section-label mb-4">CÂU HỎI THƯỜNG GẶP</div>
-      <div class="download-card divide-y divide-[var(--border)]">
-        <details class="faq-item">
-          <summary class="font-pixel text-lg py-4 cursor-pointer">Windows SmartScreen / trình duyệt cảnh báo file nguy hiểm, có sao không?</summary>
-          <p class="text-[var(--muted)] pb-4 leading-relaxed">Đây là cảnh báo mặc định cho các file .exe chưa có chữ ký số thương mại (rất tốn phí với nhóm dịch nhỏ lẻ). Bạn có thể đối chiếu kết quả quét VirusTotal ở trên hoặc tự kiểm tra mã nguồn trước khi chạy.</p>
-        </details>
-        <details class="faq-item">
-          <summary class="font-pixel text-lg py-4 cursor-pointer">VirusTotal báo "Trojan[Downloader]/MSIL.BaseLoader" (Antiy-AVL), có nguy hiểm không?</summary>
-          <p class="text-[var(--muted)] pb-4 leading-relaxed">Không. Đây là cảnh báo heuristic của riêng engine Antiy-AVL — trong tổng 69 engine trên VirusTotal, chỉ mình engine này gắn cờ, các engine antivirus lớn khác đều xác nhận sạch. Xem chi tiết ở mục "Kết quả bảo mật" phía trên.</p>
-        </details>
-        <details class="faq-item">
-          <summary class="font-pixel text-lg py-4 cursor-pointer">Vì sao bản Linux là .zip chứ không phải .tar.gz / AppImage?</summary>
-          <p class="text-[var(--muted)] pb-4 leading-relaxed">Hiện tại nhóm đóng gói tạm bằng .zip cho đơn giản. Định dạng AppImage/.tar.gz có thể sẽ được hỗ trợ ở các bản sau nếu có nhiều người dùng Linux phản hồi.</p>
-        </details>
-        <details class="faq-item">
-          <summary class="font-pixel text-lg py-4 cursor-pointer">Công cụ có hỗ trợ macOS không?</summary>
-          <p class="text-[var(--muted)] pb-4 leading-relaxed">Hiện chưa có bản macOS. Nếu bạn dùng Mac, bạn có thể tham gia Discord của nhóm để theo dõi tiến độ hoặc đóng góp mã nguồn.</p>
-        </details>
-        <details class="faq-item">
-          <summary class="font-pixel text-lg py-4 cursor-pointer">Gặp lỗi khi cài đặt thì báo ở đâu?</summary>
-          <p class="text-[var(--muted)] pb-4 leading-relaxed">Bạn có thể mở issue trên GitHub kèm ảnh chụp lỗi, hoặc nhắn trực tiếp trong kênh Discord của nhóm để được hỗ trợ nhanh hơn.</p>
-        </details>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <div class="section-label mb-4">MÃ NGUỒN</div>
-      <div class="download-card flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <p class="text-[var(--muted)] leading-relaxed max-w-xl">
-          Công cụ được phát triển mã nguồn mở. Bạn có thể xem toàn bộ mã nguồn,
-          báo lỗi hoặc đóng góp trực tiếp trên GitHub.
-        </p>
-        <a href="https://github.com/Ryo147/PatchVietHoaInstaller" target="_blank" rel="noopener" class="btn-pixel btn-ghost shrink-0">
-          <i class="fa-brands fa-github"></i> Xem mã nguồn
-        </a>
-      </div>
-    </div>
-
-  </div>
-</main>
-
-<footer class="border-t border-[var(--border)] py-14 px-6" style="background:var(--bg-2)">
-  <div class="max-w-7xl mx-auto">
-    <div class="grid md:grid-cols-3 gap-8 mb-10">
-      <div class="md:col-span-2">
-        <div class="flex items-center gap-3 mb-4">
-          <img src="assets/logo.png" alt="Dịch 2000s" class="nav-logo">
-          <div>
-            <div class="font-pixel text-2xl">DỊCH 2000s</div>
-            <div class="text-xs text-[var(--muted)] tracking-widest uppercase">Dịch Những Năm 2000</div>
-          </div>
-        </div>
-        <p class="text-[var(--muted)] max-w-md leading-relaxed">
-          Từng từ ngữ, từng câu chữ, cho từng game thủ Việt.
-        </p>
-        <div class="flex items-center gap-3 mt-5">
-          <a href="https://www.facebook.com/Dich2000s" class="w-10 h-10 border border-[var(--border)] flex items-center justify-center hover:border-[var(--cam)] hover:text-[var(--cam)] transition"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="https://discord.gg/mxsAU6BDye" class="w-10 h-10 border border-[var(--border)] flex items-center justify-center hover:border-[var(--cam)] hover:text-[var(--cam)] transition"><i class="fa-brands fa-discord"></i></a>
-          <a href="https://github.com/Ryo147/PatchVietHoaInstaller" target="_blank" rel="noopener" class="w-10 h-10 border border-[var(--border)] flex items-center justify-center hover:border-[var(--cam)] hover:text-[var(--cam)] transition"><i class="fa-brands fa-github"></i></a>
-        </div>
-      </div>
-
-      <div>
-        <div class="font-display text-lg mb-4 text-[var(--cam)]">Khám phá</div>
-        <ul class="space-y-2 text-[var(--muted)]">
-          <li><a href="index.html#about" class="hover:text-[var(--fg)] transition no-underline">Giới thiệu</a></li>
-          <li><a href="projects.html" class="hover:text-[var(--fg)] transition no-underline">Dự án</a></li>
-          <li><a href="faq.html" class="hover:text-[var(--fg)] transition no-underline">FAQ</a></li>
-          <li><a href="download.html" class="hover:text-[var(--fg)] transition no-underline">Tải Patch</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="pt-8 border-t border-[var(--border)] flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="font-display text-sm text-[var(--muted)]">
-        © Dịch 2000s · 2026
-      </div>
-      <div class="site-stats">
-        <span class="stat-item"><span class="led led-pulse"></span> <span class="stat-value" data-stat="online">—</span> đang online</span>
-        <span class="stat-item"><i class="fa-solid fa-eye"></i> <span class="stat-value" data-stat="views-global">—</span> lượt xem</span>
-      </div>
-      <div class="font-display text-xs text-[var(--muted)] text-right">
-        Nhóm mình chỉ là nhóm Việt hóa game nhỏ lẻ. Nên website và phần mềm đều là do Claude x GLM-5.2 lập trình.<br>
-        Nếu các bạn không vừa ý, mong các bạn thông cảm và góp ý nhẹ nhàng. Nhóm mình sẽ cố gắng cải thiện hơn trong tương lai.
-      </div>
-    </div>
-  </div>
-</footer>
-
-<div class="toast" id="toast">Đã sao chép!</div>
-
-<script src="js/speed-insights.js"></script>
-<script src="js/main.js"></script>
 </body>
+
 </html>

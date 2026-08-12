@@ -1,193 +1,314 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plague Inc. Evolved Việt Hóa — Dịch 2000s</title>
-<meta name="description" content="Bản Việt hóa Plague Inc. do nhóm Dịch 2000s thực hiện. Đã hoàn thành, tải patch miễn phí.">
-<link rel="icon" href="../assets/favicon.ico">
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=VT323&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="../css/style.css">
-<script defer src="../js/live-stats.js"></script>
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5D3W8D9JH1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-5D3W8D9JH1');
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plague Inc. Evolved Việt Hóa — Dịch 2000s</title>
+    <meta name="description"
+        content="Bản Việt hóa Plague Inc. Evolved do nhóm Dịch 2000s thực hiện. Plague Inc. là một trò chơi chiến lược mô phỏng dịch bệnh đang lan truyền trên toàn thế giới. Với đa dạng chế độ chơi, scenario và chiến thuật.">
+    <link rel="icon" href="../assets/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
 
-<!-- Navigation -->
-<nav class="fixed top-0 left-0 right-0 z-50 nav-blur">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="../index.html" class="flex items-center gap-3 no-underline">
-      <img src="../assets/logo.png" alt="Dịch 2000s" class="nav-logo">
-      <div>
-        <div class="font-pixel text-2xl leading-none text-[var(--fg)]">DỊCH 2000s</div>
-        <div class="text-[10px] text-[var(--muted)] tracking-widest uppercase">NHÓM VIỆT HÓA GAME</div>
-      </div>
-    </a>
-    <div class="hidden md:flex items-center gap-7 font-pixel text-lg">
-      <a href="../index.html#about" class="text-[var(--fg)] hover:text-[var(--cam)] transition no-underline">/about</a>
-      <a href="../projects.html" class="block text-[var(--fg)] hover:text-[var(--cam)] no-underline">/projects</a>
-      <a href="../faq.html" class="block text-[var(--fg)] hover:text-[var(--cam)] no-underline">/faq</a>
-      <a href="../download.html" class="btn-pixel !py-2 !px-4 !text-base">Tải Patch</a>
-    </div>
-    <button class="md:hidden font-pixel text-3xl text-[var(--fg)]" id="menuBtn" aria-label="Mở menu">≡</button>
-  </div>
-  <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 font-pixel text-lg space-y-2">
-    <a href="../index.html#about" class="block text-[var(--fg)] hover:text-[var(--cam)] no-underline">/about</a>
-    <a href="../projects.html" class="block text-[var(--fg)] hover:text-[var(--cam)] no-underline">/projects</a>
-    <a href="../faq.html" class="block text-[var(--fg)] hover:text-[var(--cam)] no-underline">/faq</a>
-    <a href="../download.html" class="block text-[var(--cam)] no-underline">/tai-patch</a>
-  </div>
-</nav>
-
-<main class="pt-32 pb-24 px-6" data-project-page="plague-inc">
-  <div class="max-w-5xl mx-auto">
-
-    <div class="flex items-center justify-between flex-wrap gap-3">
-      <a href="../projects.html" class="font-pixel text-[var(--muted)] hover:text-[var(--cam)] no-underline">← Quay lại danh sách dự án</a>
-      <span class="card-view-count font-pixel text-base" title="Lượt xem trang này"><i class="fa-solid fa-eye"></i> <span data-stat-project="plague-inc">—</span> lượt xem</span>
-    </div>
-
-    <div class="project-hero mt-6" style="background-image:url('../assets/PlagueInc.png')">
-      <div class="relative z-10 h-full flex flex-col justify-end p-8">
-        <span class="badge badge-done w-fit mb-3">Hoàn thành</span>
-        <h1 class="font-display text-5xl md:text-7xl text-[var(--fg)]">Plague Inc. Evolved</h1>
-        <p class="font-pixel text-[var(--muted)] text-xl mt-1">Strategy / Simulation</p>
-      </div>
-    </div>
-
-    <div class="grid lg:grid-cols-3 gap-10 mt-12">
-      <!-- Nội dung chính -->
-      <div class="lg:col-span-2 space-y-8">
-        <div>
-          <div class="section-label mb-4">GIỚI THIỆU</div>
-          <p class="text-[var(--muted)] leading-relaxed text-lg">
-            Plague Inc. là tựa game mô phỏng chiến lược nơi người chơi điều khiển
-            một mầm bệnh lây lan khắp thế giới. Người chơi phải phát triển và
-            tiến hóa mầm bệnh để lây nhiễm và tiêu diệt toàn bộ dân số trước khi
-            thế giới tìm ra cách chữa trị. Bản Việt hóa giúp người chơi Việt Nam
-            trải nghiệm game một cách trọn vẹn hơn, với giao diện và nội dung được dịch sang tiếng Việt.
-          </p>
+<body class="bg-background text-foreground">
+    <nav class="fixed top-0 inset-x-0 z-50 nav-blur">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="h-16 flex items-center justify-between gap-4">
+                <a href="../index.html" class="flex items-center gap-2.5 shrink-0"><img src="../assets/logo-mark.png"
+                        alt="Dịch 2000s" class="w-8 h-8 object-contain">
+                    <div class="hidden sm:block leading-none">
+                        <div class="font-display text-base font-bold tracking-tight">DỊCH 2000s</div>
+                        <div class="text-[10px] text-muted-foreground tracking-[0.18em] uppercase mt-0.5">Nhóm Việt Hóa
+                            Game</div>
+                    </div>
+                </a>
+                <nav class="hidden md:flex items-center gap-1"><a href="../index.html#about"
+                        class="px-4 py-2 rounded-full text-sm font-medium transition-colors hover:bg-secondary text-muted-foreground hover:text-foreground">Giới
+                        thiệu</a>
+                    <a href="../projects.html"
+                        class="px-4 py-2 rounded-full text-sm font-medium transition-colors hover:bg-secondary text-primary">Dự
+                        án</a>
+                    <a href="../faq.html"
+                        class="px-4 py-2 rounded-full text-sm font-medium transition-colors hover:bg-secondary text-muted-foreground hover:text-foreground">FAQ</a>
+                    <a href="../download.html"
+                        class="px-4 py-2 rounded-full text-sm font-medium transition-colors hover:bg-secondary text-muted-foreground hover:text-foreground">Tải
+                        Patch</a>
+                </nav>
+                <button class="md:hidden p-2 -mr-2 text-foreground" id="menuBtn" aria-label="Mở menu"><i
+                        class="fa-solid fa-bars text-xl"></i></button>
+            </div>
         </div>
-
-        <div>
-          <div class="section-label mb-4">NHỮNG GÌ ĐÃ VIỆT HÓA</div>
-          <ul class="space-y-3 text-[var(--muted)] text-lg">
-            <li class="flex gap-3"><i class="fa-solid fa-check text-[var(--xanh-la)] mt-1"></i> Toàn bộ giao diện chính, menu</li>
-            <li class="flex gap-3"><i class="fa-solid fa-check text-[var(--xanh-la)] mt-1"></i> Tên các chủng bệnh (vi khuẩn, virus, nấm, ký sinh trùng...)</li>
-            <li class="flex gap-3"><i class="fa-solid fa-check text-[var(--xanh-la)] mt-1"></i> Các đặc điểm lây nhiễm, triệu chứng, khả năng,...</li>
-            <li class="flex gap-3"><i class="fa-solid fa-check text-[var(--xanh-la)] mt-1"></i> Toàn bộ sự kiện tin tức và cảnh báo trong game</li>
-            <li class="flex gap-3"><i class="fa-solid fa-check text-[var(--xanh-la)] mt-1"></i> Toàn bộ DLC và Scenario có trong game</li>
-          </ul>
+        <div id="mobileMenu" class="hidden md:hidden mobile-menu px-6 pb-8 pt-4 border-t border-border">
+            <div class="flex flex-col gap-2"><a href="../index.html#about"
+                    class="px-5 py-4 rounded-xl text-2xl font-display font-semibold transition-colors text-foreground hover:bg-secondary">Giới
+                    thiệu</a><a href="../projects.html"
+                    class="px-5 py-4 rounded-xl text-2xl font-display font-semibold transition-colors text-primary bg-primary/8">Dự
+                    án</a><a href="../faq.html"
+                    class="px-5 py-4 rounded-xl text-2xl font-display font-semibold transition-colors text-foreground hover:bg-secondary">FAQ</a><a
+                    href="../download.html"
+                    class="px-5 py-4 rounded-xl text-2xl font-display font-semibold transition-colors text-foreground hover:bg-secondary">Tải
+                    Patch</a></div>
         </div>
+    </nav>
+    <main class="flex-1 pt-24 sm:pt-28 pb-20 sm:pb-28 px-4 sm:px-6" data-project-page="plague-inc">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex items-center justify-between flex-wrap gap-3 mb-6">
+                <a href="../projects.html"
+                    class="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"><i
+                        class="fa-solid fa-arrow-left text-xs"></i> Quay lại danh sách dự án</a>
+                <span class="inline-flex items-center gap-1.5 text-xs font-mono text-muted-foreground"
+                    title="Lượt xem trang này"><i class="fa-solid fa-eye text-xs"></i> <span
+                        data-stat-project="plague-inc">&mdash;</span> <span class="opacity-60">lượt xem</span></span>
+            </div>
+            <div class="reveal project-hero">
+                <img src="../assets/PlagueInc.png" alt="Plague Inc. Evolved">
+                <div class="project-hero-overlay"></div>
+                <div class="absolute top-5 left-5 z-10"><span class="status-badge status-done">Hoàn thành</span></div>
+                <div
+                    class="absolute top-5 right-5 sm:top-7 sm:right-7 z-10 bg-black/40 backdrop-blur-md rounded-2xl p-3 sm:p-4 border border-white/10">
+                    <div class="progress-ring-wrap relative" data-percent="100" data-status="done" data-size="104"
+                        data-stroke="7">
+                        <div class="relative inline-flex items-center justify-center" style="width:104px;height:104px">
+                            <svg class="progress-ring-svg" width="104" height="104" viewBox="0 0 104 104">
+                                <circle class="progress-ring-track" cx="52" cy="52" r="48.5" stroke-width="7" />
+                                <circle class="progress-ring-fill" cx="52" cy="52" r="48.5" stroke-width="7"
+                                    stroke-dasharray="304.73" stroke-dashoffset="304.73" />
+                            </svg><span class="progress-ring-value"
+                                style="font-size:29px;color:var(--foreground)">0<span
+                                    style="font-size:16px;color:var(--muted-foreground);margin-left:2px">%</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-10 z-10">
+                    <h1
+                        class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.05]">
+                        Plague Inc. Evolved</h1>
+                    <p class="font-mono text-sm sm:text-base text-white/70 mt-2">Strategy / Simulation</p>
+                    <div class="mt-5 max-w-md">
+                        <div class="progress-linear" data-percent="100" data-status="done">
+                            <div class="progress-linear-track" style="height:5px">
+                                <div class="progress-linear-fill" style="width:0%;height:100%"></div>
+                            </div><span class="progress-linear-value">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid lg:grid-cols-3 gap-8 lg:gap-10 mt-10 sm:mt-12">
+                <div class="lg:col-span-2 space-y-10">
+                    <section class="reveal">
+                        <div class="section-label mb-4">Giới thiệu</div>
+                        <p class="text-foreground/90 leading-relaxed text-base sm:text-lg">Plague Inc. là tựa game mô
+                            phỏng chiến lược nơi người chơi điều khiển một mầm bệnh lây lan khắp thế giới. Người chơi
+                            phải phát triển và tiến hóa mầm bệnh để lây nhiễm và tiêu diệt toàn bộ dân số trước khi thế
+                            giới tìm ra cách chữa trị. Bản Việt hóa giúp người chơi Việt Nam trải nghiệm game một cách
+                            trọn vẹn hơn, với giao diện và nội dung được dịch sang tiếng Việt.</p>
+                    </section>
 
-        <div>
-          <div class="section-label mb-4">HÌNH ẢNH</div>
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-4" data-gallery="plague-inc">
-            <div class="gallery-thumb" data-full="assets/screenshot_plagueinc/screenshot1.jpg" style="background-image:url('../assets/screenshot_plagueinc/screenshot1.jpg')"></div>
-            <div class="gallery-thumb" data-full="assets/screenshot_plagueinc/screenshot2.jpg" style="background-image:url('../assets/screenshot_plagueinc/screenshot2.jpg')"></div>
-            <div class="gallery-thumb" data-full="assets/screenshot_plagueinc/screenshot3.jpg" style="background-image:url('../assets/screenshot_plagueinc/screenshot3.jpg')"></div>
-          </div>
+                    <section class="reveal">
+                        <div class="section-label mb-6">Đã Việt hóa</div>
+                        <div
+                            class="bg-card border border-border rounded-2xl p-6 sm:p-8 grid sm:grid-cols-[auto_1fr] gap-6 sm:gap-10 items-center">
+                            <div class="flex flex-col items-center gap-2 mx-auto sm:mx-0">
+                                <div class="progress-ring-wrap relative" data-percent="100" data-status="done"
+                                    data-size="140" data-stroke="9">
+                                    <div class="relative inline-flex items-center justify-center"
+                                        style="width:140px;height:140px"><svg class="progress-ring-svg" width="140"
+                                            height="140" viewBox="0 0 140 140">
+                                            <circle class="progress-ring-track" cx="70" cy="70" r="65.5"
+                                                stroke-width="9" />
+                                            <circle class="progress-ring-fill" cx="70" cy="70" r="65.5" stroke-width="9"
+                                                stroke-dasharray="411.55" stroke-dashoffset="411.55" />
+                                        </svg><span class="progress-ring-value"
+                                            style="font-size:39px;color:var(--foreground)">0<span
+                                                style="font-size:22px;color:var(--muted-foreground);margin-left:2px">%</span></span>
+                                    </div>
+                                </div><span class="text-xs font-medium uppercase tracking-wider"
+                                    style="color:var(--status-done)">Hoàn thành</span>
+                            </div>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-3"><span
+                                        class="shrink-0 mt-0.5 w-6 h-6 rounded-full inline-flex items-center justify-center border border-status-done/30 bg-status-done/10 text-sm">&#10003;</span>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-baseline justify-between gap-3"><span
+                                                class="text-sm sm:text-base leading-relaxed text-foreground">Toàn bộ
+                                                giao diện chính, menu</span><span
+                                                class="text-[10px] font-mono uppercase tracking-wider shrink-0 text-status-done">Xong</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3"><span
+                                        class="shrink-0 mt-0.5 w-6 h-6 rounded-full inline-flex items-center justify-center border border-status-done/30 bg-status-done/10 text-sm">&#10003;</span>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-baseline justify-between gap-3"><span
+                                                class="text-sm sm:text-base leading-relaxed text-foreground">Tên các
+                                                chủng bệnh (vi khuẩn, virus, nấm, ký sinh trùng...)</span><span
+                                                class="text-[10px] font-mono uppercase tracking-wider shrink-0 text-status-done">Xong</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3"><span
+                                        class="shrink-0 mt-0.5 w-6 h-6 rounded-full inline-flex items-center justify-center border border-status-done/30 bg-status-done/10 text-sm">&#10003;</span>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-baseline justify-between gap-3"><span
+                                                class="text-sm sm:text-base leading-relaxed text-foreground">Các đặc
+                                                điểm lây nhiễm, triệu chứng, khả năng,...</span><span
+                                                class="text-[10px] font-mono uppercase tracking-wider shrink-0 text-status-done">Xong</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3"><span
+                                        class="shrink-0 mt-0.5 w-6 h-6 rounded-full inline-flex items-center justify-center border border-status-done/30 bg-status-done/10 text-sm">&#10003;</span>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-baseline justify-between gap-3"><span
+                                                class="text-sm sm:text-base leading-relaxed text-foreground">Toàn bộ sự
+                                                kiện tin tức và cảnh báo trong game</span><span
+                                                class="text-[10px] font-mono uppercase tracking-wider shrink-0 text-status-done">Xong</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3"><span
+                                        class="shrink-0 mt-0.5 w-6 h-6 rounded-full inline-flex items-center justify-center border border-status-done/30 bg-status-done/10 text-sm">&#10003;</span>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-baseline justify-between gap-3"><span
+                                                class="text-sm sm:text-base leading-relaxed text-foreground">Toàn bộ DLC
+                                                và Scenario có trong game</span><span
+                                                class="text-[10px] font-mono uppercase tracking-wider shrink-0 text-status-done">Xong</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section class="reveal">
+                        <div class="section-label mb-4">Hình ảnh</div>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4" data-gallery><button
+                                class="gallery-thumb" data-full="../assets/screenshot_plagueinc/screenshot1.jpg"
+                                style="background-image:url('../assets/screenshot_plagueinc/screenshot1.jpg')"></button>
+                            <button class="gallery-thumb" data-full="../assets/screenshot_plagueinc/screenshot2.jpg"
+                                style="background-image:url('../assets/screenshot_plagueinc/screenshot2.jpg')"></button>
+                            <button class="gallery-thumb" data-full="../assets/screenshot_plagueinc/screenshot3.jpg"
+                                style="background-image:url('../assets/screenshot_plagueinc/screenshot3.jpg')"></button>
+                        </div>
+                    </section>
+                </div>
+                <aside class="space-y-6">
+                    <div class="reveal bg-card border border-border rounded-2xl p-6 sticky top-24">
+                        <h2 class="font-display text-xl font-semibold mb-4">Thông tin</h2>
+                        <dl>
+                            <div class="spec-row">
+                                <dt>Trạng thái</dt>
+                                <dd>Hoàn thành</dd>
+                            </div>
+                            <div class="spec-row">
+                                <dt>Thể loại</dt>
+                                <dd>Strategy</dd>
+                            </div>
+                            <div class="spec-row">
+                                <dt>Phiên bản áp dụng</dt>
+                                <dd>v1.24.0.2</dd>
+                            </div>
+                            <div class="spec-row">
+                                <dt>Dịch giả</dt>
+                                <dd>Nhand, Nhựa Inox, megabomb</dd>
+                            </div>
+                        </dl><a href="../download.html"
+                            class="mt-6 w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-colors bg-primary text-primary-foreground hover:opacity-90">Tải
+                            Patch Việt Hóa</a>
+                    </div>
+                    <div
+                        class="reveal flex items-start gap-3 p-4 rounded-xl border border-status-plan/30 bg-status-plan/5 text-sm leading-relaxed">
+                        <i class="fa-solid fa-check text-status-plan shrink-0 mt-0.5"></i>
+                        <p class="text-foreground/80">Patch được cài đặt qua công cụ Patch Việt Hóa Installer của nhóm.
+                            Xem hướng dẫn ở trang Tải Patch.</p>
+                    </div>
+                </aside>
+            </div>
         </div>
-      </div>
-
-      <!-- Sidebar thông tin -->
-      <aside class="space-y-6">
-        <div class="download-card">
-          <div class="font-display text-2xl mb-4">Thông tin</div>
-          <div class="spec-row">
-            <span class="text-[var(--muted)]">Trạng thái</span>
-            <span class="text-[var(--xanh-la)] font-display">Hoàn thành</span>
-          </div>
-          <div class="spec-row">
-            <span class="text-[var(--muted)]">Thể loại</span>
-            <span class="font-display">Strategy</span>
-          </div>
-          <div class="spec-row">
-            <span class="text-[var(--muted)]">Phiên bản áp dụng</span>
-            <span class="font-display">v1.24.0.2</span>
-          </div>
-          <div class="spec-row">
-            <span class="text-[var(--muted)]">Dịch giả</span>
-            <span class="font-display">Nhand, Nhựa Inox, megabomb</span>
-          </div>
-          <a href="../download.html" class="btn-pixel w-full text-center mt-6">Tải Patch Việt Hóa →</a>
+    </main>
+    <footer class="border-t border-border bg-card/40 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+            <div class="grid gap-10 md:grid-cols-3">
+                <div class="md:col-span-2">
+                    <a href="../index.html" class="flex items-center gap-3 mb-4"><img src="../assets/logo-mark.png"
+                            alt="Dịch 2000s" class="w-9 h-9 object-contain">
+                        <div class="leading-none text-left">
+                            <div class="font-display text-lg font-bold">DỊCH 2000s</div>
+                            <div class="text-[10px] text-muted-foreground tracking-[0.18em] uppercase mt-0.5">Dịch Những
+                                Năm 2000</div>
+                        </div>
+                    </a>
+                    <p class="text-muted-foreground max-w-md leading-relaxed text-sm">Từng từ ngữ, từng câu chữ, cho
+                        từng game thủ Việt.</p>
+                    <div class="flex items-center gap-2 mt-5">
+                        <a href="https://www.facebook.com/Dich2000s" target="_blank" rel="noopener noreferrer"
+                            aria-label="Facebook"
+                            class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://discord.gg/mxsAU6BDye" target="_blank" rel="noopener noreferrer"
+                            aria-label="Discord"
+                            class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"><i
+                                class="fa-brands fa-discord"></i></a>
+                        <a href="https://github.com/Ryo147/PatchVietHoaInstaller" target="_blank"
+                            rel="noopener noreferrer" aria-label="GitHub"
+                            class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"><i
+                                class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-display text-sm font-semibold text-primary mb-4">Khám phá</div>
+                    <ul class="space-y-2.5">
+                        <li><a href="../index.html#about"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">Giới
+                                thiệu</a></li>
+                        <li><a href="../projects.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">Dự án</a>
+                        </li>
+                        <li><a href="../faq.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">FAQ</a>
+                        </li>
+                        <li><a href="../download.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">Tải
+                                Patch</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                class="pt-8 mt-10 border-t border-border flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="text-xs text-muted-foreground">&copy; Dịch 2000s &middot; 2026 &middot; Dự án phi lợi nhuận,
+                    không thu phí.</div>
+                <div class="flex items-center gap-5 text-xs font-mono">
+                    <span class="inline-flex items-center gap-1.5 text-muted-foreground"><span
+                            class="relative flex h-2 w-2"><span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                                style="background:var(--status-done)"></span><span
+                                class="relative inline-flex rounded-full h-2 w-2"
+                                style="background:var(--status-done)"></span></span><i
+                            class="fa-solid fa-users text-xs"></i><span data-stat="online">&mdash;</span><span
+                            class="opacity-60">đang online</span></span>
+                    <span class="inline-flex items-center gap-1.5 text-muted-foreground"><i
+                            class="fa-solid fa-eye text-xs"></i><span data-stat="views-global">&mdash;</span><span
+                            class="opacity-60">lượt xem</span></span>
+                </div>
+                <div class="text-xs text-muted-foreground md:text-right max-w-md leading-relaxed">Nhóm mình chỉ là nhóm
+                    Việt hóa game nhỏ lẻ. Nên website và phần mềm đều là do Claude x GLM-5.2 lập trình. Nếu các bạn
+                    không vừa ý, mong các bạn thông cảm và góp ý nhẹ nhàng. Nhóm mình sẽ cố gắng cải thiện hơn trong
+                    tương lai.</div>
+            </div>
         </div>
+    </footer>
+    <div class="toast" id="toast">Đã sao chép!</div>
+    <script src="../js/live-stats.js"></script>
+    <script src="../js/main.js"></script>
 
-        <div class="notice-box text-sm leading-relaxed">
-          <i class="fa-solid fa-circle-info"></i>
-          Patch được cài đặt qua công cụ Patch Việt Hóa Installer của nhóm.
-          Xem hướng dẫn ở trang Tải Patch.
-        </div>
-      </aside>
-    </div>
-  </div>
-</main>
-
-<footer class="border-t border-[var(--border)] py-14 px-6" style="background:var(--bg-2)">
-  <div class="max-w-7xl mx-auto">
-    <div class="grid md:grid-cols-3 gap-8 mb-10">
-      <div class="md:col-span-2">
-        <div class="flex items-center gap-3 mb-4">
-          <img src="../assets/logo.png" alt="Dịch 2000s" class="nav-logo">
-          <div>
-            <div class="font-pixel text-2xl">DỊCH 2000s</div>
-            <div class="text-xs text-[var(--muted)] tracking-widest uppercase">Dịch Những Năm 2000</div>
-          </div>
-        </div>
-        <p class="text-[var(--muted)] max-w-md leading-relaxed">
-          Từng từ ngữ, từng câu chữ, cho từng game thủ Việt.
-        </p>
-        <div class="flex items-center gap-3 mt-5">
-          <a href="https://www.facebook.com/Dich2000s" class="w-10 h-10 border border-[var(--border)] flex items-center justify-center hover:border-[var(--cam)] hover:text-[var(--cam)] transition"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="https://discord.gg/mxsAU6BDye" class="w-10 h-10 border border-[var(--border)] flex items-center justify-center hover:border-[var(--cam)] hover:text-[var(--cam)] transition"><i class="fa-brands fa-discord"></i></a>
-          <a href="https://github.com/Ryo147/PatchVietHoaInstaller" target="_blank" rel="noopener" class="w-10 h-10 border border-[var(--border)] flex items-center justify-center hover:border-[var(--cam)] hover:text-[var(--cam)] transition"><i class="fa-brands fa-github"></i></a>
-        </div>
-      </div>
-
-      <div>
-        <div class="font-display text-lg mb-4 text-[var(--cam)]">Khám phá</div>
-        <ul class="space-y-2 text-[var(--muted)]">
-          <li><a href="../index.html#about" class="hover:text-[var(--fg)] transition no-underline">Giới thiệu</a></li>
-          <li><a href="../projects.html" class="hover:text-[var(--fg)] transition no-underline">Dự án</a></li>
-          <li><a href="../faq.html" class="hover:text-[var(--fg)] transition no-underline">FAQ</a></li>
-          <li><a href="../download.html" class="hover:text-[var(--fg)] transition no-underline">Tải Patch</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="pt-8 border-t border-[var(--border)] flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="font-display text-sm text-[var(--muted)]">
-        © Dịch 2000s · 2026
-      </div>
-      <div class="site-stats">
-        <span class="stat-item"><span class="led led-pulse"></span> <span class="stat-value" data-stat="online">—</span> đang online</span>
-        <span class="stat-item"><i class="fa-solid fa-eye"></i> <span class="stat-value" data-stat="views-global">—</span> lượt xem</span>
-      </div>
-      <div class="font-display text-xs text-[var(--muted)] text-right">
-        Nhóm mình chỉ là nhóm Việt hóa game nhỏ lẻ. Nên website và phần mềm đều là do Claude x GLM-5.2 lập trình.<br>
-        Nếu các bạn không vừa ý, mong các bạn thông cảm và góp ý nhẹ nhàng. Nhóm mình sẽ cố gắng cải thiện hơn trong tương lai.
-      </div>
-    </div>
-  </div>
-</footer>
-
-<div class="toast" id="toast">Đã sao chép!</div>
-
-<script src="../js/speed-insights.js"></script>
-<script src="../js/main.js"></script>
 </body>
+
 </html>

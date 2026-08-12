@@ -1,143 +1,168 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FAQ - Câu hỏi thường gặp | Dịch 2000s</title>
-<meta name="description" content="Tổng hợp câu hỏi thường gặp khi cài đặt và chơi bản Việt hóa của Dịch 2000s.">
-<link rel="icon" href="assets/favicon.ico">
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=VT323&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="css/style.css">
-<script defer src="js/live-stats.js"></script>
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5D3W8D9JH1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-5D3W8D9JH1');
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ — Câu hỏi thường gặp — Dịch 2000s</title>
+    <meta name="description" content="Tổng hợp câu hỏi thường gặp khi cài đặt và chơi bản Việt hóa của Dịch 2000s.">
+    <link rel="icon" href="assets/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
 
-<!-- Navigation -->
-<nav class="fixed top-0 left-0 right-0 z-50 nav-blur">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="index.html" class="flex items-center gap-3 no-underline">
-      <img src="assets/logo.png" alt="Dịch 2000s" class="nav-logo">
-      <div>
-        <div class="font-pixel text-2xl leading-none text-[var(--fg)]">DỊCH 2000s</div>
-        <div class="text-[10px] text-[var(--muted)] tracking-widest uppercase">NHÓM VIỆT HÓA GAME</div>
-      </div>
-    </a>
-    <div class="hidden md:flex items-center gap-7 font-pixel text-lg">
-      <a href="index.html#about" class="text-[var(--fg)] hover:text-[var(--cam)] transition no-underline">/about</a>
-      <a href="projects.html" class="text-[var(--fg)] hover:text-[var(--cam)] transition no-underline">/projects</a>
-      <a href="faq.html" class="text-[var(--cam)] transition no-underline">/faq</a>
-      <a href="download.html" class="btn-pixel !py-2 !px-4 !text-base">Tải Patch</a>
-    </div>
-    <button class="md:hidden font-pixel text-3xl text-[var(--fg)]" id="menuBtn" aria-label="Mở menu">≡</button>
-  </div>
-  <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 font-pixel text-lg space-y-2">
-    <a href="index.html#about" class="block text-[var(--fg)] hover:text-[var(--cam)] no-underline">/about</a>
-    <a href="projects.html" class="block text-[var(--fg)] hover:text-[var(--cam)] no-underline">/projects</a>
-    <a href="faq.html" class="block text-[var(--cam)] no-underline">/faq</a>
-    <a href="download.html" class="block text-[var(--cam)] no-underline">/tai-patch</a>
-  </div>
-</nav>
-
-<main class="pt-32 pb-24 px-6">
-  <div class="max-w-4xl mx-auto">
-
-    <div class="section-label mb-4">// HỖ TRỢ</div>
-    <h1 class="font-display text-4xl md:text-6xl leading-tight mb-3">
-      Câu hỏi <span style="color:var(--cam)">thường gặp</span>
-    </h1>
-    <p class="text-[var(--muted)] text-lg max-w-2xl leading-relaxed mb-10">
-      Tổng hợp lỗi và thắc mắc hay gặp khi cài đặt và chơi bản Việt hóa.
-    </p>
-
-    <div class="relative mb-6">
-      <i class="fa-solid fa-magnifying-glass" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted)"></i>
-      <input id="faqSearch" class="faq-search" type="text" placeholder="Tìm câu hỏi... (vd: antivirus, path sai, font lỗi)">
-    </div>
-
-    <div class="flex flex-wrap gap-2 mb-10" id="faqChips">
-      <button class="chip-filter active" data-cat="all">Tất cả</button>
-      <button class="chip-filter" data-cat="install">Lỗi cài đặt</button>
-      <button class="chip-filter" data-cat="game">Lỗi trong game</button>
-      <button class="chip-filter" data-cat="general">Câu hỏi chung</button>
-    </div>
-
-    <div id="faqResults"></div>
-    <div class="faq-empty" id="faqEmpty" style="display:none">// KHÔNG TÌM THẤY KẾT QUẢ PHÙ HỢP</div>
-
-    <div class="download-card mt-12 text-center">
-      <div class="section-label mb-3" style="justify-content:center">// VẪN CHƯA TÌM THẤY CÂU TRẢ LỜI?</div>
-      <p class="font-display text-xl mb-6">Liên hệ trực tiếp trên Discord, tụi mình sẽ hỗ trợ bạn.</p>
-      <a href="https://discord.gg/mxsAU6BDye" target="_blank" rel="noopener" class="btn-pixel">Vào Discord →</a>
-    </div>
-
-  </div>
-</main>
-
-<footer class="border-t border-[var(--border)] py-14 px-6" style="background:var(--bg-2)">
-  <div class="max-w-7xl mx-auto">
-    <div class="grid md:grid-cols-3 gap-8 mb-10">
-      <div class="md:col-span-2">
-        <div class="flex items-center gap-3 mb-4">
-          <img src="assets/logo.png" alt="Dịch 2000s" class="nav-logo">
-          <div>
-            <div class="font-pixel text-2xl">DỊCH 2000s</div>
-            <div class="text-xs text-[var(--muted)] tracking-widest uppercase">Dịch Những Năm 2000</div>
-          </div>
+<body class="bg-background text-foreground">
+    <nav class="fixed top-0 inset-x-0 z-50 nav-blur">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="h-16 flex items-center justify-between gap-4">
+                <a href="index.html" class="flex items-center gap-2.5 shrink-0"><img src="assets/logo-mark.png"
+                        alt="Dịch 2000s" class="w-8 h-8 object-contain">
+                    <div class="hidden sm:block leading-none">
+                        <div class="font-display text-base font-bold tracking-tight">DỊCH 2000s</div>
+                        <div class="text-[10px] text-muted-foreground tracking-[0.18em] uppercase mt-0.5">Nhóm Việt Hóa Game</div>
+                    </div>
+                </a>
+                <nav class="hidden md:flex items-center gap-1"><a href="index.html#about"
+                        class="px-4 py-2 rounded-full text-sm font-medium transition-colors hover:bg-secondary text-muted-foreground hover:text-foreground">Giới thiệu</a>
+                    <a href="projects.html"
+                        class="px-4 py-2 rounded-full text-sm font-medium transition-colors hover:bg-secondary text-muted-foreground hover:text-foreground">Dự án</a>
+                    <a href="faq.html"
+                        class="px-4 py-2 rounded-full text-sm font-medium transition-colors hover:bg-secondary text-primary">FAQ</a>
+                    <a href="download.html"
+                        class="px-4 py-2 rounded-full text-sm font-medium transition-colors hover:bg-secondary text-muted-foreground hover:text-foreground">Tải Patch</a>
+                </nav>
+                <button class="md:hidden p-2 -mr-2 text-foreground" id="menuBtn" aria-label="Mở menu"><i
+                        class="fa-solid fa-bars text-xl"></i></button>
+            </div>
         </div>
-        <p class="text-[var(--muted)] max-w-md leading-relaxed">
-          Từng từ ngữ, từng câu chữ, cho từng game thủ Việt.
-        </p>
-        <div class="flex items-center gap-3 mt-5">
-          <a href="https://www.facebook.com/Dich2000s" class="w-10 h-10 border border-[var(--border)] flex items-center justify-center hover:border-[var(--cam)] hover:text-[var(--cam)] transition"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="https://discord.gg/mxsAU6BDye" class="w-10 h-10 border border-[var(--border)] flex items-center justify-center hover:border-[var(--cam)] hover:text-[var(--cam)] transition"><i class="fa-brands fa-discord"></i></a>
-          <a href="https://github.com/Ryo147/PatchVietHoaInstaller" target="_blank" rel="noopener" class="w-10 h-10 border border-[var(--border)] flex items-center justify-center hover:border-[var(--cam)] hover:text-[var(--cam)] transition"><i class="fa-brands fa-github"></i></a>
+        <div id="mobileMenu" class="hidden md:hidden mobile-menu px-6 pb-8 pt-4 border-t border-border">
+            <div class="flex flex-col gap-2"><a href="index.html#about"
+                    class="px-5 py-4 rounded-xl text-2xl font-display font-semibold transition-colors text-foreground hover:bg-secondary">Giới
+                    thiệu</a><a href="projects.html"
+                    class="px-5 py-4 rounded-xl text-2xl font-display font-semibold transition-colors text-foreground hover:bg-secondary">Dự
+                    án</a><a href="faq.html"
+                    class="px-5 py-4 rounded-xl text-2xl font-display font-semibold transition-colors text-primary bg-primary/8">FAQ</a><a
+                    href="download.html"
+                    class="px-5 py-4 rounded-xl text-2xl font-display font-semibold transition-colors text-foreground hover:bg-secondary">Tải
+                    Patch</a></div>
         </div>
-      </div>
-
-      <div>
-        <div class="font-display text-lg mb-4 text-[var(--cam)]">Khám phá</div>
-        <ul class="space-y-2 text-[var(--muted)]">
-          <li><a href="index.html#about" class="hover:text-[var(--fg)] transition no-underline">Giới thiệu</a></li>
-          <li><a href="projects.html" class="hover:text-[var(--fg)] transition no-underline">Dự án</a></li>
-          <li><a href="faq.html" class="hover:text-[var(--fg)] transition no-underline">FAQ</a></li>
-          <li><a href="download.html" class="hover:text-[var(--fg)] transition no-underline">Tải Patch</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="pt-8 border-t border-[var(--border)] flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="font-display text-sm text-[var(--muted)]">
-        © Dịch 2000s · 2026
-      </div>
-      <div class="site-stats">
-        <span class="stat-item"><span class="led led-pulse"></span> <span class="stat-value" data-stat="online">—</span> đang online</span>
-        <span class="stat-item"><i class="fa-solid fa-eye"></i> <span class="stat-value" data-stat="views-global">—</span> lượt xem</span>
-      </div>
-      <div class="font-display text-xs text-[var(--muted)] text-right">
-        Nhóm mình chỉ là nhóm Việt hóa game nhỏ lẻ. Nên website và phần mềm đều là do Claude x GLM-5.2 lập trình.<br>
-        Nếu các bạn không vừa ý, mong các bạn thông cảm và góp ý nhẹ nhàng. Nhóm mình sẽ cố gắng cải thiện hơn trong tương lai.
-      </div>
-    </div>
-  </div>
-</footer>
-
-<div class="toast" id="toast">Đã sao chép!</div>
-
-<script src="js/speed-insights.js"></script>
-<script src="js/faq.js"></script>
+    </nav>
+    <main class="flex-1 pt-28 sm:pt-32 pb-20 sm:pb-28 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="reveal">
+                <div class="section-label mb-4">Hỗ trợ</div>
+                <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight">Câu hỏi
+                    <span class="text-primary">thường gặp</span></h1>
+                <p class="text-muted-foreground text-base sm:text-lg max-w-2xl leading-relaxed mt-5">Tổng hợp lỗi và
+                    thắc mắc hay gặp khi cài đặt và chơi bản Việt hóa.</p>
+            </div>
+            <div class="reveal mt-8" style="transition-delay:120ms">
+                <div class="relative"><i
+                        class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"></i><input
+                        id="faqSearch" class="faq-search" type="text"
+                        placeholder="Tìm câu hỏi... (vd: antivirus, path sai, font lỗi)"></div>
+            </div>
+            <div class="reveal mt-5" style="transition-delay:180ms">
+                <div class="flex flex-wrap gap-2" id="faqChips"><button class="chip-filter active" data-cat="all">Tất
+                        cả</button><button class="chip-filter" data-cat="install">Lỗi cài đặt</button><button
+                        class="chip-filter" data-cat="game">Lỗi trong game</button><button class="chip-filter"
+                        data-cat="general">Câu hỏi chung</button></div>
+            </div>
+            <div id="faqResults" class="mt-10 space-y-8"></div>
+            <div id="faqEmpty"
+                style="display:none;text-align:center;padding:50px 0;font-family:'JetBrains Mono',monospace;color:var(--muted-foreground);font-size:14px;letter-spacing:0.05em">
+                // Không tìm thấy kết quả phù hợp</div>
+            <div class="reveal mt-12 bg-card border border-border rounded-2xl p-8 text-center">
+                <div class="section-label mb-3" style="justify-content:center">Vẫn chưa tìm thấy câu trả lời?</div>
+                <p class="font-display text-lg sm:text-xl mb-6">Liên hệ trực tiếp trên Discord, tụi mình sẽ hỗ trợ bạn.
+                </p><a href="https://discord.gg/mxsAU6BDye" target="_blank" rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"><i
+                        class="fa-brands fa-discord"></i> Vào Discord</a>
+            </div>
+        </div>
+    </main>
+    <footer class="border-t border-border bg-card/40 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+            <div class="grid gap-10 md:grid-cols-3">
+                <div class="md:col-span-2">
+                    <a href="index.html" class="flex items-center gap-3 mb-4"><img src="assets/logo-mark.png"
+                            alt="Dịch 2000s" class="w-9 h-9 object-contain">
+                        <div class="leading-none text-left">
+                            <div class="font-display text-lg font-bold">DỊCH 2000s</div>
+                            <div class="text-[10px] text-muted-foreground tracking-[0.18em] uppercase mt-0.5">Dịch Những
+                                Năm 2000</div>
+                        </div>
+                    </a>
+                    <p class="text-muted-foreground max-w-md leading-relaxed text-sm">Từng từ ngữ, từng câu chữ, cho
+                        từng game thủ Việt.</p>
+                    <div class="flex items-center gap-2 mt-5">
+                        <a href="https://www.facebook.com/Dich2000s" target="_blank" rel="noopener noreferrer"
+                            aria-label="Facebook"
+                            class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://discord.gg/mxsAU6BDye" target="_blank" rel="noopener noreferrer"
+                            aria-label="Discord"
+                            class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"><i
+                                class="fa-brands fa-discord"></i></a>
+                        <a href="https://github.com/Ryo147/PatchVietHoaInstaller" target="_blank"
+                            rel="noopener noreferrer" aria-label="GitHub"
+                            class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"><i
+                                class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-display text-sm font-semibold text-primary mb-4">Khám phá</div>
+                    <ul class="space-y-2.5">
+                        <li><a href="index.html#about"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">Giới
+                                thiệu</a></li>
+                        <li><a href="projects.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">Dự án</a>
+                        </li>
+                        <li><a href="faq.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">FAQ</a>
+                        </li>
+                        <li><a href="download.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">Tải
+                                Patch</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                class="pt-8 mt-10 border-t border-border flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="text-xs text-muted-foreground">&copy; Dịch 2000s &middot; 2026 &middot; Dự án phi lợi nhuận,
+                    không thu phí.</div>
+                <div class="flex items-center gap-5 text-xs font-mono">
+                    <span class="inline-flex items-center gap-1.5 text-muted-foreground"><span
+                            class="relative flex h-2 w-2"><span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                                style="background:var(--status-done)"></span><span
+                                class="relative inline-flex rounded-full h-2 w-2"
+                                style="background:var(--status-done)"></span></span><i
+                            class="fa-solid fa-users text-xs"></i><span data-stat="online">&mdash;</span><span
+                            class="opacity-60">đang online</span></span>
+                    <span class="inline-flex items-center gap-1.5 text-muted-foreground"><i
+                            class="fa-solid fa-eye text-xs"></i><span data-stat="views-global">&mdash;</span><span
+                            class="opacity-60">lượt xem</span></span>
+                </div>
+                <div class="text-xs text-muted-foreground md:text-right max-w-md leading-relaxed">Nhóm mình chỉ là nhóm
+                    Việt hóa game nhỏ lẻ. Nên website và phần mềm đều là do Claude x GLM-5.2 lập trình. Nếu các bạn
+                    không vừa ý, mong các bạn thông cảm và góp ý nhẹ nhàng. Nhóm mình sẽ cố gắng cải thiện hơn trong
+                    tương lai.</div>
+            </div>
+        </div>
+    </footer>
+    <div class="toast" id="toast">Đã sao chép!</div>
+    <script src="js/live-stats.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/faq.js"></script>
 </body>
+
 </html>

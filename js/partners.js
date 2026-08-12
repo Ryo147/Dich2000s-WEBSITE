@@ -5,9 +5,9 @@
   // [KHU VỰC TEAM] Danh sách đối tác — sửa/thêm/xoá tại đây.
   // ============================================================
   var PARTNERS = [
-    { name: 'VD - yêu em say em quên lối về', logo: '../assets/partners/vd.jpg', url: 'https://www.facebook.com/profile.php?id=61574231851290' },
-    { name: 'VD - yêu em say em quên lối về', logo: '../assets/partners/vd.jpg', url: 'https://www.facebook.com/profile.php?id=61574231851290' },
-    { name: 'VD - yêu em say em quên lối về', logo: '../assets/partners/vd.jpg', url: 'https://www.facebook.com/profile.php?id=61574231851290' },
+    { name: 'VD - yêu em say em quên lối về', logo: 'assets/partners/vd.jpg', url: 'https://www.facebook.com/profile.php?id=61574231851290' },
+    { name: 'VD - yêu em say em quên lối về', logo: 'assets/partners/vd.jpg', url: 'https://www.facebook.com/profile.php?id=61574231851290' },
+    { name: 'VD - yêu em say em quên lối về', logo: 'assets/partners/vd.jpg', url: 'https://www.facebook.com/profile.php?id=61574231851290' },
   ];
   // ============================================================
 
