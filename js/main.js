@@ -366,9 +366,6 @@
     primaryBtn.href = LINKS[chosen];
     if (primaryLabel) primaryLabel.textContent = LABELS[chosen];
 
-    if (detected && osBadge) {
-    }
-
     document.querySelectorAll('.os-choice-btn').forEach(function (btn) {
       if (btn.getAttribute('data-os') === chosen) btn.classList.add('is-recommended');
     });
