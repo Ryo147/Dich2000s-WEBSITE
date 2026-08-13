@@ -292,6 +292,23 @@ body {
   font-weight: 500;
 }
 
+/* dl reset — Tailwind's preflight strips default dl/dd margins, but
+   the static build uses Tailwind via CDN which may not apply preflight
+   consistently. Force zero margin/padding to avoid stacking. */
+dl, dt, dd {
+  margin: 0;
+  padding: 0;
+}
+
+/* Sidebar on project detail pages.
+   Previously used position: sticky, but that caused the note box below
+   the card to slide UNDER the sticky card when scrolling, creating
+   visible overlap. Removed sticky behavior — the sidebar now flows
+   naturally with the page. */
+.sidebar-sticky {
+  position: relative;
+}
+
 /* ===== Gallery thumbnails ===== */
 .gallery-thumb {
   aspect-ratio: 4 / 3;
