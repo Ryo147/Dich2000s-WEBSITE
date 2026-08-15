@@ -41,6 +41,8 @@
     <script src="js/tailwind-config.js"></script>
     <script src="js/speed-insights.js"></script>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <link rel="stylesheet" href="css/staggered-menu.css">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -78,6 +80,7 @@
 </head>
 
 <body class="bg-background text-foreground">
+    <div id="menu-root">
     <nav class="fixed top-0 inset-x-0 z-50 nav-blur">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="h-16 flex items-center justify-between gap-4">
@@ -99,6 +102,7 @@
             <div class="flex flex-col gap-2"><a href="index.html#about" class="px-5 py-4 rounded-xl text-2xl font-display font-semibold transition-colors text-primary bg-primary/8">Giới thiệu</a><a href="projects.html" class="px-5 py-4 rounded-xl text-2xl font-display font-semibold transition-colors text-foreground hover:bg-secondary">Dự án</a><a href="faq.html" class="px-5 py-4 rounded-xl text-2xl font-display font-semibold transition-colors text-foreground hover:bg-secondary">FAQ</a><a href="download.html" class="px-5 py-4 rounded-xl text-2xl font-display font-semibold transition-colors text-foreground hover:bg-secondary">Tải Patch</a></div>
         </div>
     </nav>
+    </div>
     <main class="flex-1">
         <section class="relative pt-32 sm:pt-40 pb-20 sm:pb-28 overflow-hidden">
             <div class="absolute inset-0 bg-grid-soft" aria-hidden="true"></div>
@@ -222,7 +226,7 @@
                             </div>
                         </div>
                     </article>
-                    <article class="game-card group cursor-pointer" onclick="window.location.href='projects/re2-remake.html'" data-status="wip" data-name="Resident Evil 2 Remake">
+                    <article class="game-card border-glow-card group cursor-pointer" onclick="window.location.href='projects/re2-remake.html'" data-status="wip" data-name="Resident Evil 2 Remake">
                         <div class="relative aspect-[4/3] overflow-hidden img-frame"><img src="assets/RE2R_VH.png" alt="Resident Evil 2 Remake" class="game-card-img w-full h-full object-cover" loading="lazy">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent">
                             </div>
@@ -380,6 +384,32 @@
     <div class="toast" id="toast">Đã sao chép!</div>
     <script src="js/live-stats.js"></script>
     <script src="js/main.js"></script>
+<script type="module">
+  import { initStaggeredMenu } from './js/staggered-menu.js';
+
+  initStaggeredMenu('#menu-root', {
+    position: 'right',
+    isFixed: true,
+    items: [
+      { label: 'Trang chủ', ariaLabel: 'Về trang chủ', link: '/' },
+      { label: 'Dự án', ariaLabel: 'Xem các dự án', link: '/#projects' },
+      { label: 'FAQ', ariaLabel: 'Giải quyết thắc mắc', link: '/#faq' },
+      { label: 'Tải Patch', ariaLabel: 'Tải Patch', link: '/#download' },
+    ],
+    socialItems: [
+      { label: 'Discord', link: 'https://discord.gg/mxsAU6BDye' },
+      { label: 'Facebook', link: 'https://facebook.com/Dich2000s' },
+    ],
+    displaySocials: true,
+    displayItemNumbering: true,
+    menuButtonColor: '#fff',
+    openMenuButtonColor: '#fff',
+    changeMenuColorOnOpen: true,
+    colors: ['#66FCF1', '#C77DFF'],
+    logoUrl: 'assets/FullWidthLogo.png',
+    accentColor: '#C77DFF',
+  });
+</script>
 </body>
 
 </html>
