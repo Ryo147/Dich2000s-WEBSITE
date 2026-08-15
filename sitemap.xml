@@ -1,55 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Trang chủ -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://dich2000s.vercel.app/</loc>
-    <changefreq>daily</changefreq>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://dich2000s.vercel.app/assets/FullWidthLogo.png</image:loc>
+      <image:title>Dịch 2000s — Nhóm Việt Hóa Game</image:title>
+    </image:image>
   </url>
-
-  <!-- Trang tải xuống -->
-  <url>
-    <loc>https://dich2000s.vercel.app/download</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-    <!-- Trang FAQ -->
-  <url>
-    <loc>https://dich2000s.vercel.app/faq</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Trang dự án -->
   <url>
     <loc>https://dich2000s.vercel.app/projects</loc>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://dich2000s.vercel.app/assets/PlagueInc.png</image:loc></image:image>
+    <image:image><image:loc>https://dich2000s.vercel.app/assets/RE2R_VH.png</image:loc></image:image>
+    <image:image><image:loc>https://dich2000s.vercel.app/assets/DMC5.png</image:loc></image:image>
+    <image:image><image:loc>https://dich2000s.vercel.app/assets/dreamcore/Dreamcore.png</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://dich2000s.vercel.app/faq</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- Các dự án chi tiết -->
+  <url>
+    <loc>https://dich2000s.vercel.app/download</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
   <url>
     <loc>https://dich2000s.vercel.app/projects/plague-inc</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://dich2000s.vercel.app/assets/PlagueInc.png</image:loc></image:image>
   </url>
-
   <url>
     <loc>https://dich2000s.vercel.app/projects/re2-remake</loc>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://dich2000s.vercel.app/assets/RE2R_VH.png</image:loc></image:image>
   </url>
-
+  <url>
+    <loc>https://dich2000s.vercel.app/projects/dmc5</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://dich2000s.vercel.app/assets/DMC5.png</image:loc></image:image>
+  </url>
   <url>
     <loc>https://dich2000s.vercel.app/projects/dreamcore_1</loc>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-    <url>
-    <loc>https://dich2000s.vercel.app/projects/dmc5</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://dich2000s.vercel.app/assets/dreamcore/Dreamcore.png</image:loc></image:image>
   </url>
 </urlset>

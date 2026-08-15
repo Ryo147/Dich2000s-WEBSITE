@@ -6,6 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ - Câu hỏi thường gặp - Dịch 2000s</title>
     <meta name="description" content="Tổng hợp câu hỏi thường gặp khi cài đặt và chơi bản Việt hóa của Dịch 2000s.">
+    <meta name="keywords" content="faq việt hóa game, lỗi cài patch, antivirus chặn patch, font chữ việt hóa, không nhận patch, Dịch 2000s faq">
+    <meta name="robots" content="index, follow, max-snippet:-1">
+    <link rel="canonical" href="https://dich2000s.vercel.app/faq">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dịch 2000s">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:url" content="https://dich2000s.vercel.app/faq">
+    <meta property="og:title" content="FAQ — Câu hỏi thường gặp | Dịch 2000s">
+    <meta property="og:description" content="Giải đáp các lỗi thường gặp khi cài đặt và chơi bản Việt hóa game của Dịch 2000s.">
+    <meta property="og:image" content="https://dich2000s.vercel.app/assets/FullWidthLogo.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="FAQ — Dịch 2000s">
+    <meta name="twitter:description" content="Câu hỏi thường gặp khi cài đặt và chơi bản Việt hóa game.">
+    <meta name="theme-color" content="#0a0a0b">
+    <meta name="color-scheme" content="dark">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/logo.png">
     <link rel="icon" href="assets/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -163,6 +181,111 @@
     <script src="js/live-stats.js"></script>
     <script src="js/main.js"></script>
     <script src="js/faq.js"></script>
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "inLanguage": "vi-VN",
+    "mainEntity": [
+        {
+        "@type": "Question",
+        "name": "Antivirus / Windows Defender chặn installer, phải làm sao?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Đây là hiện tượng bình thường vì installer chưa có chữ ký số xác thực. Thêm ngoại lệ (exception) cho thư mục cài đặt hoặc file .exe trong phần mềm diệt virus đang dùng, rồi chạy lại là được."
+        }
+        },
+        {
+        "@type": "Question",
+        "name": "Installer báo lỗi xác thực hash / kiểm tra file thất bại",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Thường do bản tải bị lỗi giữa chừng (mạng chập chờn) hoặc antivirus đã âm thầm sửa file trước khi installer kiểm tra. Thử xóa file tải về, tạm thời tắt real-time protection, rồi tải lại từ đầu."
+        }
+        },
+        {
+        "@type": "Question",
+        "name": "Cài xong nhưng installer không nhận diện được thư mục cài game",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Kiểm tra lại đường dẫn đang trỏ đúng thư mục gốc chứa file .exe của game. Nếu cài qua Steam, đường dẫn thường có dạng .../steamapps/common/tên game."
+        }
+        },
+        {
+        "@type": "Question",
+        "name": "Installer tải bản cập nhật bị đứt giữa chừng liên tục",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Có thể do kết nối không ổn định hoặc CDN (Content Delivery Network) đang chậm. Nếu vẫn thất bại sau nhiều lần thử, thử đổi mạng hoặc dùng VPN rồi thử lại."
+        }
+        },
+        {
+        "@type": "Question",
+        "name": "Sau khi patch, game báo thiếu file hoặc không khởi động được",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Thường là do Steam đã tự động cập nhật game lên phiên bản mới. Kiểm tra version game hiện tại có khớp với version patch hỗ trợ không - nếu không khớp, cần gỡ patch, chờ nhóm cập nhật bản patch mới tương thích."
+        }
+        },
+        {
+        "@type": "Question",
+        "name": "Chữ Việt bị tràn dòng, che khuất UI hoặc bị cắt chữ",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Một số khung thoại trong game gốc được thiết kế cho tiếng Anh (ngắn hơn tiếng Việt có dấu), nên đôi khi câu dài bị tràn. Đây là lỗi đã biết với vài đoạn hội thoại - nhóm sẽ tinh chỉnh lại độ dài câu dịch trong các bản cập nhật sau."
+        }
+        },
+        {
+        "@type": "Question",
+        "name": "Bật game lên nhưng vẫn thấy tiếng Anh, không phải tiếng Việt",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Kiểm tra lại trong phần cài đặt ngôn ngữ (Language) của chính game có chuyển đúng sang mục patch đang áp dụng chưa. Nếu vẫn không được, thử patch lại từ đầu qua installer."
+        }
+        },
+        {
+        "@type": "Question",
+        "name": "Sau khi patch, chữ hoặc UI hiện màu hồng-tím (magenta) loang lổ",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Đây là màu của hầu hết game engine khi thiếu hoặc load sai tài nguyên (font, material, shader). Nếu chơi bản quyền, nguyên nhân thường do patch bị thiếu file khi cài (mạng đứt giữa chừng, antivirus chặn một phần), thử gỡ patch rồi cài lại đầy đủ từ installer. Nếu chơi bản crack, khả năng cao bản crack đã tự nén hoặc lược bớt tài nguyên gốc, khiến cấu trúc file không khớp với bản patch làm dựa trên bản gốc. Nhóm dịch không cung cấp bất kì phương án hay đường dẫn nào liên quan đến game crack nhằm tuân thủ pháp luật hiện hành."
+        }
+        },
+        {
+        "@type": "Question",
+        "name": "Bản dịch có thu phí gì không?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Không. Mọi bản patch của Dịch 2000s đều miễn phí và sẽ luôn miễn phí, không thu phí dưới bất kỳ hình thức nào. Nếu thấy nơi nào rao bán patch, đó không phải là hướng đi của nhóm."
+        }
+        },
+        {
+        "@type": "Question",
+        "name": "Làm sao để biết dự án đang dịch tiến độ tới đâu?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Theo dõi trang /projects trên website - mỗi dự án có ghi trạng thái và thông tin dịch giả. Ngoài ra nhóm cũng cập nhật thường xuyên trên Discord."
+        }
+        },
+        {
+        "@type": "Question",
+        "name": "Tôi muốn đề xuất Việt hóa tựa game mà tôi muốn thì sao?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Vào Discord của nhóm và tìm đến kênh #đề-xuất-việt-hóa. Nhóm sẽ xem xét và cân nhắc về các game được các bạn đề xuất."
+        }
+        },
+        {
+        "@type": "Question",
+        "name": "Tôi muốn báo lỗi dịch thuật hoặc lỗi kỹ thuật trong patch thì sao?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Vào Discord của nhóm và tag admin trực tiếp tại kênh #chung. Nhóm sẽ tiếp nhận và xử lý. Đối với lỗi do installer bạn có thể báo lỗi cho nhóm tại https://github.com/Ryo147/PatchVietHoaInstaller/issues/new."
+        }
+        }
+    ]
+    }
+    </script>
 </body>
 
 </html>
