@@ -57,7 +57,7 @@
   cursor: pointer;
   color: #e9e9ef;
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.45;
   overflow: visible;
 }
 
@@ -321,7 +321,7 @@
   content: counter(smItem, decimal-leading-zero);
   position: absolute;
   top: 0.1em;
-  right: 2.4em;
+  right: 2.2em;
   font-size: 18px;
   font-weight: 400;
   color: var(--sm-accent, #5227ff);
