@@ -195,7 +195,7 @@
             </div>
         </div>
     </main>
-    <footer class="border-t border-border bg-card/40 mt-auto">
+    <footer id="site-footer" class="border-t border-border bg-card/40 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
             <div class="grid gap-10 md:grid-cols-3">
                 <div class="md:col-span-2">
@@ -297,11 +297,11 @@
   });
 
   initGradualBlur('#blur-root', {
-    position: 'top',
+    position: 'bottom',
     height: '6rem',
     target: 'page',
-    strength: 1.5,
-    divCount: 6,
+    strength: 1.2,
+    divCount: 4,
     curve: 'bezier',
     exponential: true,
     opacity: 1,

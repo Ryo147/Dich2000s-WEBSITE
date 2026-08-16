@@ -20,3 +20,5 @@ Thumbs.db
 
 # Vercel
 .vercel
+blur-fix-followup.patch
+blur-fix.patch

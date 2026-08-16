@@ -39,7 +39,6 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
     <link rel="stylesheet" href="css/staggered-menu.css">
-    <link rel="stylesheet" href="css/gradual-blur.css">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -86,7 +85,6 @@
 
 <body class="bg-background text-foreground">
     <div id="menu-root"></div>
-    <div id="blur-root"></div>
     <main class="flex-1 pt-28 sm:pt-32">
         <section class="px-4 sm:px-6 pb-10 sm:pb-12">
             <div class="max-w-7xl mx-auto">
@@ -347,7 +345,7 @@
             </div>
         </section>
     </main>
-    <footer class="border-t border-border bg-card/40 mt-auto">
+    <footer id="site-footer" class="border-t border-border bg-card/40 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
             <div class="grid gap-10 md:grid-cols-3">
                 <div class="md:col-span-2">
@@ -423,7 +421,6 @@
 
 <script type="module">
   import { initStaggeredMenu } from './js/staggered-menu.js';
-  import { initGradualBlur } from './js/gradual-blur.js';
 
   initStaggeredMenu('#menu-root', {
     position: 'right',
@@ -446,17 +443,6 @@
     colors: ['#66FCF1', '#C77DFF'],
     logoUrl: 'assets/FullWidthLogo.png',
     accentColor: '#C77DFF',
-  });
-
-  initGradualBlur('#blur-root', {
-    position: 'top',
-    height: '6rem',
-    target: 'page',
-    strength: 1.5,
-    divCount: 6,
-    curve: 'bezier',
-    exponential: true,
-    opacity: 1,
   });
 </script>
 </body>
