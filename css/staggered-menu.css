@@ -84,13 +84,13 @@
 .sm-toggle-textInner {
   display: flex;
   flex-direction: column;
-  line-height: 1.45;
+  line-height: 1;
 }
 
 .sm-toggle-line {
   display: block;
   height: 1em;
-  line-height: 1.45;
+  line-height: 1;
 }
 
 .sm-icon {
@@ -107,7 +107,7 @@
 .sm-panel-itemWrap {
   position: relative;
   overflow: hidden;
-  line-height: 1.45;
+  line-height: 1;
 }
 
 .sm-icon-line {
