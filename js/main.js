@@ -7,33 +7,8 @@
 (function () {
   'use strict';
 
-  // ===== Nav scroll state =====
-  var nav = document.querySelector('nav.fixed');
-  if (nav) {
-    var onScroll = function () {
-      if (window.scrollY > 8) nav.classList.add('nav-scrolled');
-      else nav.classList.remove('nav-scrolled');
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-  }
-
-  // ===== Mobile menu =====
-  var menuBtn = document.getElementById('menuBtn');
-  var mobileMenu = document.getElementById('mobileMenu');
-  if (menuBtn && mobileMenu) {
-    var toggleMenu = function () {
-      mobileMenu.classList.toggle('hidden');
-      document.body.style.overflow = mobileMenu.classList.contains('hidden') ? '' : 'hidden';
-    };
-    menuBtn.addEventListener('click', toggleMenu);
-    mobileMenu.querySelectorAll('a, button').forEach(function (el) {
-      el.addEventListener('click', function () {
-        mobileMenu.classList.add('hidden');
-        document.body.style.overflow = '';
-      });
-    });
-  }
+  // Nav scroll state and mobile menu are now handled by StaggeredMenu
+  // (see js/staggered-menu.js, initialized per-page near the end of <body>).
 
   // ===== Reveal on scroll =====
   var revealEls = document.querySelectorAll('.reveal');
