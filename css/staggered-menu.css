@@ -271,9 +271,9 @@
   position: relative;
   color: #000;
   font-weight: 600;
-  font-size: 3.5rem;
+  font-size: 3.05rem;
   cursor: pointer;
-  line-height: 1;
+  line-height: 1.45;
   letter-spacing: -2px;
   text-transform: uppercase;
   transition:
@@ -321,7 +321,7 @@
   content: counter(smItem, decimal-leading-zero);
   position: absolute;
   top: 0.1em;
-  right: 2.8em;
+  right: 2.4em;
   font-size: 18px;
   font-weight: 400;
   color: var(--sm-accent, #5227ff);
