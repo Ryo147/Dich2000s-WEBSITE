@@ -268,7 +268,6 @@
 
 <script type="module">
   import { initStaggeredMenu } from '../js/staggered-menu.js';
-  import { initGradualBlur } from '../js/gradual-blur.js';
 
   initStaggeredMenu('#menu-root', {
     position: 'right',
@@ -291,17 +290,6 @@
     colors: ['#66FCF1', '#C77DFF'],
     logoUrl: '../assets/FullWidthLogo.png',
     accentColor: '#C77DFF',
-  });
-
-  initGradualBlur('#blur-root', {
-    position: 'bottom',
-    height: '6rem',
-    target: 'page',
-    strength: 1.2,
-    divCount: 4,
-    curve: 'bezier',
-    exponential: true,
-    opacity: 1,
   });
 </script>
 </body>
