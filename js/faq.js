@@ -6,7 +6,7 @@
 (function () {
   'use strict';
 
-  var CATS = { install: 'Lỗi cài đặt', game: 'Lỗi trong game', general: 'Câu hỏi chung' };
+  var CATS = { install: 'Lỗi cài đặt', game: 'Lỗi trong game', viethoa: 'Lỗi Việt hóa', general: 'Câu hỏi chung' };
 
   var FAQS = [
     { cat: 'install', q: 'Antivirus / Windows Defender chặn installer, phải làm sao?',
@@ -25,14 +25,20 @@
       a: 'Kiểm tra lại trong phần cài đặt ngôn ngữ (Language) của chính game có chuyển đúng sang mục patch đang áp dụng chưa. Nếu vẫn không được, thử patch lại từ đầu qua installer.' },
     { cat: 'game', q: 'Sau khi patch, chữ hoặc UI hiện màu hồng-tím (magenta) loang lổ',
       a: 'Đây là màu của hầu hết game engine khi thiếu hoặc load sai tài nguyên (font, material, shader). Nếu chơi bản quyền, nguyên nhân thường do patch bị thiếu file khi cài (mạng đứt giữa chừng, antivirus chặn một phần), thử gỡ patch rồi cài lại đầy đủ từ installer. Nếu như đây là lỗi patch do nhóm thì bạn có thể báo cáo lại thông qua fanpage hoặc discord.<br><br>Nếu chơi bản crack, khả năng cao bản crack đã tự nén hoặc lược bớt một số tài nguyên gốc để giảm dung lượng, khiến cấu trúc file không còn khớp hoàn toàn với bản patch được làm dựa trên bản gốc - trường hợp này nhóm khó đảm bảo patch hoạt động đúng vì không kiểm soát được cách mỗi bản crack đóng gói lại file.<br><br><b>Nhóm dịch không cung cấp bất kì phương án hay đường dẫn nào liên quan đến game crack nhằm tuân thủ pháp luật hiện hành.</b>' },
+    { cat: 'viethoa', q: 'Làm sao để cập nhật bản Việt hóa lên phiên bản mới?',
+      a: 'Công cụ cài đặt của nhóm hỗ trợ tự động cập nhật patch. Cách đơn giản nhất là tải <b>PatchVietHoaInstaller</b> mới nhất tại trang <a href=\'download.html\'><b><u>Tải Patch</u></b></a> rồi chạy lại cho game cần cập nhật. Nếu sau khi cập nhật vẫn gặp lỗi, thử gỡ patch rồi cài lại đầy đủ từ installer.<br><br>Thông báo về bản cập nhật mới được nhóm đăng trên Discord và fanpage Facebook.' },
+    { cat: 'viethoa', q: 'Tôi muốn báo lỗi dịch thuật hoặc lỗi kỹ thuật trong patch thì sao?',
+      a: 'Vào Discord của nhóm và tag admin trực tiếp tại kênh <b>#\u{1F4AD}╔chung</b>. Nhóm sẽ tiếp nhận và xử lý.<br><br>Đối với lỗi do installer các bạn có thể báo lỗi cho nhóm <a href=\'https://github.com/Ryo147/PatchVietHoaInstaller/issues/new\'><b><u>tại đây</u></b></a>.' },
+    { cat: 'viethoa', q: 'Làm sao để báo lỗi chính tả (typo) hoặc câu dịch sai nghĩa?',
+      a: 'Báo qua Discord (tag admin ở kênh <b>#\u{1F4AD}╔chung</b>) hoặc nhắn fanpage Facebook của nhóm. Để nhóm tìm và sửa nhanh, hãy gửi kèm:<br>- Tên game và phiên bản patch bạn đang dùng.<br>- Ảnh chụp màn hình chỗ bị lỗi (thấy rõ câu thoại hoặc vị trí trong game).<br>- Câu đúng mà bạn đề xuất, nếu có.' },
+    { cat: 'viethoa', q: 'Tôi thấy thuật ngữ dịch chưa hợp lý hoặc không thống nhất, góp ý thế nào?',
+      a: 'Báo qua Discord hoặc fanpage tương tự như báo typo, kèm thêm: thuật ngữ gốc trong game, cách đang được dịch, nơi thuật ngữ xuất hiện (ảnh chụp càng tốt) và cách dịch bạn đề xuất cùng lý do. Nhóm sẽ xem xét và thống nhất lại nếu hợp lý.' },
     { cat: 'general', q: 'Bản dịch có thu phí gì không?',
       a: 'Không. Mọi bản patch của Dịch 2000s đều <b>miễn phí và sẽ luôn miễn phí</b>, không thu phí dưới bất kỳ hình thức nào. Nếu thấy nơi nào rao bán patch, đó không phải là hướng đi của nhóm.' },
     { cat: 'general', q: 'Làm sao để biết dự án đang dịch tiến độ tới đâu?',
       a: 'Theo dõi trang <b>/projects</b> trên website - mỗi dự án có ghi trạng thái và thông tin dịch giả. Ngoài ra nhóm cũng cập nhật thường xuyên trên Discord.' },
     { cat: 'general', q: 'Tôi muốn đề xuất Việt hóa tựa game mà tôi muốn thì sao?',
       a: 'Vào Discord của nhóm và tìm đến kênh <b>#\u{1F4AD}\u255A\u0111\u1EC1-xu\u1EA5t-vi\u1EC7t-h\u00F3a</b>. Nhóm sẽ xem xét và cân nhắc về các game được các bạn đề xuất.' },
-    { cat: 'general', q: 'Tôi muốn báo lỗi dịch thuật hoặc lỗi kỹ thuật trong patch thì sao?',
-      a: 'Vào Discord của nhóm và tag admin trực tiếp tại kênh <b>#\u{1F4AD}\u2554chung</b>. Nhóm sẽ tiếp nhận và xử lý.<br><br>Đối với lỗi do installer các bạn có thể báo lỗi cho nhóm <a href=\'https://github.com/Ryo147/PatchVietHoaInstaller/issues/new\'><b><u>tại đây</u></b></a>.' },
   ];
 
   var state = { cat: 'all', q: '' };
@@ -51,7 +57,7 @@
       (groups[item.cat] = groups[item.cat] || []).push(item);
     });
 
-    var order = state.cat === 'all' ? ['install', 'game', 'general'] : [state.cat];
+    var order = state.cat === 'all' ? ['install', 'game', 'viethoa', 'general'] : [state.cat];
     var html = '';
     order.forEach(function (catKey) {
       if (!groups[catKey]) return;

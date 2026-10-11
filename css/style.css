@@ -698,3 +698,9 @@ details[open] summary {
   color: var(--primary);
 }
 
+/* ===== Footer: link "Tải Patch" nổi bật =====
+   Cam thương hiệu (7.4:1 trên nền footer). :not(:hover) để hiệu ứng hover cũ vẫn chạy. */
+#site-footer a[href$="download.html"]:not(:hover) {
+  color: var(--primary);
+}
+
