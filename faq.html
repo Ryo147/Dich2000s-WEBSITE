@@ -34,9 +34,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/tailwind-config.js"></script>
     <script src="js/speed-insights.js"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=20261011">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-    <link rel="stylesheet" href="css/staggered-menu.css">
+    <link rel="stylesheet" href="css/staggered-menu.css?v=20261011">
 </head>
 
 <body class="bg-background text-foreground">
@@ -60,6 +60,7 @@
                 <div class="flex flex-wrap gap-2" id="faqChips"><button class="chip-filter active" data-cat="all">Tất
                         cả</button><button class="chip-filter" data-cat="install">Lỗi cài đặt</button><button
                         class="chip-filter" data-cat="game">Lỗi trong game</button><button class="chip-filter"
+                        data-cat="viethoa">Lỗi Việt hóa</button><button class="chip-filter"
                         data-cat="general">Câu hỏi chung</button></div>
             </div>
             <div id="faqResults" class="mt-10 space-y-8"></div>
@@ -148,7 +149,7 @@
     <div class="toast" id="toast">Đã sao chép!</div>
     <script src="js/live-stats.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/faq.js"></script>
+    <script src="js/faq.js?v=20261011"></script>
     <script type="application/ld+json">
     {
     "@context": "https://schema.org",
@@ -221,6 +222,30 @@
         },
         {
         "@type": "Question",
+        "name": "Làm sao để cập nhật bản Việt hóa lên phiên bản mới?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Công cụ cài đặt của nhóm hỗ trợ tự động cập nhật patch. Cách đơn giản nhất là tải PatchVietHoaInstaller mới nhất tại trang Tải Patch rồi chạy lại cho game cần cập nhật. Nếu sau khi cập nhật vẫn gặp lỗi, thử gỡ patch rồi cài lại đầy đủ từ installer. Thông báo về bản cập nhật mới được nhóm đăng trên Discord và fanpage Facebook."
+        }
+        },
+        {
+        "@type": "Question",
+        "name": "Làm sao để báo lỗi chính tả (typo) hoặc câu dịch sai nghĩa?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Báo qua Discord (tag admin ở kênh #chung) hoặc nhắn fanpage Facebook của nhóm. Để nhóm tìm và sửa nhanh, hãy gửi kèm tên game và phiên bản patch đang dùng, ảnh chụp màn hình chỗ bị lỗi, và câu đúng mà bạn đề xuất nếu có."
+        }
+        },
+        {
+        "@type": "Question",
+        "name": "Tôi thấy thuật ngữ dịch chưa hợp lý hoặc không thống nhất, góp ý thế nào?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Báo qua Discord hoặc fanpage tương tự như báo typo, kèm thêm thuật ngữ gốc trong game, cách đang được dịch, nơi thuật ngữ xuất hiện và cách dịch bạn đề xuất cùng lý do. Nhóm sẽ xem xét và thống nhất lại nếu hợp lý."
+        }
+        },
+        {
+        "@type": "Question",
         "name": "Bản dịch có thu phí gì không?",
         "acceptedAnswer": {
             "@type": "Answer",
@@ -255,7 +280,7 @@
     }
     </script>
 <script type="module">
-  import { initStaggeredMenu } from './js/staggered-menu.js';
+  import { initStaggeredMenu } from './js/staggered-menu.js?v=20261011';
 
   initStaggeredMenu('#menu-root', {
     position: 'right',

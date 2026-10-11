@@ -312,6 +312,12 @@
   color: var(--sm-accent, #5227ff);
 }
 
+/* "Tải Patch" nổi bật: cam đậm hơn accent vì nền panel màu trắng (5.2:1, đạt WCAG AA).
+   :not(:hover) để hiệu ứng hover cũ vẫn chạy. */
+.sm-panel-item[href$="download.html"]:not(:hover) {
+  color: #bd4500;
+}
+
 .sm-panel-list[data-numbering] {
   counter-reset: smItem;
 }

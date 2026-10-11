@@ -108,7 +108,12 @@ export function initStaggeredMenu(target, options = {}) {
   preLayerEls.forEach((l) => preLayers.appendChild(l));
 
   const header = el('header', { class: 'staggered-menu-header', 'aria-label': 'Main navigation header' });
-  const logoWrap = el('div', { class: 'sm-logo', 'aria-label': 'Logo' });
+  // Logo bấm về trang chủ; resolve theo vị trí file JS nên đúng cả ở trang con (projects/).
+  const logoWrap = el('a', {
+    class: 'sm-logo',
+    href: opts.logoHref || new URL('../index.html', import.meta.url).href,
+    'aria-label': 'Về trang chủ',
+  });
   const logoImg = el('img', {
     src: opts.logoUrl || '/src/assets/logos/reactbits-gh-white.svg',
     alt: 'Logo',
