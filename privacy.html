@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chính sách bảo mật - Dịch 2000s</title>
+    <meta name="description" content="Chính sách bảo mật của website Dịch 2000s: dữ liệu nào được thu thập, dùng để làm gì, lưu bao lâu và bạn có những quyền gì.">
+    <meta name="keywords" content="chính sách bảo mật, quyền riêng tư, cookie, Dịch 2000s">
+    <meta name="robots" content="index, follow, max-snippet:-1">
+    <link rel="canonical" href="https://dich2000s.vercel.app/privacy">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dịch 2000s">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:url" content="https://dich2000s.vercel.app/privacy">
+    <meta property="og:title" content="Chính sách bảo mật | Dịch 2000s">
+    <meta property="og:description" content="Dữ liệu nào được thu thập khi bạn truy cập website Dịch 2000s và bạn có những quyền gì.">
+    <meta property="og:image" content="https://dich2000s.vercel.app/assets/FullWidthLogo.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Chính sách bảo mật — Dịch 2000s">
+    <meta name="twitter:description" content="Dữ liệu nào được thu thập khi truy cập website Dịch 2000s.">
+    <meta name="theme-color" content="#0a0a0b">
+    <meta name="color-scheme" content="dark">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/logo.png">
+    <link rel="icon" href="assets/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/tailwind-config.js"></script>
+    <script src="js/speed-insights.js"></script>
+    <link rel="stylesheet" href="css/style.css?v=20261011">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <link rel="stylesheet" href="css/staggered-menu.css?v=20261011">
+</head>
+
+<body class="bg-background text-foreground">
+    <div id="menu-root"></div>
+    <main class="flex-1 pt-28 sm:pt-32 pb-20 sm:pb-28 px-4 sm:px-6">
+        <div class="max-w-3xl mx-auto">
+            <div class="reveal">
+                <div class="section-label mb-4">Pháp lý</div>
+                <h1 class="font-display text-4xl sm:text-5xl font-bold leading-tight tracking-tight">Chính sách <span class="text-primary">bảo mật</span></h1>
+                <p class="text-muted-foreground text-base sm:text-lg leading-relaxed mt-5">Dịch 2000s là nhóm Việt hóa game phi lợi nhuận. Trang này nói rõ website thu thập gì khi bạn truy cập, dùng để làm gì và lưu bao lâu. Cập nhật lần cuối: 24/10/2026.</p>
+            </div>
+            <section class="reveal mt-10">
+                <h2 class="font-display text-xl sm:text-2xl font-semibold mb-4">1. Website không yêu cầu bạn cung cấp thông tin cá nhân</h2>
+                <div class="space-y-3 text-muted-foreground leading-relaxed text-sm sm:text-base"><p>Website không có form đăng ký, đăng nhập hay bình luận, và không thu thập họ tên, email, số điện thoại. Website không chạy quảng cáo và nhóm không bán hay chia sẻ dữ liệu cho mục đích thương mại.</p></div>
+            </section>
+            <section class="reveal mt-10">
+                <h2 class="font-display text-xl sm:text-2xl font-semibold mb-4">2. Dữ liệu thu thập để đếm lượt xem và số người đang online</h2>
+                <div class="space-y-3 text-muted-foreground leading-relaxed text-sm sm:text-base"><p>Để hiển thị "đang online" và "lượt xem" ở chân trang, website xử lý các dữ liệu sau:</p>
+<ul class="list-disc pl-6 space-y-2">
+<li><b class="text-foreground">Mã khách ngẫu nhiên</b> (khóa <code class="font-mono text-xs">d2k_vid</code> trong localStorage của trình duyệt). Đây là chuỗi ngẫu nhiên, không chứa thông tin về bạn. Mã được gửi lên máy chủ để biết một người có đang xem trang hay không và để không đếm trùng lượt xem trong 24 giờ.</li>
+<li><b class="text-foreground">Địa chỉ IP</b>. Website không lưu IP gốc. IP được băm một chiều (SHA-256 kèm salt) rồi dùng để chống spam: giới hạn số lần gọi trong 60 giây và không đếm trùng cùng một trang trong 10 phút. Giá trị băm này tự xóa sau các khoảng thời gian trên.</li>
+<li><b class="text-foreground">Trạng thái đang online</b>: mã khách ngẫu nhiên và thời điểm hoạt động gần nhất. Một người được coi là offline sau 30 giây không hoạt động, và bản ghi được dọn khi máy chủ tính lại số người online.</li>
+<li><b class="text-foreground">Bộ đếm lượt xem</b>: chỉ là các con số tổng (toàn site và từng dự án), không gắn với cá nhân nào.</li>
+</ul>
+<p>Dữ liệu được lưu tại dịch vụ Upstash Redis, chạy qua Vercel. Website không dùng Google Analytics hay công cụ theo dõi hành vi nào khác.</p></div>
+            </section>
+            <section class="reveal mt-10">
+                <h2 class="font-display text-xl sm:text-2xl font-semibold mb-4">3. Cookie và dịch vụ bên thứ ba</h2>
+                <div class="space-y-3 text-muted-foreground leading-relaxed text-sm sm:text-base"><p>Website không tự đặt cookie. Mã khách ở mục 2 nằm trong localStorage.</p>
+<p>Để hiển thị trang, trình duyệt của bạn tải tài nguyên từ các bên thứ ba, và họ sẽ nhận được địa chỉ IP của bạn theo cách hoạt động thông thường của internet:</p>
+<ul class="list-disc pl-6 space-y-2">
+<li><b class="text-foreground">Vercel</b>: máy chủ chạy website, có thể ghi log truy cập.</li>
+<li><b class="text-foreground">Google Fonts</b> (fonts.googleapis.com, fonts.gstatic.com): phông chữ.</li>
+<li><b class="text-foreground">cdnjs / Cloudflare</b>: thư viện Font Awesome và GSAP.</li>
+<li><b class="text-foreground">Tailwind CDN</b> (cdn.tailwindcss.com): kiểu dáng giao diện.</li>
+<li><b class="text-foreground">YouTube</b>: video nhúng ở trang Tải Patch. YouTube có thể đặt cookie riêng và nhóm không kiểm soát việc này.</li>
+</ul>
+<p>Khi bạn bấm sang GitHub, Discord hay Facebook, các dịch vụ đó áp dụng chính sách riêng của họ.</p></div>
+            </section>
+            <section class="reveal mt-10">
+                <h2 class="font-display text-xl sm:text-2xl font-semibold mb-4">4. Quyền của bạn</h2>
+                <div class="space-y-3 text-muted-foreground leading-relaxed text-sm sm:text-base"><p>Bạn có thể xóa mã khách bất cứ lúc nào bằng cách xóa dữ liệu trang (site data) của website trong trình duyệt. Lần truy cập sau sẽ tạo mã mới và không còn liên kết với mã cũ.</p>
+<p>Vì dữ liệu ở mục 2 không chứa thông tin nhận dạng trực tiếp, nhóm không thể tự tra ra bản ghi của riêng bạn. Nếu bạn muốn hỏi, phản đối hoặc yêu cầu xóa dữ liệu liên quan đến mình, hãy liên hệ nhóm ở mục 5 và nhóm sẽ xử lý theo quy định pháp luật Việt Nam về bảo vệ dữ liệu cá nhân.</p></div>
+            </section>
+            <section class="reveal mt-10">
+                <h2 class="font-display text-xl sm:text-2xl font-semibold mb-4">5. Liên hệ</h2>
+                <div class="space-y-3 text-muted-foreground leading-relaxed text-sm sm:text-base"><p>Nhắn trực tiếp cho nhóm qua <a href="https://discord.gg/mxsAU6BDye" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">Discord</a> hoặc <a href="https://www.facebook.com/Dich2000s" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">fanpage Facebook</a>.</p>
+<p>Khi cách website xử lý dữ liệu thay đổi, nhóm sẽ cập nhật trang này và ghi lại ngày cập nhật ở đầu trang.</p></div>
+            </section>
+        </div>
+    </main>
+    <footer id="site-footer" class="border-t border-border bg-card/40 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+            <div class="grid gap-10 md:grid-cols-3">
+                <div class="md:col-span-2">
+                    <a href="index.html" class="flex items-center gap-3 mb-4"><img src="assets/logo.png"
+                            alt="Dịch 2000s" class="w-9 h-9 object-contain">
+                        <div class="leading-none text-left">
+                            <div class="font-display text-lg font-bold">DỊCH 2000s</div>
+                            <div class="text-[10px] text-muted-foreground tracking-[0.18em] uppercase mt-0.5">Dịch Những
+                                Năm 2000</div>
+                        </div>
+                    </a>
+                    <p class="text-muted-foreground max-w-md leading-relaxed text-sm">Từng từ ngữ, từng câu chữ, cho
+                        từng game thủ Việt.</p>
+                    <div class="flex items-center gap-2 mt-5">
+                        <a href="https://www.facebook.com/Dich2000s" target="_blank" rel="noopener noreferrer"
+                            aria-label="Facebook"
+                            class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://discord.gg/mxsAU6BDye" target="_blank" rel="noopener noreferrer"
+                            aria-label="Discord"
+                            class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"><i
+                                class="fa-brands fa-discord"></i></a>
+                        <a href="https://github.com/Ryo147/PatchVietHoaInstaller" target="_blank"
+                            rel="noopener noreferrer" aria-label="GitHub"
+                            class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"><i
+                                class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-display text-sm font-semibold text-primary mb-4">Khám phá</div>
+                    <ul class="space-y-2.5">
+                        <li><a href="index.html#about"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">Giới
+                                thiệu</a></li>
+                        <li><a href="projects.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">Dự án</a>
+                        </li>
+                        <li><a href="faq.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">FAQ</a>
+                        </li>
+                        <li><a href="download.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">Tải
+                                Patch</a></li>
+                        <li><a href="privacy.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">Chính sách bảo mật</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                class="pt-8 mt-10 border-t border-border flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="text-xs text-muted-foreground">&copy; Dịch 2000s • 2026</div>
+                <div class="flex items-center gap-5 text-xs font-mono">
+                    <span class="inline-flex items-center gap-1.5 text-muted-foreground"><span
+                            class="relative flex h-2 w-2"><span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                                style="background:var(--status-done)"></span><span
+                                class="relative inline-flex rounded-full h-2 w-2"
+                                style="background:var(--status-done)"></span></span><i
+                            class="fa-solid fa-users text-xs"></i><span data-stat="online">&mdash;</span><span
+                            class="opacity-60">đang online</span></span>
+                    <span class="inline-flex items-center gap-1.5 text-muted-foreground"><i
+                            class="fa-solid fa-eye text-xs"></i><span data-stat="views-global">&mdash;</span><span
+                            class="opacity-60">lượt xem</span></span>
+                </div>
+                <div class="text-xs text-muted-foreground md:text-right max-w-md leading-relaxed">Nhóm mình chỉ là nhóm
+                    Việt hóa game nhỏ lẻ. Nên website và phần mềm đều là do Claude x GLM-5.2 lập trình. Nếu các bạn
+                    không vừa ý, mong các bạn thông cảm và góp ý nhẹ nhàng. Nhóm mình sẽ cố gắng cải thiện hơn trong
+                    tương lai.</div>
+            </div>
+        </div>
+    </footer>
+    <div class="toast" id="toast">Đã sao chép!</div>
+    <script src="js/live-stats.js"></script>
+    <script src="js/main.js"></script>
+<script type="module">
+  import { initStaggeredMenu } from './js/staggered-menu.js?v=20261011';
+
+  initStaggeredMenu('#menu-root', {
+    position: 'right',
+    isFixed: true,
+    items: [
+      { label: 'Trang chủ', ariaLabel: 'Về trang chủ', link: 'index.html' },
+      { label: 'Dự án', ariaLabel: 'Xem các dự án', link: 'projects.html' },
+      { label: 'FAQ', ariaLabel: 'Giải quyết thắc mắc', link: 'faq.html' },
+      { label: 'Tải Patch', ariaLabel: 'Tải Patch', link: 'download.html' },
+    ],
+    socialItems: [
+      { label: 'Discord', link: 'https://discord.gg/mxsAU6BDye' },
+      { label: 'Facebook', link: 'https://facebook.com/Dich2000s' },
+    ],
+    displaySocials: true,
+    displayItemNumbering: true,
+    menuButtonColor: '#fff',
+    openMenuButtonColor: '#fff',
+    changeMenuColorOnOpen: true,
+    colors: ['#C77DFF', '#ff7a2f'],
+    logoUrl: 'assets/FullWidthLogo.png',
+    accentColor: '#ff7a2f',
+  });
+</script>
+</body>
+
+</html>
