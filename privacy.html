@@ -2,6 +2,7 @@
 <html lang="vi">
 
 <head>
+    <script src="js/consent.js?v=20261024" defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chính sách bảo mật - Dịch 2000s</title>
@@ -50,7 +51,7 @@
             </div>
             <section class="reveal mt-10">
                 <h2 class="font-display text-xl sm:text-2xl font-semibold mb-4">1. Website không yêu cầu bạn cung cấp thông tin cá nhân</h2>
-                <div class="space-y-3 text-muted-foreground leading-relaxed text-sm sm:text-base"><p>Website không có form đăng ký, đăng nhập hay bình luận, và không thu thập họ tên, email, số điện thoại. Website không chạy quảng cáo và nhóm không bán hay chia sẻ dữ liệu cho mục đích thương mại.</p></div>
+                <div class="space-y-3 text-muted-foreground leading-relaxed text-sm sm:text-base"><p>Website không có form đăng ký, đăng nhập hay bình luận, và không thu thập họ tên, email, số điện thoại. Website không chạy quảng cáo và nhóm không bán dữ liệu của bạn.</p></div>
             </section>
             <section class="reveal mt-10">
                 <h2 class="font-display text-xl sm:text-2xl font-semibold mb-4">2. Dữ liệu thu thập để đếm lượt xem và số người đang online</h2>
@@ -61,13 +62,14 @@
 <li><b class="text-foreground">Trạng thái đang online</b>: mã khách ngẫu nhiên và thời điểm hoạt động gần nhất. Một người được coi là offline sau 30 giây không hoạt động, và bản ghi được dọn khi máy chủ tính lại số người online.</li>
 <li><b class="text-foreground">Bộ đếm lượt xem</b>: chỉ là các con số tổng (toàn site và từng dự án), không gắn với cá nhân nào.</li>
 </ul>
-<p>Dữ liệu được lưu tại dịch vụ Upstash Redis, chạy qua Vercel. Website không dùng Google Analytics hay công cụ theo dõi hành vi nào khác.</p></div>
+<p>Dữ liệu được lưu tại dịch vụ Upstash Redis, chạy qua Vercel. Ngoài ra, website dùng <b class="text-foreground">Google Analytics</b> (mã G-5D3W8D9JH1) để thống kê lượt truy cập tổng hợp như trang được xem, loại thiết bị, khu vực và nguồn truy cập. Dịch vụ này chỉ được nạp sau khi bạn bấm "Chấp nhận" ở banner cookie; khi đó nó đặt cookie và gửi dữ liệu truy cập tới Google (xem mục 3).</p></div>
             </section>
             <section class="reveal mt-10">
                 <h2 class="font-display text-xl sm:text-2xl font-semibold mb-4">3. Cookie và dịch vụ bên thứ ba</h2>
-                <div class="space-y-3 text-muted-foreground leading-relaxed text-sm sm:text-base"><p>Website không tự đặt cookie. Mã khách ở mục 2 nằm trong localStorage.</p>
+                <div class="space-y-3 text-muted-foreground leading-relaxed text-sm sm:text-base"><p>Mã khách ở mục 2 nằm trong localStorage, không phải cookie. Riêng Google Analytics, nếu bạn chấp nhận, sẽ đặt cookie của Google (thường có tên bắt đầu bằng <code class="font-mono text-xs">_ga</code>) để phân biệt các lượt truy cập. Nếu bạn từ chối, Google Analytics không được tải.</p>
 <p>Để hiển thị trang, trình duyệt của bạn tải tài nguyên từ các bên thứ ba, và họ sẽ nhận được địa chỉ IP của bạn theo cách hoạt động thông thường của internet:</p>
 <ul class="list-disc pl-6 space-y-2">
+<li><b class="text-foreground">Google Analytics / Google Tag Manager</b> (googletagmanager.com): thống kê truy cập, chịu chính sách bảo mật riêng của Google.</li>
 <li><b class="text-foreground">Vercel</b>: máy chủ chạy website, có thể ghi log truy cập.</li>
 <li><b class="text-foreground">Google Fonts</b> (fonts.googleapis.com, fonts.gstatic.com): phông chữ.</li>
 <li><b class="text-foreground">cdnjs / Cloudflare</b>: thư viện Font Awesome và GSAP.</li>
@@ -78,7 +80,7 @@
             </section>
             <section class="reveal mt-10">
                 <h2 class="font-display text-xl sm:text-2xl font-semibold mb-4">4. Quyền của bạn</h2>
-                <div class="space-y-3 text-muted-foreground leading-relaxed text-sm sm:text-base"><p>Bạn có thể xóa mã khách bất cứ lúc nào bằng cách xóa dữ liệu trang (site data) của website trong trình duyệt. Lần truy cập sau sẽ tạo mã mới và không còn liên kết với mã cũ.</p>
+                <div class="space-y-3 text-muted-foreground leading-relaxed text-sm sm:text-base"><p>Bạn có thể đổi lựa chọn cookie bất cứ lúc nào: <button type="button" onclick="d2kCookieSettings()" class="text-primary underline">Thay đổi lựa chọn cookie</button>. Bạn cũng có thể xóa mã khách bất cứ lúc nào bằng cách xóa dữ liệu trang (site data) của website trong trình duyệt. Lần truy cập sau sẽ tạo mã mới và không còn liên kết với mã cũ.</p>
 <p>Vì dữ liệu ở mục 2 không chứa thông tin nhận dạng trực tiếp, nhóm không thể tự tra ra bản ghi của riêng bạn. Nếu bạn muốn hỏi, phản đối hoặc yêu cầu xóa dữ liệu liên quan đến mình, hãy liên hệ nhóm ở mục 5 và nhóm sẽ xử lý theo quy định pháp luật Việt Nam về bảo vệ dữ liệu cá nhân.</p></div>
             </section>
             <section class="reveal mt-10">
