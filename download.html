@@ -99,7 +99,7 @@
             <div class="reveal mt-8 bg-card border border-border rounded-2xl p-6 sm:p-8" style="transition-delay:120ms">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                     <div>
-                        <div class="font-display text-xl sm:text-2xl font-semibold mb-1">PatchVietHoaInstaller 4.2.0.1
+                        <div class="font-display text-xl sm:text-2xl font-semibold mb-1">PatchVietHoaInstaller <span data-release-version>4.3.0</span>
                         </div>
                         <div class="text-sm text-muted-foreground flex items-center gap-2 flex-wrap"><span>Phiên bản mới
                                 nhất trên GitHub Releases</span><span id="osDetectBadge"
@@ -114,7 +114,7 @@
                     <div class="text-xs font-mono tracking-wide uppercase text-muted-foreground mb-3">Hoặc chọn hệ điều
                         hành</div>
                     <div class="flex flex-wrap gap-3">
-                        <a href="https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/4.2.0.1/PatchVietHoaInstaller.exe"
+                        <a href="https://github.com/Ryo147/PatchVietHoaInstaller/releases/latest/download/PatchVietHoaInstaller_win-x64.exe"
                             target="_blank" rel="noopener noreferrer" class="os-choice-btn" data-os="windows"><i
                                 class="fa-brands fa-windows text-primary"></i>
                             <div>
@@ -122,7 +122,7 @@
                                 <div class="text-xs text-muted-foreground">.exe &middot; x64</div>
                             </div>
                         </a>
-                        <a href="https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/4.2.0.1/PatchVietHoaInstaller-linux.zip"
+                        <a href="https://github.com/Ryo147/PatchVietHoaInstaller/releases/latest/download/PatchVietHoaInstaller_linux-x64.zip"
                             target="_blank" rel="noopener noreferrer" class="os-choice-btn" data-os="linux"><i
                                 class="fa-brands fa-linux text-primary"></i>
                             <div>
@@ -156,7 +156,7 @@
                                 <h3 class="font-display text-lg font-semibold mb-1.5">Tải công cụ</h3>
                                 <p class="text-muted-foreground leading-relaxed text-sm sm:text-base">Bấm nút "Tải về"
                                     (Windows) phía trên để lấy file <code
-                                        class="px-1.5 py-0.5 rounded bg-secondary text-foreground font-mono text-xs">PatchVietHoaInstaller.exe</code>
+                                        class="px-1.5 py-0.5 rounded bg-secondary text-foreground font-mono text-xs">PatchVietHoaInstaller_win-x64.exe</code>
                                     mới nhất từ GitHub Releases.</p>
                             </div>
                         </li>
@@ -203,11 +203,11 @@
                                 <h3 class="font-display text-lg font-semibold mb-1.5">Tải &amp; giải nén</h3>
                                 <p class="text-muted-foreground leading-relaxed text-sm sm:text-base">Bấm nút "Tải về"
                                     (Linux) phía trên để lấy file <code
-                                        class="px-1.5 py-0.5 rounded bg-secondary text-foreground font-mono text-xs">PatchVietHoaInstaller-linux.zip</code>.
+                                        class="px-1.5 py-0.5 rounded bg-secondary text-foreground font-mono text-xs">PatchVietHoaInstaller_linux-x64.zip</code>.
                                     Giải nén bằng <code
                                         class="px-1.5 py-0.5 rounded bg-secondary text-foreground font-mono text-xs">unzip</code>
                                     hoặc trình quản lý file hỗ trợ định dạng .zip:</p>
-                                <pre class="code-block">unzip PatchVietHoaInstaller-linux.zip</pre>
+                                <pre class="code-block">unzip PatchVietHoaInstaller_linux-x64.zip</pre>
                             </div>
                         </li>
                         <li class="flex gap-4">
@@ -403,20 +403,20 @@
                     <p class="text-muted-foreground leading-relaxed mb-4 max-w-2xl text-sm">Sau khi tải về, bạn có thể
                         tự đối chiếu mã băm SHA-256 để chắc chắn file không bị chỉnh sửa trong quá trình tải. Xem mã băm
                         chính thức trên trang <a
-                            href="https://github.com/Ryo147/PatchVietHoaInstaller/releases/tag/4.2.0.1" target="_blank"
+                            href="https://github.com/Ryo147/PatchVietHoaInstaller/releases/latest" target="_blank"
                             rel="noopener noreferrer"
                             class="text-primary hover:underline inline-flex items-center gap-0.5">GitHub Releases
-                            4.2.0.1 <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>.</p>
+                            <span data-release-version>4.3.0</span> <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>.</p>
                     <div class="grid sm:grid-cols-2 gap-4 text-sm">
                         <div class="p-4 rounded-lg border border-border bg-background">
                             <div class="font-mono text-sm font-semibold mb-2 flex items-center gap-2"><i
                                     class="fa-brands fa-windows"></i> Windows</div><code
-                                class="text-xs text-muted-foreground break-all font-mono block">certutil -hashfile PatchVietHoaInstaller.exe SHA256</code>
+                                class="text-xs text-muted-foreground break-all font-mono block">certutil -hashfile PatchVietHoaInstaller_win-x64.exe SHA256</code>
                         </div>
                         <div class="p-4 rounded-lg border border-border bg-background">
                             <div class="font-mono text-sm font-semibold mb-2 flex items-center gap-2"><i
                                     class="fa-brands fa-linux"></i> Linux</div><code
-                                class="text-xs text-muted-foreground break-all font-mono block">sha256sum PatchVietHoaInstaller-linux.zip</code>
+                                class="text-xs text-muted-foreground break-all font-mono block">sha256sum PatchVietHoaInstaller_linux-x64.zip</code>
                         </div>
                     </div>
                 </div>
@@ -584,7 +584,7 @@
     </footer>
     <div class="toast" id="toast">Đã sao chép!</div>
     <script src="js/live-stats.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=20261024"></script>
 
 <script type="module">
   import { initStaggeredMenu } from './js/staggered-menu.js?v=20261011';

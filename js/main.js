@@ -322,8 +322,9 @@
     if (!primaryBtn) return;
 
     var LINKS = {
-      windows: 'https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/4.2.0.1/PatchVietHoaInstaller.exe',
-      linux: 'https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/4.2.0.1/PatchVietHoaInstaller-linux.zip',
+      // /releases/latest/download/ tự trỏ về bản mới nhất; chỉ hỏng nếu đổi tên file asset.
+      windows: 'https://github.com/Ryo147/PatchVietHoaInstaller/releases/latest/download/PatchVietHoaInstaller_win-x64.exe',
+      linux: 'https://github.com/Ryo147/PatchVietHoaInstaller/releases/latest/download/PatchVietHoaInstaller_linux-x64.zip',
     };
     var LABELS = { windows: 'Tải về cho Windows', linux: 'Tải về cho Linux' };
 
@@ -361,7 +362,7 @@
             panel.classList.toggle('hidden', panel.getAttribute(panelAttr) !== target);
           });
           // Also update primary download button + OS choice highlight
-          if (buttonSelector.indexOf('data-tab') !== -1 && buttonSelector.indexOf('data-scan-tab') === -1) {
+          if (panelAttr === 'data-panel') {
             primaryBtn.href = LINKS[target];
             if (primaryLabel) primaryLabel.textContent = LABELS[target];
             document.querySelectorAll('.os-choice-btn').forEach(function (b) {
@@ -376,7 +377,7 @@
     setupTabs('.os-tab-btn[data-scan-tab]', 'data-scan-panel');
   })();
 
-  // ===== GitHub download count =====
+  // ===== GitHub download count + số phiên bản mới nhất =====
   (function initGithubDownloadStats() {
     var el = document.getElementById('githubDownloadCount');
     if (!el) return;
@@ -385,10 +386,16 @@
     var CACHE_KEY = 'gh_download_count_cache';
     var CACHE_TTL = 15 * 60 * 1000;
 
+    function paint(count, tag) {
+      el.textContent = Number(count).toLocaleString('vi-VN');
+      if (!tag) return; // không có tag: giữ số phiên bản viết sẵn trong HTML
+      document.querySelectorAll('[data-release-version]').forEach(function (n) { n.textContent = tag; });
+    }
+
     try {
       var cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
       if (cached && Date.now() - cached.time < CACHE_TTL) {
-        el.textContent = Number(cached.count).toLocaleString('vi-VN');
+        paint(cached.count, cached.tag);
         return;
       }
     } catch (e) {}
@@ -402,9 +409,11 @@
             return s + (a.download_count || 0);
           }, 0);
         }, 0);
-        el.textContent = Number(total).toLocaleString('vi-VN');
+        var latest = releases.find(function (r) { return !r.draft && !r.prerelease; });
+        var tag = latest && latest.tag_name;
+        paint(total, tag);
         try {
-          localStorage.setItem(CACHE_KEY, JSON.stringify({ count: total, time: Date.now() }));
+          localStorage.setItem(CACHE_KEY, JSON.stringify({ count: total, tag: tag, time: Date.now() }));
         } catch (e) {}
       })
       .catch(function () { el.textContent = '—'; });
