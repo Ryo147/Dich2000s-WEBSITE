@@ -275,22 +275,21 @@
                 <!-- Windows security results -->
                 <div data-scan-panel="win">
                     <p class="text-xs text-muted-foreground mb-4">Kết quả bên dưới là của bản <strong
-                            class="text-foreground">4.0.0 (.exe)</strong>.</p>
+                            class="text-foreground">4.3.0 (.exe)</strong>.</p>
                     <div class="grid sm:grid-cols-2 gap-5">
 
                         <div class="bg-card border border-border rounded-2xl p-5 sm:p-6 border-l-4"
-                            style="border-left-color:#f59e0b">
+                            style="border-left-color:#22c55e">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="font-display text-base sm:text-lg font-semibold flex items-center gap-2"><i
-                                        class="fa-solid fa-shield-halved" style="color:#f59e0b"></i> VirusTotal</div>
+                                        class="fa-solid fa-shield-halved" style="color:#22c55e"></i> VirusTotal</div>
                                 <span class="px-2 py-0.5 rounded-full text-[11px] font-mono font-semibold"
-                                    style="background:#f59e0b22;color:#f59e0b">1 CẢNH BÁO</span>
+                                    style="background:#22c55e22;color:#22c55e">CLEAN</span>
                             </div>
-                            <div class="font-display text-4xl font-bold mb-1" style="color:#f59e0b">1<span
-                                    class="text-xl text-muted-foreground">/69</span></div>
-                            <div class="text-muted-foreground text-sm mb-4">engine gắn cờ (Antiy-AVL - nghi false
-                                positive, xem bên dưới)</div>
-                            <a href="https://www.virustotal.com/gui/file/bf19593291b93b3ef76733c48d8b86f9443b3de5b81034d322d9af06a6572d27"
+                            <div class="font-display text-4xl font-bold mb-1" style="color:#22c55e">0<span
+                                    class="text-xl text-muted-foreground">/70</span></div>
+                            <div class="text-muted-foreground text-sm mb-4">engine phát hiện mã độc</div>
+                            <a href="https://www.virustotal.com/gui/file/836714ee6ef1c05723c324392b6a4588c008be8949e53b5c85ed37c695487256"
                                 target="_blank" rel="noopener noreferrer"
                                 class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-card hover:border-primary/40 text-xs font-semibold transition-colors">Xem
                                 chi tiết <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
@@ -306,24 +305,13 @@
                             </div>
                             <div class="font-display text-4xl font-bold mb-1" style="color:#f59e0b">35<span
                                     class="text-xl text-muted-foreground">/100</span></div>
-                            <div class="text-muted-foreground text-sm mb-3">Threat Score - AV Detection: Clean</div>
-                            <div class="text-xs text-muted-foreground mb-4">Sandbox behavior analysis (bản 4.0.0)</div>
-                            <a href="https://hybrid-analysis.com/sample/bf19593291b93b3ef76733c48d8b86f9443b3de5b81034d322d9af06a6572d27"
+                            <div class="text-muted-foreground text-sm mb-3">Threat Score - AV Detection: Clean (0/25)</div>
+                            <div class="text-xs text-muted-foreground mb-4">Sandbox behavior analysis (bản 4.3.0)</div>
+                            <a href="https://hybrid-analysis.com/sample/836714ee6ef1c05723c324392b6a4588c008be8949e53b5c85ed37c695487256"
                                 target="_blank" rel="noopener noreferrer"
                                 class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-card hover:border-primary/40 text-xs font-semibold transition-colors">Xem
                                 chi tiết <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
                         </div>
-                    </div>
-
-                    <div class="mt-6 notice-box notice-warning flex items-start gap-3"><i
-                            class="fa-solid fa-circle-info text-status-wip shrink-0 mt-0.5"></i>
-                        <p class="text-sm leading-relaxed"><strong class="text-foreground">Về cảnh báo
-                                "Trojan[Downloader]/MSIL.BaseLoader" từ Antiy-AVL:</strong><br>Trong số 69 engine trên
-                            VirusTotal, chỉ có một engine duy nhất gắn cờ cho file này, trong khi các engine lớn khác
-                            không phát hiện bất kỳ điều gì bất thường. Nhãn cảnh báo mà file nhận được dựa trên hành vi
-                            của nó. Do bản chất của installer, nhóm ứng dụng này thực sự có khả năng tải và ghi file
-                            patch vào máy tính của người dùng. Đây là một trường hợp false positive tương đối phổ biến,
-                            đặc biệt đối với các ứng dụng .NET nhỏ mà chưa có chữ ký số thương mại.</p>
                     </div>
 
                     <div class="mt-4 bg-card border border-border rounded-2xl p-5 sm:p-6">
@@ -331,8 +319,8 @@
                         <ul class="text-muted-foreground text-sm leading-relaxed space-y-2 list-disc pl-5">
                             <li>Đối chiếu mã băm SHA-256 của file bạn tải với mã băm chính thức trên trang GitHub
                                 Releases (xem mục "Kiểm tra toàn vẹn file" bên dưới).</li>
-                            <li>Xem chi tiết kết quả 69 engine trực tiếp trên VirusTotal qua nút "Xem chi tiết" ở trên -
-                                chỉ 1 engine gắn cờ.</li>
+                            <li>Xem chi tiết kết quả 70 engine trực tiếp trên VirusTotal qua nút "Xem chi tiết" ở trên -
+                                không engine nào gắn cờ.</li>
                             <li>Xem mã nguồn công cụ công khai trên GitHub (mục "Mã nguồn" cuối trang) để tự kiểm tra
                                 hoặc tự build.</li>
                             <li>Nếu chưa yên tâm, bạn hoàn toàn có thể chờ nhóm cập nhật chữ ký số hoặc phản hồi thêm
@@ -349,7 +337,7 @@
                 <!-- Linux security results -->
                 <div data-scan-panel="linux" class="hidden">
                     <p class="text-xs text-muted-foreground mb-4">Kết quả bên dưới là của bản <strong
-                            class="text-foreground">4.0.0 (.rar)</strong>.</p>
+                            class="text-foreground">4.3.0 (file thực thi <code class="font-mono text-xs">PatchVietHoaInstaller</code> trong file .zip)</strong>.</p>
                     <div class="grid sm:grid-cols-2 gap-5">
 
                         <div class="bg-card border border-border rounded-2xl p-5 sm:p-6 border-l-4"
@@ -361,9 +349,9 @@
                                     style="background:#22c55e22;color:#22c55e">CLEAN</span>
                             </div>
                             <div class="font-display text-4xl font-bold mb-1" style="color:#22c55e">0<span
-                                    class="text-xl text-muted-foreground">/63</span></div>
+                                    class="text-xl text-muted-foreground">/64</span></div>
                             <div class="text-muted-foreground text-sm mb-4">engine phát hiện mã độc</div>
-                            <a href="https://www.virustotal.com/gui/file/5c815dd63127b0bc5d0bb049ef63af1f9bf927d11b0f96505a111c8e65d0905e"
+                            <a href="https://www.virustotal.com/gui/file/15869bf136f12b5684789dbb700201e23122fbb75d681774905da4402290b6ea"
                                 target="_blank" rel="noopener noreferrer"
                                 class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-card hover:border-primary/40 text-xs font-semibold transition-colors">Xem
                                 chi tiết <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
@@ -377,11 +365,11 @@
                                 </div><span class="px-2 py-0.5 rounded-full text-[11px] font-mono font-semibold"
                                     style="background:#f59e0b22;color:#f59e0b">SUSPICIOUS</span>
                             </div>
-                            <div class="font-display text-4xl font-bold mb-1" style="color:#f59e0b">35<span
+                            <div class="font-display text-4xl font-bold mb-1" style="color:#f59e0b">43<span
                                     class="text-xl text-muted-foreground">/100</span></div>
-                            <div class="text-muted-foreground text-sm mb-3">Threat Score - AV Detection: Clean</div>
-                            <div class="text-xs text-muted-foreground mb-4">Sandbox behavior analysis (bản 4.0.0)</div>
-                            <a href="https://hybrid-analysis.com/sample/5c815dd63127b0bc5d0bb049ef63af1f9bf927d11b0f96505a111c8e65d0905e"
+                            <div class="text-muted-foreground text-sm mb-3">Threat Score - AV Detection: Clean (0/28)</div>
+                            <div class="text-xs text-muted-foreground mb-4">Sandbox behavior analysis (bản 4.3.0)</div>
+                            <a href="https://hybrid-analysis.com/sample/15869bf136f12b5684789dbb700201e23122fbb75d681774905da4402290b6ea"
                                 target="_blank" rel="noopener noreferrer"
                                 class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-card hover:border-primary/40 text-xs font-semibold transition-colors">Xem
                                 chi tiết <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>
@@ -419,6 +407,24 @@
                                 class="text-xs text-muted-foreground break-all font-mono block">sha256sum PatchVietHoaInstaller_linux-x64.zip</code>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- BẢN CŨ -->
+            <div class="reveal mt-12" id="old-versions">
+                <div class="section-label mb-4">Muốn xem thử bản cũ?</div>
+                <div class="bg-card border border-border rounded-2xl p-6 sm:p-8">
+                    <p class="text-muted-foreground leading-relaxed mb-5 max-w-2xl text-sm">Tất cả các bản đã phát hành
+                        của công cụ cài đặt nằm ngay dưới đây. Nên dùng bản mới nhất, bản cũ chỉ để tham khảo hoặc khi
+                        bạn cần quay lại.</p>
+                    <ul id="oldReleasesList" class="divide-y divide-border" aria-live="polite">
+                        <li class="py-3 text-sm text-muted-foreground">Danh sách đang được tải. Nếu không hiện, bạn có
+                            thể xem trực tiếp trên GitHub Releases ở bên dưới.</li>
+                    </ul>
+                    <p class="text-xs text-muted-foreground mt-4"><a
+                            href="https://github.com/Ryo147/PatchVietHoaInstaller/releases" target="_blank"
+                            rel="noopener noreferrer" class="text-primary hover:underline">Xem tất cả trên GitHub
+                            Releases</a></p>
                 </div>
             </div>
 
@@ -584,7 +590,7 @@
     </footer>
     <div class="toast" id="toast">Đã sao chép!</div>
     <script src="js/live-stats.js"></script>
-    <script src="js/main.js?v=20261024"></script>
+    <script src="js/main.js?v=20261024b"></script>
 
 <script type="module">
   import { initStaggeredMenu } from './js/staggered-menu.js?v=20261011';
