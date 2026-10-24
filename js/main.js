@@ -322,8 +322,9 @@
     if (!primaryBtn) return;
 
     var LINKS = {
-      windows: 'https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/4.2.0.1/PatchVietHoaInstaller.exe',
-      linux: 'https://github.com/Ryo147/PatchVietHoaInstaller/releases/download/4.2.0.1/PatchVietHoaInstaller-linux.zip',
+      // /releases/latest/download/ tự trỏ về bản mới nhất; chỉ hỏng nếu đổi tên file asset.
+      windows: 'https://github.com/Ryo147/PatchVietHoaInstaller/releases/latest/download/PatchVietHoaInstaller_win-x64.exe',
+      linux: 'https://github.com/Ryo147/PatchVietHoaInstaller/releases/latest/download/PatchVietHoaInstaller_linux-x64.zip',
     };
     var LABELS = { windows: 'Tải về cho Windows', linux: 'Tải về cho Linux' };
 
@@ -361,7 +362,7 @@
             panel.classList.toggle('hidden', panel.getAttribute(panelAttr) !== target);
           });
           // Also update primary download button + OS choice highlight
-          if (buttonSelector.indexOf('data-tab') !== -1 && buttonSelector.indexOf('data-scan-tab') === -1) {
+          if (panelAttr === 'data-panel') {
             primaryBtn.href = LINKS[target];
             if (primaryLabel) primaryLabel.textContent = LABELS[target];
             document.querySelectorAll('.os-choice-btn').forEach(function (b) {
@@ -376,8 +377,8 @@
     setupTabs('.os-tab-btn[data-scan-tab]', 'data-scan-panel');
   })();
 
-  // ===== GitHub download count =====
-  (function initGithubDownloadStats() {
+  // ===== GitHub: số lượt tải, phiên bản mới nhất, danh sách bản cũ =====
+  (function initGithubReleases() {
     var el = document.getElementById('githubDownloadCount');
     if (!el) return;
 
@@ -385,10 +386,81 @@
     var CACHE_KEY = 'gh_download_count_cache';
     var CACHE_TTL = 15 * 60 * 1000;
 
+    // Chỉ cho phép link về github.com (dữ liệu API không được tin tuyệt đối)
+    function safeUrl(u) {
+      return typeof u === 'string' && u.indexOf('https://github.com/') === 0 ? u : null;
+    }
+
+    function pill(text, href) {
+      var a = document.createElement('a');
+      a.href = href;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.className = 'px-3 py-1 rounded-full border border-border hover:border-primary/40 transition-colors';
+      a.textContent = text;
+      return a;
+    }
+
+    function renderOld(list, currentTag) {
+      var ul = document.getElementById('oldReleasesList');
+      if (!ul || !Array.isArray(list)) return;
+      var old = list.filter(function (r) { return r.tag !== currentTag; });
+      ul.textContent = '';
+      if (!old.length) {
+        var none = document.createElement('li');
+        none.className = 'py-3 text-sm text-muted-foreground';
+        none.textContent = 'Chưa có bản cũ nào.';
+        ul.appendChild(none);
+        return;
+      }
+      old.forEach(function (r) {
+        var li = document.createElement('li');
+        li.className = 'py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2';
+        var left = document.createElement('div');
+        var tag = document.createElement('span');
+        tag.className = 'font-mono font-semibold';
+        tag.textContent = r.tag;
+        left.appendChild(tag);
+        if (r.date) {
+          var d = document.createElement('span');
+          d.className = 'text-xs text-muted-foreground ml-2';
+          d.textContent = new Date(r.date).toLocaleDateString('vi-VN');
+          left.appendChild(d);
+        }
+        if (r.pre) {
+          var b = document.createElement('span');
+          b.className = 'ml-2 px-2 py-0.5 rounded-full text-[11px] font-mono bg-secondary text-muted-foreground';
+          b.textContent = 'bản thử nghiệm';
+          left.appendChild(b);
+        }
+        var right = document.createElement('div');
+        right.className = 'flex flex-wrap gap-2 text-xs';
+        (r.assets || []).forEach(function (a) {
+          var href = safeUrl(a.u);
+          if (!href) return;
+          right.appendChild(pill(a.n + (a.s ? ' · ' + a.s + ' MB' : ''), href));
+        });
+        var notes = safeUrl(r.url);
+        if (notes) right.appendChild(pill('Ghi chú', notes));
+        li.appendChild(left);
+        li.appendChild(right);
+        ul.appendChild(li);
+      });
+    }
+
+    function paint(data) {
+      el.textContent = Number(data.count).toLocaleString('vi-VN');
+      // không có tag: giữ số phiên bản viết sẵn trong HTML
+      if (data.tag) {
+        document.querySelectorAll('[data-release-version]').forEach(function (n) { n.textContent = data.tag; });
+      }
+      renderOld(data.list, data.tag);
+    }
+
     try {
       var cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-      if (cached && Date.now() - cached.time < CACHE_TTL) {
-        el.textContent = Number(cached.count).toLocaleString('vi-VN');
+      if (cached && cached.list && Date.now() - cached.time < CACHE_TTL) {
+        paint(cached);
         return;
       }
     } catch (e) {}
@@ -397,15 +469,31 @@
       .then(function (res) { return res.ok ? res.json() : null; })
       .then(function (releases) {
         if (!Array.isArray(releases)) throw new Error('no data');
-        var total = releases.reduce(function (sum, r) {
+        var shown = releases.filter(function (r) { return !r.draft; });
+        var total = shown.reduce(function (sum, r) {
           return sum + (r.assets || []).reduce(function (s, a) {
             return s + (a.download_count || 0);
           }, 0);
         }, 0);
-        el.textContent = Number(total).toLocaleString('vi-VN');
-        try {
-          localStorage.setItem(CACHE_KEY, JSON.stringify({ count: total, time: Date.now() }));
-        } catch (e) {}
+        var latest = shown.find(function (r) { return !r.prerelease; });
+        var data = {
+          count: total,
+          tag: latest && latest.tag_name,
+          list: shown.map(function (r) {
+            return {
+              tag: r.tag_name,
+              date: r.published_at,
+              pre: !!r.prerelease,
+              url: r.html_url,
+              assets: (r.assets || []).map(function (a) {
+                return { n: a.name, u: a.browser_download_url, s: Math.round((a.size || 0) / 104857.6) / 10 };
+              }),
+            };
+          }),
+          time: Date.now(),
+        };
+        paint(data);
+        try { localStorage.setItem(CACHE_KEY, JSON.stringify(data)); } catch (e) {}
       })
       .catch(function () { el.textContent = '—'; });
   })();
