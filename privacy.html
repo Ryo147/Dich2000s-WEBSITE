@@ -73,7 +73,7 @@
 <ul class="list-disc pl-6 space-y-2">
 <li><b class="text-foreground">Mã khách ngẫu nhiên</b> (khóa <code class="font-mono text-xs">d2k_vid</code> trong localStorage của trình duyệt). Đây là chuỗi ngẫu nhiên, không chứa thông tin về bạn. Mã được gửi lên máy chủ để biết một người có đang xem trang hay không và để không đếm trùng lượt xem trong 24 giờ.</li>
 <li><b class="text-foreground">Địa chỉ IP</b>. Website không lưu IP gốc. IP được băm một chiều (SHA-256 kèm salt) rồi dùng để chống spam: giới hạn số lần gọi trong 60 giây và không đếm trùng cùng một trang trong 10 phút. Giá trị băm này tự xóa sau các khoảng thời gian trên.</li>
-<li><b class="text-foreground">Trạng thái đang online</b>: mã khách ngẫu nhiên và thời điểm hoạt động gần nhất. Một người được coi là offline sau 30 giây không hoạt động, và bản ghi được dọn khi máy chủ tính lại số người online.</li>
+<li><b class="text-foreground">Trạng thái đang online</b>: mã khách ngẫu nhiên và thời điểm hoạt động gần nhất. Một người được coi là offline sau 75 giây không hoạt động, và bản ghi được dọn khi máy chủ tính lại số người online.</li>
 <li><b class="text-foreground">Bộ đếm lượt xem</b>: chỉ là các con số tổng (toàn site và từng dự án), không gắn với cá nhân nào.</li>
 </ul>
 <p>Mã khách và địa chỉ IP băm ở trên được gửi lên máy chủ ngay khi bạn mở trang, không phụ thuộc lựa chọn ở banner cookie. Mã khách nằm trong trình duyệt của bạn cho đến khi bạn xóa dữ liệu trang.</p>
@@ -98,7 +98,7 @@
             <section class="reveal mt-10">
                 <h2 class="font-display text-xl sm:text-2xl font-semibold mb-4">4. Quyền của bạn</h2>
                 <div class="space-y-3 text-muted-foreground leading-relaxed text-sm sm:text-base"><p>Bạn có thể đổi lựa chọn cookie bất cứ lúc nào: <button type="button" onclick="d2kCookieSettings()" class="text-primary underline">Thay đổi lựa chọn cookie</button>. Bạn cũng có thể xóa mã khách bất cứ lúc nào bằng cách xóa dữ liệu trang (site data) của website trong trình duyệt. Lần truy cập sau sẽ tạo mã mới và không còn liên kết với mã cũ.</p>
-<p>Vì dữ liệu ở mục 2 không chứa thông tin nhận dạng trực tiếp, nhóm không có cách kỹ thuật để tra ra hay xóa riêng bản ghi của một người. Các bản ghi này tự hết hạn theo các mốc thời gian ở mục 2 (60 giây, 10 phút, 24 giờ, 30 giây), còn bộ đếm lượt xem chỉ là con số tổng, không gắn với cá nhân nào.</p>
+<p>Vì dữ liệu ở mục 2 không chứa thông tin nhận dạng trực tiếp, nhóm không có cách kỹ thuật để tra ra hay xóa riêng bản ghi của một người. Các bản ghi này tự hết hạn theo các mốc thời gian ở mục 2 (60 giây, 10 phút, 24 giờ, 75 giây), còn bộ đếm lượt xem chỉ là con số tổng, không gắn với cá nhân nào.</p>
 <p>Bạn vẫn có các quyền theo Luật Bảo vệ dữ liệu cá nhân 2025, gồm được biết, rút lại sự đồng ý, phản đối và khiếu nại về dữ liệu của mình. Cách nhanh nhất để thực hiện là đổi lựa chọn cookie hoặc xóa dữ liệu trang như trên. Nếu cần hỏi thêm, hãy liên hệ nhóm ở mục 6. Nhóm sẽ phản hồi trong 2 ngày làm việc và nói rõ nhóm có thể hay không thể làm gì với yêu cầu của bạn.</p>
 <!-- Căn cứ: Điều 4, Điều 10 Luật 91/2025/QH15; Điều 5 NĐ 356/2025/NĐ-CP (phản hồi trong 2 ngày làm việc). --></div>
             </section>
@@ -189,7 +189,7 @@
         </div>
     </footer>
     <div class="toast" id="toast">Đã sao chép!</div>
-    <script src="js/live-stats.js"></script>
+    <script src="js/live-stats.js?v=20261104"></script>
     <script src="js/main.js"></script>
 <script type="module">
   import { initStaggeredMenu } from './js/staggered-menu.js?v=20261104';

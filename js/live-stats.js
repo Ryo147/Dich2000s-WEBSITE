@@ -9,8 +9,8 @@
   'use strict';
 
   var API_BASE = location.pathname.indexOf('/projects/') !== -1 ? '..' : '.';
-  var HEARTBEAT_INTERVAL_MS = 15000;
-  var POLL_INTERVAL_MS = 12000;
+  var HEARTBEAT_INTERVAL_MS = 30000;
+  var POLL_INTERVAL_MS = 30000;
   var VISITOR_KEY = 'd2k_vid';
 
   function getVisitorId() {
@@ -65,7 +65,7 @@
   }
 
   function fetchStats() {
-    fetch(API_BASE + '/api/stats', { cache: 'no-store' })
+    fetch(API_BASE + '/api/stats')
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (data) { if (data) paintStats(data); })
       .catch(function () { /* im lặng bỏ qua, giữ trang chạy bình thường */ });
@@ -97,8 +97,9 @@
     heartbeat();
     fetchStats();
 
-    setInterval(heartbeat, HEARTBEAT_INTERVAL_MS);
-    setInterval(fetchStats, POLL_INTERVAL_MS);
+    // tab ẩn thì không gọi API: tiết kiệm lệnh Redis, và người đó không còn xem trang
+    setInterval(function () { if (document.visibilityState === 'visible') heartbeat(); }, HEARTBEAT_INTERVAL_MS);
+    setInterval(function () { if (document.visibilityState === 'visible') fetchStats(); }, POLL_INTERVAL_MS);
 
     document.addEventListener('visibilitychange', function () {
       if (document.visibilityState === 'visible') {
