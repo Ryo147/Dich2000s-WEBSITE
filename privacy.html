@@ -53,8 +53,9 @@
 </head>
 
 <body class="bg-background text-foreground">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground">Bỏ qua tới nội dung</a>
     <div id="menu-root"></div>
-    <main class="flex-1 pt-28 sm:pt-32 pb-20 sm:pb-28 px-4 sm:px-6">
+    <main id="main-content" class="flex-1 pt-28 sm:pt-32 pb-20 sm:pb-28 px-4 sm:px-6">
         <div class="max-w-3xl mx-auto">
             <div class="reveal">
                 <div class="section-label mb-4">Pháp lý</div>
@@ -90,7 +91,7 @@
 <li><b class="text-foreground">Google Fonts</b> (fonts.googleapis.com, fonts.gstatic.com): phông chữ.</li>
 <li><b class="text-foreground">cdnjs / Cloudflare</b>: thư viện Font Awesome và GSAP.</li>
 <li><b class="text-foreground">Tailwind CDN</b> (cdn.tailwindcss.com): kiểu dáng giao diện.</li>
-<li><b class="text-foreground">YouTube</b>: video nhúng ở trang Tải Patch. YouTube có thể đặt cookie riêng và nhóm không kiểm soát việc này.</li>
+<li><b class="text-foreground">YouTube</b> (youtube-nocookie.com): video nhúng ở trang Tải Patch, dùng chế độ riêng tư của YouTube. YouTube nhận địa chỉ IP của bạn khi trang tải, và chỉ có thể đặt cookie riêng khi bạn bấm phát video. Nhóm không kiểm soát việc này.</li>
 </ul>
 <p>Khi bạn bấm sang GitHub, Discord hay Facebook, các dịch vụ đó áp dụng chính sách riêng của họ.</p></div>
             </section>
@@ -160,6 +161,7 @@
                                 Patch</a></li>
                         <li><a href="privacy.html"
                                 class="text-sm text-muted-foreground hover:text-foreground transition-colors">Chính sách bảo mật</a></li>
+                        <li><button type="button" onclick="d2kCookieSettings()" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Cài đặt cookie</button></li>
                     </ul>
                 </div>
             </div>

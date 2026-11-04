@@ -94,8 +94,9 @@
 </head>
 
 <body class="bg-background text-foreground">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground">Bỏ qua tới nội dung</a>
     <div id="menu-root"></div>
-    <main class="flex-1">
+    <main id="main-content" class="flex-1">
         <section class="relative pt-32 sm:pt-40 pb-20 sm:pb-28 overflow-hidden">
             <div class="absolute inset-0 bg-grid-soft" aria-hidden="true"></div>
             <div class="absolute -top-32 -left-32 w-[600px] h-[600px] bg-glow-primary pointer-events-none" aria-hidden="true"></div>
@@ -357,6 +358,7 @@
                         <li><a href="download.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Tải Patch</a></li>
                         <li><a href="privacy.html"
                                 class="text-sm text-muted-foreground hover:text-foreground transition-colors">Chính sách bảo mật</a></li>
+                        <li><button type="button" onclick="d2kCookieSettings()" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Cài đặt cookie</button></li>
                     </ul>
                 </div>
             </div>

@@ -97,8 +97,9 @@
 </head>
 
 <body class="bg-background text-foreground">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground">Bỏ qua tới nội dung</a>
     <div id="menu-root"></div>
-    <main class="flex-1 pt-28 sm:pt-32">
+    <main id="main-content" class="flex-1 pt-28 sm:pt-32">
         <section class="px-4 sm:px-6 pb-10 sm:pb-12">
             <div class="max-w-7xl mx-auto">
                 <div class="reveal">
@@ -405,6 +406,7 @@
                                 Patch</a></li>
                         <li><a href="privacy.html"
                                 class="text-sm text-muted-foreground hover:text-foreground transition-colors">Chính sách bảo mật</a></li>
+                        <li><button type="button" onclick="d2kCookieSettings()" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Cài đặt cookie</button></li>
                     </ul>
                 </div>
             </div>
