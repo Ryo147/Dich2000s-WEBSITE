@@ -13,6 +13,10 @@
   var POLL_INTERVAL_MS = 30000;
   var VISITOR_KEY = 'd2k_vid';
 
+  function consented() {
+    try { return localStorage.getItem('d2k_consent') === 'granted'; } catch (e) { return false; }
+  }
+
   function getVisitorId() {
     try {
       var id = localStorage.getItem(VISITOR_KEY);
@@ -72,6 +76,7 @@
   }
 
   function trackView() {
+    if (!consented()) return;
     var project = currentProjectSlug();
     fetch(API_BASE + '/api/track', {
       method: 'POST',
@@ -85,6 +90,7 @@
   }
 
   function heartbeat() {
+    if (!consented()) return;
     fetch(API_BASE + '/api/heartbeat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -100,6 +106,11 @@
     // tab ẩn thì không gọi API: tiết kiệm lệnh Redis, và người đó không còn xem trang
     setInterval(function () { if (document.visibilityState === 'visible') heartbeat(); }, HEARTBEAT_INTERVAL_MS);
     setInterval(function () { if (document.visibilityState === 'visible') fetchStats(); }, POLL_INTERVAL_MS);
+
+    // vừa bấm Chấp nhận: bắt đầu đếm ngay (không cần tải lại trang)
+    window.addEventListener('d2k-consent', function (e) {
+      if (e.detail === 'granted') { trackView(); heartbeat(); }
+    });
 
     document.addEventListener('visibilitychange', function () {
       if (document.visibilityState === 'visible') {

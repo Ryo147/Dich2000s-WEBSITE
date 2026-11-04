@@ -2,19 +2,7 @@
 <html lang="vi">
 
 <head>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('consent', 'default', {
-            ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
-            analytics_storage: 'denied', wait_for_update: 500
-        });
-        try { if (localStorage.getItem('d2k_consent') === 'granted') gtag('consent', 'update', { analytics_storage: 'granted' }); } catch (e) {}
-        gtag('js', new Date());
-        gtag('config', 'G-5D3W8D9JH1');
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5D3W8D9JH1"></script>
-    <script src="js/consent.js?v=20261024b" defer></script>
+    <script src="js/consent.js?v=20261105" defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chính sách bảo mật - Dịch 2000s</title>
@@ -59,8 +47,8 @@
             <div class="reveal">
                 <div class="section-label mb-4">Pháp lý</div>
                 <h1 class="font-display text-4xl sm:text-5xl font-bold leading-tight tracking-tight">Chính sách <span class="text-primary">bảo mật</span></h1>
-                <p class="text-muted-foreground text-base sm:text-lg leading-relaxed mt-5">Cập nhật lần cuối: 04/11/2026.</p>
-<!-- BẢN NHÁP do AI soạn, cần người làm luật xem lại trước khi đăng. Xóa các comment "Căn cứ" khi đăng chính thức. Nếu sửa code (chỉ nạp Google Analytics sau khi đồng ý, hoặc chỉ tạo mã khách d2k_vid sau khi đồng ý) thì sửa lại mục 2 và 3 cho khớp. -->
+                <p class="text-muted-foreground text-base sm:text-lg leading-relaxed mt-5">Cập nhật lần cuối: 05/11/2026.</p>
+<!-- BẢN NHÁP do AI soạn, cần người làm luật xem lại trước khi đăng. Xóa các comment "Căn cứ" khi đăng chính thức. Mục 2 và 3 đã khớp code từ P3 (GA và d2k_vid chỉ chạy sau khi đồng ý). -->
             </div>
             <section class="reveal mt-10">
                 <h2 class="font-display text-xl sm:text-2xl font-semibold mb-4">1. Website không yêu cầu bạn cung cấp thông tin cá nhân</h2>
@@ -75,12 +63,12 @@
 <li><b class="text-foreground">Trạng thái đang online</b>: mã khách ngẫu nhiên và thời điểm hoạt động gần nhất. Một người được coi là offline sau 75 giây không hoạt động, và bản ghi được dọn khi máy chủ tính lại số người online.</li>
 <li><b class="text-foreground">Bộ đếm lượt xem</b>: chỉ là các con số tổng (toàn site và từng dự án), không gắn với cá nhân nào.</li>
 </ul>
-<p>Mã khách và địa chỉ IP băm ở trên được gửi lên máy chủ ngay khi bạn mở trang, không phụ thuộc lựa chọn ở banner cookie. Mã khách nằm trong trình duyệt của bạn cho đến khi bạn xóa dữ liệu trang.</p>
-<p>Dữ liệu được lưu tại dịch vụ Upstash Redis, chạy qua Vercel. Ngoài ra, website dùng <b class="text-foreground">Google Analytics</b> (mã G-5D3W8D9JH1) để thống kê lượt truy cập tổng hợp như trang được xem, loại thiết bị, khu vực và nguồn truy cập. Dịch vụ này chạy theo Google Consent Mode: nếu bạn bấm "Chấp nhận" ở banner cookie, nó đặt cookie phân tích; nếu bạn từ chối hoặc chưa chọn, nó không đặt cookie nhưng Google vẫn nhận tín hiệu ẩn danh về lượt truy cập (trang xem, thiết bị, khu vực gần đúng). Xem thêm mục 3.</p></div>
+<p>Mã khách và địa chỉ IP băm ở trên chỉ được tạo và gửi lên máy chủ sau khi bạn bấm "Chấp nhận" ở banner cookie. Nếu bạn từ chối hoặc chưa chọn, website không tạo mã khách và không gửi dữ liệu đếm lượt xem hay trạng thái online (bạn vẫn xem được các con số tổng). Mã khách nằm trong trình duyệt cho đến khi bạn bấm từ chối lại hoặc xóa dữ liệu trang.</p>
+<p>Dữ liệu được lưu tại dịch vụ Upstash Redis, chạy qua Vercel. Ngoài ra, website dùng <b class="text-foreground">Google Analytics</b> (mã G-5D3W8D9JH1) để thống kê lượt truy cập tổng hợp như trang được xem, loại thiết bị, khu vực và nguồn truy cập. Dịch vụ này chỉ được nạp sau khi bạn bấm "Chấp nhận" ở banner cookie. Nếu bạn từ chối hoặc chưa chọn, website không gọi Google Analytics và Google không nhận dữ liệu truy cập từ trang này. Xem thêm mục 3.</p></div>
             </section>
             <section class="reveal mt-10">
                 <h2 class="font-display text-xl sm:text-2xl font-semibold mb-4">3. Cookie và dịch vụ bên thứ ba</h2>
-                <div class="space-y-3 text-muted-foreground leading-relaxed text-sm sm:text-base"><p>Mã khách ở mục 2 nằm trong localStorage, không phải cookie. Riêng Google Analytics, nếu bạn chấp nhận, sẽ đặt cookie của Google (thường có tên bắt đầu bằng <code class="font-mono text-xs">_ga</code>) để phân biệt các lượt truy cập. Nếu bạn từ chối hoặc chưa chọn, cookie này không được đặt.</p>
+                <div class="space-y-3 text-muted-foreground leading-relaxed text-sm sm:text-base"><p>Mã khách ở mục 2 nằm trong localStorage, không phải cookie, và chỉ có khi bạn chấp nhận. Riêng Google Analytics, nếu bạn chấp nhận, sẽ đặt cookie của Google (thường có tên bắt đầu bằng <code class="font-mono text-xs">_ga</code>) để phân biệt các lượt truy cập. Nếu bạn từ chối hoặc chưa chọn, cookie này không được đặt.</p>
 <p>Để hiển thị trang, trình duyệt của bạn tải tài nguyên từ các bên thứ ba, và họ sẽ nhận được địa chỉ IP của bạn theo cách hoạt động thông thường của internet:</p>
 <ul class="list-disc pl-6 space-y-2">
 <li><b class="text-foreground">Google Analytics / Google Tag Manager</b> (googletagmanager.com): thống kê truy cập, chịu chính sách bảo mật riêng của Google.</li>
@@ -187,7 +175,7 @@
         </div>
     </footer>
     <div class="toast" id="toast">Đã sao chép!</div>
-    <script src="js/live-stats.js?v=20261104"></script>
+    <script src="js/live-stats.js?v=20261105"></script>
     <script src="js/main.js"></script>
 <script type="module">
   import { initStaggeredMenu } from './js/staggered-menu.js?v=20261104';

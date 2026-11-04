@@ -1,7 +1,8 @@
 /* =========================================================
    Banner cookie + Google Consent Mode.
-   Thẻ Google nằm sẵn trong <head> với analytics_storage = denied;
-   chỉ khi người dùng bấm "Chấp nhận" mới cho phép cookie phân tích.
+   Google Analytics (gtag.js) và mã khách d2k_vid CHỈ được tải/tạo
+   sau khi người dùng bấm "Chấp nhận". Từ chối thì không gọi Google
+   và không lưu mã khách.
    Lựa chọn lưu trong localStorage (khóa d2k_consent).
    Đổi ý: window.d2kCookieSettings() (nút ở trang Chính sách bảo mật).
    ========================================================= */
@@ -17,17 +18,33 @@
     try { localStorage.setItem(KEY, v); } catch (e) { /* bị chặn: chỉ nhớ trong phiên này */ }
   }
 
-  // Thẻ Google (gtag.js) đã nằm sẵn trong <head> với consent mặc định "denied";
-  // ở đây chỉ cập nhật trạng thái đồng ý.
-  function setAnalytics(granted) {
-    if (typeof window.gtag === 'function') {
-      window.gtag('consent', 'update', { analytics_storage: granted ? 'granted' : 'denied' });
-    }
+  var GA_ID = 'G-5D3W8D9JH1';
+  var gaLoaded = false;
+
+  function loadGA() {
+    if (gaLoaded) return;
+    gaLoaded = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('consent', 'default', {
+      ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'granted'
+    });
+    window.gtag('js', new Date());
+    window.gtag('config', GA_ID);
+    var sc = document.createElement('script');
+    sc.async = true;
+    sc.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(sc);
+  }
+
+  function announce(v) {
+    try { window.dispatchEvent(new CustomEvent('d2k-consent', { detail: v })); } catch (e) { /* bỏ qua */ }
   }
 
   // Từ chối sau khi từng chấp nhận: thu hồi đồng ý và xóa cookie _ga* do GA đặt.
   function stopGA() {
-    setAnalytics(false);
+    if (typeof window.gtag === 'function') window.gtag('consent', 'update', { analytics_storage: 'denied' });
+    try { localStorage.removeItem('d2k_vid'); } catch (e) { /* bỏ qua */ }
     var host = location.hostname.split('.');
     var domains = ['', location.hostname];
     for (var i = 1; i < host.length - 1; i++) domains.push('.' + host.slice(i).join('.'));
@@ -81,7 +98,8 @@
   function choose(v) {
     write(v);
     hideBanner();
-    if (v === 'granted') setAnalytics(true); else stopGA();
+    if (v === 'granted') loadGA(); else stopGA();
+    announce(v);
   }
 
   function showBanner() {
@@ -94,7 +112,7 @@
     box.setAttribute('role', 'region');
     box.setAttribute('aria-label', 'Thông báo cookie');
     box.innerHTML =
-      '<p>Website dùng Google Analytics để thống kê lượt truy cập. Bấm Chấp nhận để cho phép cookie phân tích; nếu từ chối, Google chỉ nhận tín hiệu ẩn danh, không đặt cookie. ' +
+      '<p>Website dùng Google Analytics (cookie phân tích) và một mã khách ngẫu nhiên để đếm lượt xem, số người đang online. Chỉ khi bạn bấm Chấp nhận thì các công cụ này mới chạy; nếu từ chối, không có dữ liệu nào được gửi đi. ' +
       '<a href="' + base + 'privacy.html">Xem chính sách bảo mật</a>.</p>' +
       '<div class="d2k-btns"><button type="button" class="d2k-no">Từ chối</button>' +
       '<button type="button" class="d2k-yes">Chấp nhận</button></div>';
@@ -108,7 +126,7 @@
     showBanner();
   };
 
-  // Đã chọn "granted": thẻ trong <head> đã cập nhật consent từ đầu, không cần làm lại.
   var saved = read();
-  if (saved !== 'granted' && saved !== 'denied') showBanner();
+  if (saved === 'granted') loadGA();
+  else if (saved !== 'denied') showBanner();
 })();
