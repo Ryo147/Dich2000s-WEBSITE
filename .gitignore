@@ -22,3 +22,7 @@ Thumbs.db
 .vercel
 blur-fix-followup.patch
 blur-fix.patch
+
+# Script riêng của chủ site (tạo mã quản trị), không đưa lên GitHub
+*.local.mjs
+admin-codes*.txt
