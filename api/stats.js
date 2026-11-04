@@ -3,9 +3,9 @@ import { Redis } from '@upstash/redis';
 const redis = Redis.fromEnv();
 
 const PRESENCE_KEY = 'online:presence';
-// Coi 1 visitor là "offline" nếu không heartbeat trong 30s
-// (client heartbeat mỗi 15s nên khoảng đệm này an toàn)
-const PRESENCE_WINDOW_MS = 30 * 1000;
+// Coi 1 visitor là "offline" nếu không heartbeat trong 75s
+// (client heartbeat mỗi 30s nên khoảng đệm này an toàn)
+const PRESENCE_WINDOW_MS = 75 * 1000;
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -36,7 +36,8 @@ export default async function handler(req, res) {
       }
     }
 
-    res.setHeader('Cache-Control', 'no-store');
+    // cache ở edge 30s: mọi khách dùng chung 1 lần đọc Redis thay vì mỗi người một lần
+    res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=30, stale-while-revalidate=60');
     return res.status(200).json({
       online,
       views: { global, projects },
