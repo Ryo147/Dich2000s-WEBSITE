@@ -193,10 +193,11 @@ export function initStaggeredMenu(target, options = {}) {
     const list = el('ul', { class: 'sm-socials-list', role: 'list' });
     opts.socialItems.forEach((s) => {
       const li = el('li', { class: 'sm-socials-item' });
+      // mailto mở bằng ứng dụng mail, không mở tab mới
+      const external = !s.link.startsWith('mailto:');
       const a = el('a', {
         href: s.link,
-        target: '_blank',
-        rel: 'noopener noreferrer',
+        ...(external && { target: '_blank', rel: 'noopener noreferrer' }),
         class: 'sm-socials-link',
       }, [document.createTextNode(s.label)]);
       li.appendChild(a);
