@@ -6,7 +6,8 @@
   "scripts": {
     "build": "echo 'Static site - no build needed'",
     "test": "echo 'No tests configured'",
-    "optimize:images": "node tools/optimize-images.mjs"
+    "optimize:images": "node tools/optimize-images.mjs",
+    "build:css": "tailwindcss -c tailwind.config.cjs -i css/tailwind-input.css -o css/tailwind.css --minify"
   },
   "dependencies": {
     "@upstash/redis": "^1.35.5",
@@ -21,6 +22,7 @@
   "author": "Dịch 2000s",
   "license": "MIT",
   "devDependencies": {
-    "sharp": "^0.35.5"
+    "sharp": "^0.35.5",
+    "tailwindcss": "^3.4.19"
   }
 }
