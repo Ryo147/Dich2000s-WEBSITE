@@ -29,6 +29,7 @@
       'rv.neterr': 'Không kết nối được máy chủ. Hãy thử lại sau.',
       'rv.featured.title': 'Người chơi nói gì', 'rv.featured.sub': 'Đánh giá ngẫu nhiên từ cộng đồng.',
       'rv.rules': 'Nội quy: không dùng lời lẽ xúc phạm, kỳ thị, spam hay chứa liên kết. Điểm sao luôn được giữ nguyên; chỉ phần chữ vi phạm mới bị gỡ.',
+      'rv.rules.link': 'Xem nội quy đầy đủ',
       'err.name_taken': 'Tên này đã có người dùng. Nếu là bạn, hãy nhập mã 3 từ ở mục đăng nhập; nếu không, hãy chọn tên khác.',
     },
     en: {
@@ -53,6 +54,7 @@
       'rv.neterr': 'Could not reach the server. Please try again later.',
       'rv.featured.title': 'What players say', 'rv.featured.sub': 'Random reviews from the community.',
       'rv.rules': 'Rules: no abuse, hate, spam or links. The star rating is always kept; only violating text is removed.',
+      'rv.rules.link': 'Read the full rules',
       'err.name_taken': 'This name is already taken. If it is yours, enter your 3-word code in the sign-in box; otherwise pick another name.',
       'err.bad_login': 'Wrong name or code.', 'err.device_limit': 'This account is already signed in on 2 devices. Sign out on one of them and try again.',
       'err.locked': 'Too many attempts. Please try again later.', 'err.reserved_name': 'This name is reserved. Please choose another.',

@@ -57,6 +57,9 @@
 <p><b class="text-foreground">Công khai:</b> tên hiển thị, số sao và bình luận được hiển thị công khai cho mọi người, kể cả ở trang chủ (chọn ngẫu nhiên). Bạn đồng ý việc này bằng cách tích ô đồng ý trước khi gửi.</p>
 <p><b class="text-foreground">Tài khoản:</b> lần đánh giá đầu tiên tự tạo tài khoản theo tên bạn đặt và cấp một mã 3 từ để bạn đăng nhập lại. Mã chỉ hiện một lần; nhóm chỉ lưu bản băm của mã, không thể xem hay cấp lại mã cho bạn. Phiên đăng nhập dùng một cookie kỹ thuật cần thiết (<code>d2k_sess</code>, httpOnly, tối đa 30 ngày, tối đa 2 thiết bị); cookie này không phải cookie phân tích và không phụ thuộc lựa chọn ở banner cookie. Để chống gian lận, website tạm lưu bản băm của địa chỉ IP (không lưu IP gốc) để giới hạn số lần thao tác, trong tối đa 24 giờ.</p>
 <p><b class="text-foreground">Kiểm duyệt:</b> quản trị viên có thể gỡ phần chữ của bình luận vi phạm nội quy (xúc phạm, kỳ thị, spam, liên kết, thông tin cá nhân của người khác); phần chữ bị gỡ được thay bằng "Đã gỡ vì vi phạm nội quy". Số sao vẫn được giữ trong điểm trung bình vì nhóm không gỡ đánh giá chỉ vì điểm thấp. Mỗi bình luận có nút "Báo cáo".</p>
+<p><b class="text-foreground">Thời gian lưu:</b> tài khoản và đánh giá được lưu cho đến khi bạn tự xóa tài khoản (mục 4). Hiện website chưa tự xóa tài khoản không hoạt động. Dữ liệu chống gian lận (bản băm IP, bộ đếm số lần thử) tự hết hạn trong tối đa 24 giờ; bộ đếm báo cáo bình luận giữ tối đa 30 ngày.</p>
+<p><b class="text-foreground">Trẻ em:</b> website không hướng tới trẻ dưới 16 tuổi. Nếu bạn dưới 16 tuổi, hãy nhờ cha mẹ hoặc người giám hộ đồng ý trước khi đăng tên và bình luận công khai.</p>
+<p>Nội quy chi tiết: <a href="noi-quy.html" class="text-primary underline">Nội quy đánh giá</a>.</p>
 <p>Website không chạy quảng cáo và nhóm không bán dữ liệu của bạn.</p></div>
             </section>
             <section class="reveal mt-10">
@@ -153,6 +156,7 @@
                                 Patch</a></li>
                         <li><a href="privacy.html"
                                 class="text-sm text-muted-foreground hover:text-foreground transition-colors">Chính sách bảo mật</a></li>
+                        <li><a href="noi-quy.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Nội quy đánh giá</a></li>
                         <li><button type="button" data-i18n="cookie.settings" onclick="d2kCookieSettings()" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Cài đặt cookie</button></li>
                         <li><button type="button" data-i18n="lang.switch" onclick="d2kSetLang(d2kLang()==='en'?'vi':'en')" class="text-sm text-muted-foreground hover:text-foreground transition-colors" lang="en">English</button></li>
                     </ul>

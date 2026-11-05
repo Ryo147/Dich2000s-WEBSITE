@@ -138,7 +138,7 @@
         hp,
         el('label', { class: 'flex items-start gap-2 text-sm text-muted-foreground' }, [agree,
           el('span', {}, [T('rv.consent') + ' ', el('a', { href: BASE + '/privacy.html', class: 'underline', text: T('rv.consent.link') }), '.'])]),
-        el('p', { class: 'text-xs text-muted-foreground', text: T('rv.rules') }),
+        el('p', { class: 'text-xs text-muted-foreground' }, [T('rv.rules') + ' ', el('a', { href: BASE + '/noi-quy.html', class: 'underline', text: T('rv.rules.link') })]),
         el('button', { type: 'submit', class: 'rounded-full bg-primary text-primary-foreground font-semibold px-6 py-2.5', text: state.mine ? T('rv.update') : T('rv.submit') }),
       ]);
       f.addEventListener('submit', function (e) {
