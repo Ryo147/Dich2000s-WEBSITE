@@ -1,9 +1,10 @@
 // Một hàm duy nhất cho toàn bộ hệ thống đánh giá (giữ trong giới hạn số hàm của gói Hobby).
 // GET  ?game=<slug> | ?featured=1 | ?me=1
-// POST {action: rate|login|logout|me|delete-account|remove-device|reset-devices|rotate-request|rotate-cancel|rotate-finish|admin-reset-code|report|admin-reports|admin-remove|admin-restore, ...}
+// POST {action: rate|login|logout|me|delete-account|remove-device|reset-devices|rotate-request|rotate-cancel|rotate-finish|set-email|verify-email|remove-email|admin-reset-code|report|admin-reports|admin-remove|admin-restore, ...}
 import crypto from 'node:crypto';
 import * as core from '../lib/ratings-core.js';
 import { redisStore } from '../lib/redis-store.js';
+import { makeMailer } from '../lib/mailer.js';
 
 const ALLOWED_ORIGINS = ['https://dich2000s.vercel.app'];
 const COOKIE = 'd2k_sess';
@@ -23,11 +24,11 @@ const readToken = (req) => {
 const setCookie = (res, token) => res.setHeader('Set-Cookie',
   `${COOKIE}=${token || ''}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${token ? COOKIE_SECONDS : 0}`);
 
-const STATUS = { rename_cooldown: 429, bad_login: 401, unauthorized: 401, forbidden: 403, name_taken: 409, device_limit: 409, locked: 429, acct_limit: 429, rotate_wait: 409, rotate_none: 404, dup_text: 409, not_found: 404 };
+const STATUS = { rename_cooldown: 429, bad_login: 401, unauthorized: 401, forbidden: 403, name_taken: 409, device_limit: 409, locked: 429, acct_limit: 429, rotate_wait: 409, rotate_none: 404, dup_text: 409, not_found: 404, bad_email: 400, bad_token: 400, email_taken: 409, email_limit: 429, mail_off: 503, mail_fail: 502 };
 
 export default async function handler(req, res) {
   if (!secret()) return res.status(503).json({ ok: false, message: 'Chưa cấu hình AUTH_SECRET.' });
-  const ctx = { store: redisStore(), secret: secret(), now: () => Date.now() };
+  const ctx = { store: redisStore(), secret: secret(), now: () => Date.now(), mailer: await makeMailer(process.env) };
   const send = (r) => {
     if (r.ok) return res.status(200).json(r);
     return res.status(STATUS[r.code] || 400).json(r);
@@ -76,6 +77,9 @@ export default async function handler(req, res) {
       case 'rotate-request': return send(await core.requestRotate(ctx, { token, ipHash }));
       case 'rotate-cancel': return send(await core.cancelRotate(ctx, token));
       case 'rotate-finish': return send(await core.finishRotate(ctx, { token, ipHash }));
+      case 'set-email': return send(await core.setEmail(ctx, { token, email: b.email, ipHash }));
+      case 'verify-email': return send(await core.verifyEmail(ctx, { token: b.token, ipHash }));
+      case 'remove-email': return send(await core.removeEmail(ctx, token));
       case 'admin-reset-code': return send(await core.adminResetCode(ctx, { token, name: b.name }));
       case 'report': return send(await core.report(ctx, { game: b.game, id: b.id, ipHash }));
       case 'admin-reports': return send(await core.adminReports(ctx, token));

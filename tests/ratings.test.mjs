@@ -339,3 +339,89 @@ test('đổi tên: chuyển đánh giá, phiên vẫn dùng được, tên bị 
   // tên cũ được nhả ra cho người khác
   assert.ok((await core.rate(ctx, { ...base, name: 'Ryo' })).ok);
 });
+
+// ---------- Email tuỳ chọn ----------
+async function withMail(name = 'Ryo') {
+  const sent = [];
+  const ctx = { ...mk(), mailer: async (m) => { sent.push(m); } };
+  const r = await core.rate(ctx, { ...base, name });
+  return { ctx, sent, token: r.token };
+}
+const tokenOf = (m) => /verify=([A-Za-z0-9_-]+)/.exec(m.text)[1];
+
+test('email: tạo tài khoản qua đánh giá không thu email; tắt mailer thì tính năng email tắt', async () => {
+  const ctx = mk();
+  const r = await core.rate(ctx, { ...base, name: 'Ryo' });
+  const mine = await core.myReviews(ctx, r.token);
+  assert.equal(mine.email, null);
+  assert.equal(mine.mail, false);
+  assert.equal((await core.setEmail(ctx, { token: r.token, email: 'a@b.co', ipHash: 'ip1' })).code, 'mail_off');
+});
+
+test('email: nhập → nhận mail → bấm liên kết mới được tính; sai/hết hạn/dùng lại bị từ chối', async () => {
+  const { ctx, sent, token } = await withMail();
+  assert.equal((await core.setEmail(ctx, { token, email: 'khong-hop-le', ipHash: 'ip1' })).code, 'bad_email');
+  const r = await core.setEmail(ctx, { token, email: ' Ryo@Gmail.com ', ipHash: 'ip1' });
+  assert.ok(r.ok && r.pending === 'ryo@gmail.com');
+  assert.equal(sent[0].to, 'ryo@gmail.com');
+  let mine = await core.myReviews(ctx, token);
+  assert.equal(mine.email, null);
+  assert.equal(mine.pendingEmail, 'ryo@gmail.com');
+  assert.equal((await core.verifyEmail(ctx, { token: 'x'.repeat(30), ipHash: 'ip1' })).code, 'bad_token');
+  const t = tokenOf(sent[0]);
+  assert.ok((await core.verifyEmail(ctx, { token: t, ipHash: 'ip1' })).ok);
+  mine = await core.myReviews(ctx, token);
+  assert.equal(mine.email, 'ryo@gmail.com');
+  assert.equal(mine.pendingEmail, null);
+  assert.equal((await core.verifyEmail(ctx, { token: t, ipHash: 'ip1' })).code, 'bad_token'); // dùng một lần
+  // hết hạn sau 1 giờ
+  await core.setEmail(ctx, { token, email: 'moi@gmail.com', ipHash: 'ip1' });
+  ctx.now = () => 1000 + 61 * 60 * 1000;
+  assert.equal((await core.verifyEmail(ctx, { token: tokenOf(sent[1]), ipHash: 'ip1' })).code, 'bad_token');
+});
+
+test('email: yêu cầu mới thay yêu cầu cũ; một email chỉ gắn một tài khoản; giới hạn 3 lần/ngày', async () => {
+  const { ctx, sent, token } = await withMail('Ryo');
+  await core.setEmail(ctx, { token, email: 'a@gmail.com', ipHash: 'ip1' });
+  await core.setEmail(ctx, { token, email: 'b@gmail.com', ipHash: 'ip1' });
+  assert.equal((await core.verifyEmail(ctx, { token: tokenOf(sent[0]), ipHash: 'ip1' })).code, 'bad_token');
+  assert.ok((await core.verifyEmail(ctx, { token: tokenOf(sent[1]), ipHash: 'ip1' })).ok);
+  assert.equal((await core.setEmail(ctx, { token, email: 'c@gmail.com', ipHash: 'ip1' })).ok, true); // lần 3
+  assert.equal((await core.setEmail(ctx, { token, email: 'd@gmail.com', ipHash: 'ip1' })).code, 'email_limit'); // lần 4
+  // tài khoản khác không chiếm được email đã xác minh
+  const r2 = await core.rate(ctx, { ...base, game: 'dmc5', name: 'Khac', ipHash: 'ip2' });
+  await core.setEmail(ctx, { token: r2.token, email: 'b@gmail.com', ipHash: 'ip2' });
+  assert.equal((await core.verifyEmail(ctx, { token: tokenOf(sent.at(-1)), ipHash: 'ip2' })).code, 'email_taken');
+});
+
+test('email: gỡ email, xoá tài khoản giải phóng email; đổi tên giữ email', async () => {
+  const { ctx, sent, token } = await withMail('Ryo');
+  await core.setEmail(ctx, { token, email: 'a@gmail.com', ipHash: 'ip1' });
+  await core.verifyEmail(ctx, { token: tokenOf(sent[0]), ipHash: 'ip1' });
+  assert.ok((await core.rename(ctx, { token, name: 'RyoMoi', ipHash: 'ip1' })).ok);
+  assert.equal((await core.myReviews(ctx, token)).email, 'a@gmail.com');
+  assert.ok((await core.removeEmail(ctx, token)).ok);
+  assert.equal((await core.myReviews(ctx, token)).email, null);
+  await core.setEmail(ctx, { token, email: 'a@gmail.com', ipHash: 'ip1' });
+  await core.verifyEmail(ctx, { token: tokenOf(sent.at(-1)), ipHash: 'ip1' });
+  await core.deleteAccount(ctx, token);
+  const r2 = await core.rate(ctx, { ...base, name: 'Khac', ipHash: 'ip3' });
+  await core.setEmail(ctx, { token: r2.token, email: 'a@gmail.com', ipHash: 'ip3' });
+  assert.ok((await core.verifyEmail(ctx, { token: tokenOf(sent.at(-1)), ipHash: 'ip3' })).ok);
+});
+
+test('email: yêu cầu đổi mã và hoàn tất đổi mã gửi cảnh báo; mail lỗi không làm hỏng thao tác', async () => {
+  const { ctx, sent, token } = await withMail('Ryo');
+  await core.setEmail(ctx, { token, email: 'a@gmail.com', ipHash: 'ip1' });
+  await core.verifyEmail(ctx, { token: tokenOf(sent[0]), ipHash: 'ip1' });
+  const n0 = sent.length;
+  await core.requestRotate(ctx, { token, ipHash: 'ip1' });
+  assert.equal(sent.length, n0 + 1);
+  assert.match(sent.at(-1).subject, /mã 3 từ mới/);
+  await core.requestRotate(ctx, { token, ipHash: 'ip1' }); // lặp lại không gửi thêm
+  assert.equal(sent.length, n0 + 1);
+  ctx.now = () => 1000 + 25 * 60 * 60 * 1000;
+  ctx.mailer = async () => { throw new Error('smtp down'); };
+  const f = await core.finishRotate(ctx, { token, ipHash: 'ip1' });
+  assert.ok(f.ok && f.code);
+});

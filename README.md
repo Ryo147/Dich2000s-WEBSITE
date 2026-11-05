@@ -14,6 +14,7 @@ Develop by Claude, GLM / Editing by Nhựa Inox (Ryo147)
 | `KV_REST_API_URL`, `KV_REST_API_TOKEN` | Upstash Redis (thư viện tự nhận; `UPSTASH_REDIS_REST_*` cũng được) |
 | `AUTH_SECRET` | băm mã đăng nhập và IP. Đổi giá trị = mọi mã đăng nhập cũ mất hiệu lực |
 | `STATS_SALT` | băm IP cho thống kê lượt xem |
+| `MAIL_USER`, `MAIL_PASS` | (tuỳ chọn) Gmail riêng của nhóm + Mật khẩu ứng dụng để gửi email xác minh/cảnh báo. Thiếu thì tính năng email tự tắt |
 
 ## Lệnh
 - `npm test`: test lõi đánh giá và kiểm tra `?v=` của js/css.

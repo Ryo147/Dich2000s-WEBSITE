@@ -40,7 +40,7 @@
   var INPUT = 'w-full rounded-lg border border-border bg-background px-3 py-2';
   var BTN = 'rounded-full border border-border px-4 py-2 text-sm hover:bg-card';
 
-  function render(box, data, note, code) {
+  function render(box, data, note, code, bad) {
     box.textContent = '';
     var msg = el('p', { class: 'text-sm mt-3', role: 'status' });
     var say = function (t, bad) { msg.textContent = t; msg.className = 'text-sm mt-3 ' + (bad ? 'text-red-400' : 'text-green-400'); };
@@ -70,6 +70,7 @@
       box.appendChild(el('p', { class: 'text-xs text-muted-foreground mt-4', text: T('acc.forgot') }));
       box.appendChild(el('a', { href: 'https://discord.gg/mxsAU6BDye', target: '_blank', rel: 'noopener noreferrer', class: 'text-xs text-primary hover:underline', text: T('acc.forgot.link') }));
       box.appendChild(msg);
+      if (note) say(note, !!bad);
       return;
     }
 
@@ -139,6 +140,24 @@
     ]));
 
     // Quên mã: còn phiên đăng nhập thì tự tạo mã mới; mất hết phiên thì nhờ quản trị viên cấp lại (xem form bên dưới, chỉ quản trị viên thấy)
+    if (data.mail) { // chỉ hiện khi máy chủ đã cấu hình gửi mail
+      var emIn = el('input', { type: 'email', maxlength: '254', autocomplete: 'email', class: INPUT, value: data.pendingEmail || '' });
+      var emKids = [el('p', { class: 'text-xs text-muted-foreground mb-2', text: T('acc.email.hint') })];
+      if (data.email) emKids.push(el('p', { class: 'text-sm mb-2', text: T('acc.email.current', { email: data.email }) }));
+      if (data.pendingEmail) emKids.push(el('p', { class: 'text-sm mb-2', text: T('acc.email.pending', { email: data.pendingEmail }) }));
+      emKids.push(field(T('acc.email.label'), emIn));
+      emKids.push(el('div', { class: 'mt-2 flex flex-wrap gap-2' }, [
+        el('button', { type: 'button', class: BTN, text: T('acc.email.send'), onclick: function () {
+          post({ action: 'set-email', email: emIn.value }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box, T('acc.email.sent')); });
+        } }),
+        data.email || data.pendingEmail ? el('button', { type: 'button', class: BTN + ' text-red-400', text: T('acc.email.remove'), onclick: function () {
+          if (!window.confirm(T('acc.email.remove.confirm'))) return;
+          post({ action: 'remove-email' }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box, T('acc.email.removed')); });
+        } }) : null,
+      ]));
+      box.appendChild(section(T('acc.email'), emKids));
+    }
+
     var rot = data.rotate;
     var when = rot ? new Date(rot.readyAt).toLocaleString(window.d2kLang && window.d2kLang() === 'en' ? 'en-GB' : 'vi-VN') : '';
     var rotKids = [el('p', { class: 'text-xs text-muted-foreground mb-2', text: T('acc.rotate.hint') })];
@@ -183,18 +202,22 @@
     } });
     box.appendChild(el('div', { class: 'mt-6 flex flex-wrap gap-2' }, [out, del]));
     box.appendChild(msg);
-    if (note) say(note, false);
+    if (note) say(note, !!bad);
   }
 
-  function load(box, note, code) {
-    post({ action: 'my-reviews' }).then(function (r) { render(box, r.ok ? r : null, note, code); });
+  function load(box, note, code, bad) {
+    post({ action: 'my-reviews' }).then(function (r) { render(box, r.ok ? r : null, note, code, bad); });
   }
 
   function init() {
     var root = document.getElementById('account-root');
     if (!root) return;
     root.textContent = '…';
-    load(root);
+    var v = /[?&]verify=([A-Za-z0-9_-]+)/.exec(location.search);
+    if (v) { // liên kết trong email xác minh
+      try { history.replaceState(null, '', location.pathname); } catch (e) { /* bỏ qua */ }
+      post({ action: 'verify-email', token: v[1] }).then(function (r) { load(root, r.ok ? T('acc.email.verified') : errText(r), null, !r.ok); });
+    } else load(root);
     window.addEventListener('d2k-lang', function () { load(root); });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
