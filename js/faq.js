@@ -42,7 +42,7 @@
     { cat: 'account', q: "Làm sao để đánh giá một bản Việt hóa?",
       a: "Mở trang game, kéo xuống cuối trang và chọn số sao, nhập tên hiển thị, tích ô đồng ý hiển thị công khai rồi bấm Gửi. Bình luận là tùy chọn. Lần đánh giá đầu tiên tự tạo tài khoản theo tên bạn đặt và cấp một mã 3 từ để đăng nhập lại. Mã chỉ hiện một lần nên hãy lưu ngay." },
     { cat: 'account', q: "Tôi quên mã 3 từ thì làm sao?",
-      a: "Nếu bạn vẫn đang đăng nhập ở một thiết bị, vào mục Tài khoản trong menu và bấm Tạo mã 3 từ mới (mã cũ sẽ vô hiệu và các thiết bị khác bị đăng xuất). Nếu đã mất hết đăng nhập, hãy nhắn quản trị viên trên Discord hoặc Facebook của nhóm để được cấp lại mã sau khi xác minh bạn là chủ tài khoản." },
+      a: "Nếu bạn vẫn đang đăng nhập ở một thiết bị, vào mục Tài khoản trong menu và bấm Yêu cầu tạo mã 3 từ mới. Để chống người mượn máy, mã mới chỉ tạo được sau 24 giờ chờ; trong lúc đó mã cũ vẫn dùng và mọi thiết bị đang đăng nhập đều thấy thông báo để huỷ nếu không phải bạn. Khi hoàn tất, mã cũ vô hiệu và các thiết bị khác bị đăng xuất. Nếu đã mất hết đăng nhập, hãy nhắn quản trị viên trên Discord hoặc Facebook của nhóm để được cấp lại mã sau khi xác minh bạn là chủ tài khoản." },
     { cat: 'account', q: "Vì sao tôi không đăng nhập được, báo đã đủ 2 thiết bị?",
       a: "Mỗi tài khoản đăng nhập được tối đa 2 thiết bị. Mỗi trình duyệt, cửa sổ ẩn danh hoặc lần đã xóa cookie được tính là một thiết bị. Vào mục Tài khoản, nhập tên và mã 3 từ để xem và gỡ bớt thiết bị. Thiết bị 21 ngày không dùng sẽ tự bị gỡ." },
     { cat: 'account', q: "Bình luận của tôi bị gỡ, điểm sao có mất không?",

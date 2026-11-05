@@ -139,13 +139,27 @@
     ]));
 
     // Quên mã: còn phiên đăng nhập thì tự tạo mã mới; mất hết phiên thì nhờ quản trị viên cấp lại (xem form bên dưới, chỉ quản trị viên thấy)
-    box.appendChild(section(T('acc.rotate'), [
-      el('p', { class: 'text-xs text-muted-foreground mb-2', text: T('acc.rotate.hint') }),
-      el('button', { type: 'button', class: BTN, text: T('acc.rotate.btn'), onclick: function () {
+    var rot = data.rotate;
+    var when = rot ? new Date(rot.readyAt).toLocaleString(window.d2kLang && window.d2kLang() === 'en' ? 'en-GB' : 'vi-VN') : '';
+    var rotKids = [el('p', { class: 'text-xs text-muted-foreground mb-2', text: T('acc.rotate.hint') })];
+    var cancelBtn = el('button', { type: 'button', class: BTN, text: T('acc.rotate.cancel'), onclick: function () {
+      post({ action: 'rotate-cancel' }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box, T('acc.rotate.cancelled')); });
+    } });
+    if (!rot) {
+      rotKids.push(el('button', { type: 'button', class: BTN, text: T('acc.rotate.btn'), onclick: function () {
         if (!window.confirm(T('acc.rotate.confirm'))) return;
-        post({ action: 'rotate-code' }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box, T('acc.rotate.done'), r.code); });
-      } }),
-    ]));
+        post({ action: 'rotate-request' }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box, T('acc.rotate.requested')); });
+      } }));
+    } else if (!rot.mine) {
+      rotKids.push(el('p', { class: 'text-sm text-red-400 mb-2', role: 'alert', text: T('acc.rotate.other', { time: when }) }), cancelBtn);
+    } else if (Date.now() < rot.readyAt) {
+      rotKids.push(el('p', { class: 'text-sm mb-2', text: T('acc.rotate.wait', { time: when }) }), cancelBtn);
+    } else {
+      rotKids.push(el('button', { type: 'button', class: BTN + ' mr-2', text: T('acc.rotate.finish'), onclick: function () {
+        post({ action: 'rotate-finish' }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box, T('acc.rotate.done'), r.code); });
+      } }), cancelBtn);
+    }
+    box.appendChild(section(T('acc.rotate'), rotKids));
     if (data.admin) {
       var whoIn = el('input', { type: 'text', maxlength: '24', class: INPUT });
       box.appendChild(section(T('acc.admin.reset'), [

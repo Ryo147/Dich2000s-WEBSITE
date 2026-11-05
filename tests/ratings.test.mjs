@@ -231,17 +231,43 @@ test('phiên hết hạn sau 21 ngày không hoạt động và được gia h�
   assert.equal(ctx.store.expired.length, 0);
 });
 
-test('quên mã: còn phiên thì tạo mã mới, mã cũ hết hiệu lực, thiết bị khác bị đăng xuất', async () => {
-  const ctx = mk();
+test('quên mã: yêu cầu → chờ 24 giờ → chỉ thiết bị yêu cầu hoàn tất; thiết bị khác hủy được', async () => {
+  let now = 1000;
+  const ctx = { store: memStore(), secret: 'test-secret', now: () => now };
   const a = await core.rate(ctx, { ...base, name: 'Ryo' });
   const d2 = await core.login(ctx, { name: 'Ryo', code: a.code, ipHash: 'i2' });
-  assert.equal((await core.rotateCode(ctx, { token: null, ipHash: 'x' })).code, 'unauthorized');
-  const r = await core.rotateCode(ctx, { token: a.token, ipHash: 'x' });
+  assert.equal((await core.requestRotate(ctx, { token: null, ipHash: 'x' })).code, 'unauthorized');
+  const q = await core.requestRotate(ctx, { token: a.token, ipHash: 'x' });
+  assert.ok(q.ok && q.rotate.mine && q.rotate.readyAt === 1000 + core.LIMITS.rotateDelayMs);
+  // chưa đổi gì: mã cũ vẫn dùng được, thiết bị kia thấy thông báo và không phải "mine"
+  assert.ok((await core.login(ctx, { name: 'Ryo', code: a.code, ipHash: 'i3' })).code === 'device_limit');
+  assert.equal((await core.myReviews(ctx, d2.token)).rotate.mine, false);
+  // yêu cầu lặp không đẩy lùi giờ
+  now = 5000; assert.equal((await core.requestRotate(ctx, { token: a.token, ipHash: 'x' })).rotate.readyAt, q.rotate.readyAt);
+  // chưa đến giờ, hoặc sai thiết bị
+  assert.equal((await core.finishRotate(ctx, { token: a.token, ipHash: 'x' })).code, 'rotate_wait');
+  now = 1000 + core.LIMITS.rotateDelayMs + 1;
+  assert.equal((await core.finishRotate(ctx, { token: d2.token, ipHash: 'x' })).code, 'forbidden');
+  // thiết bị khác hủy → hết hiệu lực
+  assert.ok((await core.cancelRotate(ctx, d2.token)).ok);
+  assert.equal((await core.finishRotate(ctx, { token: a.token, ipHash: 'x' })).code, 'rotate_none');
+  // yêu cầu lại, đến giờ, hoàn tất
+  await core.requestRotate(ctx, { token: a.token, ipHash: 'x' });
+  now += core.LIMITS.rotateDelayMs + 1;
+  const r = await core.finishRotate(ctx, { token: a.token, ipHash: 'x' });
   assert.ok(r.ok && core.canonCode(r.code) && r.code !== a.code);
-  assert.equal((await core.login(ctx, { name: 'Ryo', code: a.code, ipHash: 'i3' })).code, 'bad_login');
   assert.equal((await core.me(ctx, d2.token)).name, null);
   assert.equal((await core.me(ctx, a.token)).name, 'Ryo');
   assert.ok((await core.login(ctx, { name: 'Ryo', code: r.code, ipHash: 'i4' })).ok);
+});
+
+test('quên mã: quá hạn 24 giờ sau khi hết giờ chờ thì phải yêu cầu lại', async () => {
+  let now = 1000;
+  const ctx = { store: memStore(), secret: 'test-secret', now: () => now };
+  const a = await core.rate(ctx, { ...base, name: 'Ryo' });
+  await core.requestRotate(ctx, { token: a.token, ipHash: 'x' });
+  now = 1000 + core.LIMITS.rotateDelayMs + core.LIMITS.rotateWindowMs + 1;
+  assert.equal((await core.finishRotate(ctx, { token: a.token, ipHash: 'x' })).code, 'rotate_none');
 });
 
 test('quên mã và mất hết phiên: chỉ quản trị viên cấp lại được, không áp dụng cho quản trị viên', async () => {

@@ -1,6 +1,6 @@
 // Một hàm duy nhất cho toàn bộ hệ thống đánh giá (giữ trong giới hạn số hàm của gói Hobby).
 // GET  ?game=<slug> | ?featured=1 | ?me=1
-// POST {action: rate|login|logout|me|delete-account|remove-device|reset-devices|rotate-code|admin-reset-code|report|admin-reports|admin-remove|admin-restore, ...}
+// POST {action: rate|login|logout|me|delete-account|remove-device|reset-devices|rotate-request|rotate-cancel|rotate-finish|admin-reset-code|report|admin-reports|admin-remove|admin-restore, ...}
 import crypto from 'node:crypto';
 import * as core from '../lib/ratings-core.js';
 import { redisStore } from '../lib/redis-store.js';
@@ -23,7 +23,7 @@ const readToken = (req) => {
 const setCookie = (res, token) => res.setHeader('Set-Cookie',
   `${COOKIE}=${token || ''}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${token ? COOKIE_SECONDS : 0}`);
 
-const STATUS = { rename_cooldown: 429, bad_login: 401, unauthorized: 401, forbidden: 403, name_taken: 409, device_limit: 409, locked: 429, acct_limit: 429, dup_text: 409, not_found: 404 };
+const STATUS = { rename_cooldown: 429, bad_login: 401, unauthorized: 401, forbidden: 403, name_taken: 409, device_limit: 409, locked: 429, acct_limit: 429, rotate_wait: 409, rotate_none: 404, dup_text: 409, not_found: 404 };
 
 export default async function handler(req, res) {
   if (!secret()) return res.status(503).json({ ok: false, message: 'Chưa cấu hình AUTH_SECRET.' });
@@ -73,7 +73,9 @@ export default async function handler(req, res) {
       case 'delete-account': { const r = await core.deleteAccount(ctx, token); if (r.ok) setCookie(res, null); return send(r); }
       case 'my-reviews': return send(await core.myReviews(ctx, token));
       case 'rename': return send(await core.rename(ctx, { token, name: b.name, ipHash }));
-      case 'rotate-code': return send(await core.rotateCode(ctx, { token, ipHash }));
+      case 'rotate-request': return send(await core.requestRotate(ctx, { token, ipHash }));
+      case 'rotate-cancel': return send(await core.cancelRotate(ctx, token));
+      case 'rotate-finish': return send(await core.finishRotate(ctx, { token, ipHash }));
       case 'admin-reset-code': return send(await core.adminResetCode(ctx, { token, name: b.name }));
       case 'report': return send(await core.report(ctx, { game: b.game, id: b.id, ipHash }));
       case 'admin-reports': return send(await core.adminReports(ctx, token));
