@@ -26,3 +26,7 @@ blur-fix.patch
 # Script riêng của chủ site (tạo mã quản trị), không đưa lên GitHub
 *.local.mjs
 admin-codes*.txt
+
+# Biến môi trường và mã quản trị
+.env
+.env.*

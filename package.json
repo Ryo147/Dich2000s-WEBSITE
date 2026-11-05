@@ -7,6 +7,7 @@
     "build": "echo 'Static site - no build needed'",
     "test": "node --test tests/*.test.mjs",
     "optimize:images": "node tools/optimize-images.mjs",
+    "bump": "node tools/bump-versions.mjs",
     "build:css": "tailwindcss -c tailwind.config.cjs -i css/tailwind-input.css -o css/tailwind.css --minify"
   },
   "dependencies": {
