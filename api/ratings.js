@@ -1,6 +1,6 @@
 // Một hàm duy nhất cho toàn bộ hệ thống đánh giá (giữ trong giới hạn số hàm của gói Hobby).
 // GET  ?game=<slug> | ?featured=1 | ?me=1
-// POST {action: rate|login|logout|me|delete-account|remove-device|reset-devices|report|admin-reports|admin-remove|admin-restore, ...}
+// POST {action: rate|login|logout|me|delete-account|remove-device|reset-devices|rotate-code|admin-reset-code|report|admin-reports|admin-remove|admin-restore, ...}
 import crypto from 'node:crypto';
 import * as core from '../lib/ratings-core.js';
 import { redisStore } from '../lib/redis-store.js';
@@ -71,6 +71,8 @@ export default async function handler(req, res) {
       case 'delete-account': { const r = await core.deleteAccount(ctx, token); if (r.ok) setCookie(res, null); return send(r); }
       case 'my-reviews': return send(await core.myReviews(ctx, token));
       case 'rename': return send(await core.rename(ctx, { token, name: b.name, ipHash }));
+      case 'rotate-code': return send(await core.rotateCode(ctx, { token, ipHash }));
+      case 'admin-reset-code': return send(await core.adminResetCode(ctx, { token, name: b.name }));
       case 'report': return send(await core.report(ctx, { game: b.game, id: b.id, ipHash }));
       case 'admin-reports': return send(await core.adminReports(ctx, token));
       case 'admin-remove': return send(await core.adminSetRemoved(ctx, { token, game: b.game, id: b.id, removed: true }));

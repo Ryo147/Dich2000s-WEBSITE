@@ -215,6 +215,35 @@ test('chặn liên kết, thông tin liên hệ và quảng cáo, kể cả vi�
   assert.equal(core.checkName('abc.com', { allowReserved: true }).ok, true);
 });
 
+test('quên mã: còn phiên thì tạo mã mới, mã cũ hết hiệu lực, thiết bị khác bị đăng xuất', async () => {
+  const ctx = mk();
+  const a = await core.rate(ctx, { ...base, name: 'Ryo' });
+  const d2 = await core.login(ctx, { name: 'Ryo', code: a.code, ipHash: 'i2' });
+  assert.equal((await core.rotateCode(ctx, { token: null, ipHash: 'x' })).code, 'unauthorized');
+  const r = await core.rotateCode(ctx, { token: a.token, ipHash: 'x' });
+  assert.ok(r.ok && core.canonCode(r.code) && r.code !== a.code);
+  assert.equal((await core.login(ctx, { name: 'Ryo', code: a.code, ipHash: 'i3' })).code, 'bad_login');
+  assert.equal((await core.me(ctx, d2.token)).name, null);
+  assert.equal((await core.me(ctx, a.token)).name, 'Ryo');
+  assert.ok((await core.login(ctx, { name: 'Ryo', code: r.code, ipHash: 'i4' })).ok);
+});
+
+test('quên mã và mất hết phiên: chỉ quản trị viên cấp lại được, không áp dụng cho quản trị viên', async () => {
+  const ctx = mk();
+  const adm = await core.createAccount(ctx, 'NhuaInox', core.nameKey('NhuaInox'), { admin: true });
+  const admSess = await core.login(ctx, { name: 'NhuaInox', code: adm.code, ipHash: 'ia' });
+  const u = await core.rate(ctx, { ...base, name: 'Ryo' });
+  assert.equal((await core.adminResetCode(ctx, { token: u.token, name: 'Ryo' })).code, 'forbidden');
+  assert.equal((await core.adminResetCode(ctx, { token: null, name: 'Ryo' })).code, 'forbidden');
+  assert.equal((await core.adminResetCode(ctx, { token: admSess.token, name: 'Khongco' })).code, 'not_found');
+  assert.equal((await core.adminResetCode(ctx, { token: admSess.token, name: 'NhuaInox' })).code, 'forbidden');
+  const r = await core.adminResetCode(ctx, { token: admSess.token, name: 'ryo' });
+  assert.ok(r.ok && r.name === 'Ryo' && core.canonCode(r.code));
+  assert.equal((await core.me(ctx, u.token)).name, null);
+  assert.equal((await core.login(ctx, { name: 'Ryo', code: u.code, ipHash: 'i2' })).code, 'bad_login');
+  assert.ok((await core.login(ctx, { name: 'Ryo', code: r.code, ipHash: 'i3' })).ok);
+});
+
 test('quản trị viên gỡ chữ nhưng sao vẫn tính; người thường không gỡ được', async () => {
   const ctx = mk();
   const adm = await core.createAccount(ctx, 'NhuaInox', core.nameKey('NhuaInox'), { admin: true });

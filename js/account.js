@@ -45,7 +45,7 @@
   var INPUT = 'w-full rounded-lg border border-border bg-background px-3 py-2';
   var BTN = 'rounded-full border border-border px-4 py-2 text-sm hover:bg-card';
 
-  function render(box, data, note) {
+  function render(box, data, note, code) {
     box.textContent = '';
     var msg = el('p', { class: 'text-sm mt-3', role: 'status' });
     var say = function (t, bad) { msg.textContent = t; msg.className = 'text-sm mt-3 ' + (bad ? 'text-red-400' : 'text-green-400'); };
@@ -72,6 +72,8 @@
           } }),
           resetBtn,
         ])]));
+      box.appendChild(el('p', { class: 'text-xs text-muted-foreground mt-4', text: T('acc.forgot') }));
+      box.appendChild(el('a', { href: 'https://discord.gg/mxsAU6BDye', target: '_blank', rel: 'noopener noreferrer', class: 'text-xs text-primary hover:underline', text: T('acc.forgot.link') }));
       box.appendChild(msg);
       return;
     }
@@ -79,6 +81,17 @@
     var nameIn = el('input', { type: 'text', maxlength: '24', class: INPUT, value: data.name });
     var section = function (title, kids) { return el('section', { class: 'mt-6' }, [el('h3', { class: 'font-semibold mb-2', text: title })].concat(kids)); };
     box.appendChild(el('p', { class: 'text-sm text-muted-foreground', text: T('rv.asname', { name: data.name }) }));
+    if (code) { // mã mới (tự tạo hoặc quản trị viên cấp): chỉ hiện một lần
+      box.appendChild(el('div', { class: 'mt-4 rounded-lg border border-primary p-3 text-sm' }, [
+        el('p', { class: 'font-medium mb-1', text: T('acc.code.title') }),
+        el('code', { class: 'block select-all rounded-lg border border-border bg-card px-3 py-2 font-mono', text: code }),
+        el('p', { class: 'text-xs text-muted-foreground mt-2', text: T('acc.code.warn') }),
+        el('button', { type: 'button', class: BTN + ' mt-2', text: T('rv.copy'), onclick: function (e) {
+          var b = e.currentTarget;
+          if (navigator.clipboard) navigator.clipboard.writeText(code).then(function () { b.textContent = T('rv.copied'); });
+        } }),
+      ]));
+    }
 
     if (data.admin) box.appendChild(el('p', { class: 'text-xs text-muted-foreground mt-2', text: T('acc.admin') }));
     else box.appendChild(section(T('acc.rename'), [
@@ -130,6 +143,28 @@
       el('button', { type: 'button', class: BTN + ' mt-2 text-red-400', text: T('acc.device.removeall'), onclick: function () { removeDevice(null); } }),
     ]));
 
+    // Quên mã: còn phiên đăng nhập thì tự tạo mã mới; mất hết phiên thì nhờ quản trị viên cấp lại (xem form bên dưới, chỉ quản trị viên thấy)
+    box.appendChild(section(T('acc.rotate'), [
+      el('p', { class: 'text-xs text-muted-foreground mb-2', text: T('acc.rotate.hint') }),
+      el('button', { type: 'button', class: BTN, text: T('acc.rotate.btn'), onclick: function () {
+        if (!window.confirm(T('acc.rotate.confirm'))) return;
+        post({ action: 'rotate-code' }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box, T('acc.rotate.done'), r.code); });
+      } }),
+    ]));
+    if (data.admin) {
+      var whoIn = el('input', { type: 'text', maxlength: '24', class: INPUT });
+      box.appendChild(section(T('acc.admin.reset'), [
+        el('p', { class: 'text-xs text-muted-foreground mb-2', text: T('acc.admin.reset.hint') }),
+        field(T('acc.admin.reset.name'), whoIn),
+        el('button', { type: 'button', class: BTN + ' mt-2', text: T('acc.admin.reset.btn'), onclick: function () {
+          post({ action: 'admin-reset-code', name: whoIn.value }).then(function (r) {
+            if (!r.ok) return say(errText(r), true);
+            load(box, T('acc.admin.reset.done', { name: r.name }), r.code);
+          });
+        } }),
+      ]));
+    }
+
     var out = el('button', { type: 'button', class: BTN, text: T('rv.logout'), onclick: function () {
       post({ action: 'logout' }).then(function () { load(box); });
     } });
@@ -142,8 +177,8 @@
     if (note) say(note, false);
   }
 
-  function load(box, note) {
-    post({ action: 'my-reviews' }).then(function (r) { render(box, r.ok ? r : null, note); });
+  function load(box, note, code) {
+    post({ action: 'my-reviews' }).then(function (r) { render(box, r.ok ? r : null, note, code); });
   }
 
   function init() {
