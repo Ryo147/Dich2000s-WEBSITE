@@ -77,7 +77,7 @@
       'err.acct_limit': 'Too many accounts were created from your network today, or new sign-ups are paused for a moment. Use an existing account or try again later.',
       'err.dup_text': 'This comment is identical to another one. Please write it in your own words.',
       'err.locked': 'Too many attempts. Please try again later.', 'err.reserved_name': 'This name is reserved. Please choose another.',
-      'err.bad_name': 'Invalid name (3–24 letters, digits, spaces, - _ .).', 'err.bad_text': 'Invalid comment (max 600 characters, no links).',
+      'err.bad_name': 'Invalid name (3–24 letters, digits, spaces, - _ .).', 'err.bad_text': 'Invalid comment (max 600 characters; no links, contact details or ads).',
       'err.bad_stars': 'Please choose 1 to 5 stars.', 'err.forbidden': 'Not allowed.', 'err.unauthorized': 'Please sign in first.',
     },
   };

@@ -195,6 +195,26 @@ test('bình luận trùng nội dung giữa các tài khoản bị chặn; tự 
   assert.ok((await core.rate(ctx, { ...base, name: 'Khac2', text: 'Hay', ipHash: 'p3' })).ok);
 });
 
+test('chặn liên kết, thông tin liên hệ và quảng cáo, kể cả viết lách; câu bình thường không bị chặn nhầm', async () => {
+  const spam = [
+    'xem tại www.abc.vn', 'vào abc.com nhé', 'abc dot com', 'abc (.) net', 'abc chấm vn', 'h t t p s : / / x', 'bit.ly/x', 't.me/abc',
+    'Zalo 0912 345 678', 'gọi 0912.345.678', 'ib mình nhé', 'liên hệ abc@gmail.com', 'add @shopxyz', 'nhà cái uy tín', 'c a s i n o', 'bán acc giá rẻ', 'NHẠ CÁI'.replace('Ạ', 'À'),
+  ];
+  for (const s of spam) assert.equal(core.looksLikeAd(s), true, s);
+  const fine = [
+    'Bản dịch rất hay, chơi mượt. Cảm ơn nhóm!', 'Chơi được 20 tiếng, đạt 100% thành tựu.', 'Game chạy chậm online hơi lag', 'Mình mua trên Steam giá 1.200.000đ',
+    'Dịch tốt, 10/10, 5 sao', 'Hay.Cảm ơn nhóm nhiều', 'Có lỗi font ở chương 3 nhưng không sao',
+  ];
+  for (const s of fine) assert.equal(core.looksLikeAd(s), false, s);
+  const ctx = mk();
+  assert.equal((await core.rate(ctx, { ...base, name: 'Ryo', text: 'ib zalo nhé' })).code, 'bad_text');
+  assert.equal((await core.rate(ctx, { ...base, name: 'abc.com' })).code, 'bad_name');
+  assert.equal((await core.rate(ctx, { ...base, name: 'Zalo 0912345678' })).code, 'bad_name');
+  assert.equal((await core.reviews(ctx, 'dmc5')).count, 0);
+  // tên cũ trông giống quảng cáo vẫn đăng nhập được (chỉ chặn lúc tạo/đổi tên)
+  assert.equal(core.checkName('abc.com', { allowReserved: true }).ok, true);
+});
+
 test('quản trị viên gỡ chữ nhưng sao vẫn tính; người thường không gỡ được', async () => {
   const ctx = mk();
   const adm = await core.createAccount(ctx, 'NhuaInox', core.nameKey('NhuaInox'), { admin: true });
