@@ -1,5 +1,5 @@
 /* =========================================================
-   Cài đặt tài khoản: popup mở từ mục "Tài khoản" trong menu (window.d2kOpenAccount).
+   Trang Cài đặt tài khoản (tai-khoan.html): vẽ vào #account-root.
    Gồm: sửa tên, xem lại đánh giá của mình, đăng xuất thiết bị này, xóa tài khoản.
    Chưa đăng nhập thì hiện ô đăng nhập bằng tên + mã 3 từ. Nội dung người dùng luôn gán bằng textContent.
    ========================================================= */
@@ -15,7 +15,6 @@
     'dreamcore_1': { name: 'Dreamcore?', url: 'projects/dreamcore_1.html' },
   };
   var T = function (k, v) { return window.d2kT ? window.d2kT(k, v) : k; };
-  var overlay = null, lastFocus = null;
 
   function el(tag, attrs, kids) {
     var n = document.createElement(tag);
@@ -38,23 +37,6 @@
   function errText(r) {
     var key = 'err.' + r.code, s = T(key);
     return s !== key ? s : (r.message || T('rv.neterr'));
-  }
-
-  function close() {
-    if (!overlay) return;
-    document.removeEventListener('keydown', onKey, true);
-    overlay.remove(); overlay = null;
-    if (lastFocus && lastFocus.focus) lastFocus.focus();
-  }
-
-  function onKey(e) {
-    if (e.key === 'Escape') { e.stopPropagation(); close(); return; }
-    if (e.key !== 'Tab' || !overlay) return;
-    var f = overlay.querySelectorAll('button, input, a[href]');
-    if (!f.length) return;
-    var first = f[0], last = f[f.length - 1];
-    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   }
 
   function field(label, input) {
@@ -108,11 +90,11 @@
     box.appendChild(section(T('acc.myreviews'), [list]));
 
     var out = el('button', { type: 'button', class: BTN, text: T('rv.logout'), onclick: function () {
-      post({ action: 'logout' }).then(function () { close(); if (document.getElementById('reviews')) location.reload(); });
+      post({ action: 'logout' }).then(function () { load(box); });
     } });
     var del = data.admin ? null : el('button', { type: 'button', class: BTN + ' text-red-400', text: T('rv.delete'), onclick: function () {
       if (!window.confirm(T('rv.delete.confirm'))) return;
-      post({ action: 'delete-account' }).then(function (r) { if (!r.ok) return say(errText(r), true); close(); if (document.getElementById('reviews')) location.reload(); });
+      post({ action: 'delete-account' }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box); });
     } });
     box.appendChild(el('div', { class: 'mt-6 flex flex-wrap gap-2' }, [out, del]));
     box.appendChild(msg);
@@ -123,22 +105,12 @@
     post({ action: 'my-reviews' }).then(function (r) { render(box, r.ok ? r : null, note); });
   }
 
-  window.d2kOpenAccount = function () {
-    if (overlay) return;
-    lastFocus = document.activeElement;
-    var box = el('div', { class: 'text-foreground' }, [el('p', { class: 'text-sm text-muted-foreground', text: '…' })]);
-    var panel = el('div', { role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': 'acc-title', class: 'w-full max-w-md max-h-[85vh] overflow-y-auto rounded-2xl border border-border bg-background p-6 shadow-xl' }, [
-      el('div', { class: 'flex items-start justify-between gap-4 mb-4' }, [
-        el('h2', { id: 'acc-title', class: 'font-display text-xl font-semibold', text: T('acc.title') }),
-        el('button', { type: 'button', 'aria-label': T('acc.close'), class: 'text-2xl leading-none text-muted-foreground hover:text-foreground', text: '×', onclick: close }),
-      ]),
-      box,
-    ]);
-    overlay = el('div', { class: 'fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60' }, [panel]);
-    overlay.addEventListener('mousedown', function (e) { if (e.target === overlay) close(); });
-    document.body.appendChild(overlay);
-    document.addEventListener('keydown', onKey, true);
-    load(box);
-    panel.querySelector('button').focus();
-  };
+  function init() {
+    var root = document.getElementById('account-root');
+    if (!root) return;
+    root.textContent = '…';
+    load(root);
+    window.addEventListener('d2k-lang', function () { load(root); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

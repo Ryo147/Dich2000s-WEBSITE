@@ -174,10 +174,6 @@ export function initStaggeredMenu(target, options = {}) {
       });
       const label = el('span', { class: 'sm-panel-itemLabel' }, [document.createTextNode(it.label)]);
       a.appendChild(label);
-      // mục có onClick (ví dụ popup tài khoản): không chuyển trang, đóng menu rồi chạy hàm
-      if (typeof it.onClick === 'function') {
-        a.addEventListener('click', (e) => { e.preventDefault(); doClose(); it.onClick(); });
-      }
       li.appendChild(a);
       panelList.appendChild(li);
     });
