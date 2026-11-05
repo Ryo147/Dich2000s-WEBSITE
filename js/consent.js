@@ -111,15 +111,22 @@
     box.className = 'd2k-banner';
     box.setAttribute('role', 'region');
     box.setAttribute('aria-label', 'Thông báo cookie');
+    var T = window.d2kT || function (k) { return k; }; // i18n.js luôn nạp trước (defer, đúng thứ tự)
     box.innerHTML =
-      '<p>Website dùng Google Analytics (cookie phân tích) và một mã khách ngẫu nhiên để đếm lượt xem, số người đang online. Chỉ khi bạn bấm Chấp nhận thì các công cụ này mới chạy; nếu từ chối, không có dữ liệu nào được gửi đi. ' +
-      '<a href="' + base + 'privacy.html">Xem chính sách bảo mật</a>.</p>' +
-      '<div class="d2k-btns"><button type="button" class="d2k-no">Từ chối</button>' +
-      '<button type="button" class="d2k-yes">Chấp nhận</button></div>';
+      '<p>' + T('cookie.text') + ' ' +
+      '<a href="' + base + 'privacy.html">' + T('cookie.policy') + '</a>.</p>' +
+      '<div class="d2k-btns"><button type="button" class="d2k-no">' + T('cookie.no') + '</button>' +
+      '<button type="button" class="d2k-yes">' + T('cookie.yes') + '</button></div>';
     box.querySelector('.d2k-yes').addEventListener('click', function () { choose('granted'); });
     box.querySelector('.d2k-no').addEventListener('click', function () { choose('denied'); });
     document.body.appendChild(box);
   }
+
+  // đổi ngôn ngữ khi banner đang hiện: vẽ lại
+  window.addEventListener('d2k-lang', function () {
+    var old = document.getElementById('d2k-consent');
+    if (old) { old.remove(); showBanner(); }
+  });
 
   window.d2kCookieSettings = function () {
     try { localStorage.removeItem(KEY); } catch (e) { /* bỏ qua */ }
