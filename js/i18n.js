@@ -74,6 +74,8 @@
       'err.rename_cooldown': 'You renamed recently. Only one rename per 7 days.',
       'err.name_taken': 'This name is already taken. If it is yours, enter your 3-word code in the sign-in box; otherwise pick another name.',
       'err.bad_login': 'Wrong name or code.', 'err.device_limit': 'This account is already signed in on 2 devices. Sign out on one of them, or open the Account page to remove devices (enter your name and 3-word code).',
+      'err.acct_limit': 'Too many accounts were created from your network today, or new sign-ups are paused for a moment. Use an existing account or try again later.',
+      'err.dup_text': 'This comment is identical to another one. Please write it in your own words.',
       'err.locked': 'Too many attempts. Please try again later.', 'err.reserved_name': 'This name is reserved. Please choose another.',
       'err.bad_name': 'Invalid name (3–24 letters, digits, spaces, - _ .).', 'err.bad_text': 'Invalid comment (max 600 characters, no links).',
       'err.bad_stars': 'Please choose 1 to 5 stars.', 'err.forbidden': 'Not allowed.', 'err.unauthorized': 'Please sign in first.',

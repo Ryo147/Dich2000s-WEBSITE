@@ -146,6 +146,55 @@ test('đã đủ 2 thiết bị và mất cả hai: reset bằng tên + mã khô
   assert.ok((await core.login(ctx, { name: 'Ryo', code: a.code, ipHash: 'i3' })).ok);
 });
 
+test('chống tài khoản rác: mỗi IP tối đa 3 tài khoản/ngày, bị từ chối thì không để lại tài khoản', async () => {
+  const ctx = mk();
+  const games = ['dmc5', 're2-remake', 'plague-inc', 'dreamcore_1'];
+  for (let i = 0; i < 3; i++) assert.ok((await core.rate(ctx, { ...base, game: games[i], name: `Khach ${i}`, ipHash: 'spam' })).ok);
+  const blocked = await core.rate(ctx, { ...base, game: games[3], name: 'Khach 3', ipHash: 'spam' });
+  assert.equal(blocked.code, 'acct_limit');
+  assert.ok((await core.rate(ctx, { ...base, game: games[3], name: 'Khach 3', ipHash: 'other' })).ok); // tên chưa bị chiếm, IP khác vẫn tạo được
+});
+
+test('chống tài khoản rác: ngưỡng toàn site theo giờ', async () => {
+  const ctx = mk();
+  const old = core.LIMITS.globalAcctMax;
+  core.LIMITS.globalAcctMax = 2;
+  try {
+    assert.ok((await core.rate(ctx, { ...base, name: 'Aaron', ipHash: 'a1' })).ok);
+    assert.ok((await core.rate(ctx, { ...base, name: 'Bella', ipHash: 'a2' })).ok);
+    assert.equal((await core.rate(ctx, { ...base, name: 'Cindy', ipHash: 'a3' })).code, 'acct_limit');
+  } finally { core.LIMITS.globalAcctMax = old; }
+});
+
+test('đánh giá mới theo IP cho mỗi game bị giới hạn, sửa đánh giá cũ thì không tính', async () => {
+  const ctx = mk();
+  const old = core.LIMITS.ipAcctMax;
+  core.LIMITS.ipAcctMax = 99; // chỉ thử ngưỡng đánh giá mới
+  try {
+    const a = await core.rate(ctx, { ...base, name: 'User1', ipHash: 'same' });
+    await core.rate(ctx, { ...base, name: 'User2', ipHash: 'same' });
+    await core.rate(ctx, { ...base, name: 'User3', ipHash: 'same' });
+    assert.equal((await core.rate(ctx, { ...base, name: 'User4', ipHash: 'same' })).code, 'locked');
+    assert.equal((await core.rate(ctx, { ...base, game: 're2-remake', name: 'User4', ipHash: 'same' })).ok, true); // game khác
+    for (let i = 0; i < 5; i++) assert.ok((await core.rate(ctx, { ...base, token: a.token, stars: 1 + (i % 5), ipHash: 'same' })).ok); // sửa thoải mái
+  } finally { core.LIMITS.ipAcctMax = old; }
+});
+
+test('bình luận trùng nội dung giữa các tài khoản bị chặn; tự sửa lại của mình thì được', async () => {
+  const ctx = mk();
+  const text = 'Bản Việt hóa rất tuyệt vời, cảm ơn nhóm dịch!';
+  const a = await core.rate(ctx, { ...base, name: 'Ryo', text, ipHash: 'p1' });
+  assert.ok(a.ok);
+  const dup = await core.rate(ctx, { ...base, name: 'Khac', text: 'BAN VIET HOA RAT TUYET VOI cam on nhom dich', ipHash: 'p2' });
+  assert.equal(dup.code, 'dup_text');
+  // bị từ chối thì không tạo tài khoản: tên đó vẫn còn trống
+  assert.ok((await core.rate(ctx, { ...base, name: 'Khac', text: 'Mình chơi xong rồi, rất hài lòng.', ipHash: 'p2' })).ok);
+  // cùng nội dung ở game khác hoặc do chính chủ gửi lại thì được; bình luận ngắn không bị coi là trùng
+  assert.ok((await core.rate(ctx, { ...base, game: 're2-remake', token: a.token, text, ipHash: 'p1' })).ok);
+  assert.ok((await core.rate(ctx, { ...base, token: a.token, text, stars: 4, ipHash: 'p1' })).ok);
+  assert.ok((await core.rate(ctx, { ...base, name: 'Khac2', text: 'Hay', ipHash: 'p3' })).ok);
+});
+
 test('quản trị viên gỡ chữ nhưng sao vẫn tính; người thường không gỡ được', async () => {
   const ctx = mk();
   const adm = await core.createAccount(ctx, 'NhuaInox', core.nameKey('NhuaInox'), { admin: true });

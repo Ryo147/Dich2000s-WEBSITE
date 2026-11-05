@@ -21,7 +21,7 @@ const readToken = (req) => {
 const setCookie = (res, token) => res.setHeader('Set-Cookie',
   `${COOKIE}=${token || ''}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${token ? core.LIMITS.sessionSeconds : 0}`);
 
-const STATUS = { rename_cooldown: 429, bad_login: 401, unauthorized: 401, forbidden: 403, name_taken: 409, device_limit: 409, locked: 429, not_found: 404 };
+const STATUS = { rename_cooldown: 429, bad_login: 401, unauthorized: 401, forbidden: 403, name_taken: 409, device_limit: 409, locked: 429, acct_limit: 429, dup_text: 409, not_found: 404 };
 
 export default async function handler(req, res) {
   if (!secret()) return res.status(503).json({ ok: false, message: 'Chưa cấu hình AUTH_SECRET.' });
