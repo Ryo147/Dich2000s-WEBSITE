@@ -56,7 +56,7 @@ test('đánh giá lần đầu tự tạo tài khoản, trả mã một lần, s
   assert.equal(list.avg, 2);
 });
 
-test('tên đã có thì báo trùng; đúng mã thì vào được; sai mã bị khóa sau 5 lần', async () => {
+test('tên đã có thì báo trùng; đúng mã thì vào được; sai mã khóa theo IP sau 5 lần', async () => {
   const ctx = mk();
   const a = await core.rate(ctx, { ...base, name: 'Ryo' });
   assert.equal((await core.rate(ctx, { ...base, name: 'ryo ' })).code, 'name_taken');
@@ -64,11 +64,14 @@ test('tên đã có thì báo trùng; đúng mã thì vào được; sai mã b�
   const okLogin = await core.rate(ctx, { ...base, game: 're2-remake', name: 'Ryo', code: a.code });
   assert.ok(okLogin.ok);
   const c2 = mk();
-  await core.rate(c2, { ...base, name: 'Ryo' });
+  const real = await core.rate(c2, { ...base, name: 'Ryo' });
   const codes = [];
-  for (let i = 0; i < 6; i++) codes.push((await core.login(c2, { name: 'Ryo', code: 'ác ác ác', ipHash: 'ipx' + i })).code);
+  for (let i = 0; i < 6; i++) codes.push((await core.login(c2, { name: 'Ryo', code: 'ác ác ác', ipHash: 'bad-ip' })).code);
   assert.deepEqual(codes.slice(0, 5), Array(5).fill('bad_login'));
   assert.equal(codes[5], 'locked');
+  // IP lạ bị khóa không làm chủ tài khoản bị khóa: IP khác vẫn đăng nhập được, IP bị khóa thì không
+  assert.ok((await core.login(c2, { name: 'Ryo', code: real.code, ipHash: 'good-ip' })).ok);
+  assert.equal((await core.login(c2, { name: 'Ryo', code: real.code, ipHash: 'bad-ip' })).code, 'locked');
 });
 
 test('tối đa 2 thiết bị, đăng xuất giải phóng chỗ', async () => {
