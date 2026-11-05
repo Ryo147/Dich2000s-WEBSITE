@@ -1,6 +1,6 @@
 // Một hàm duy nhất cho toàn bộ hệ thống đánh giá (giữ trong giới hạn số hàm của gói Hobby).
 // GET  ?game=<slug> | ?featured=1 | ?me=1
-// POST {action: rate|login|logout|me|delete-account|report|admin-reports|admin-remove|admin-restore, ...}
+// POST {action: rate|login|logout|me|delete-account|remove-device|reset-devices|report|admin-reports|admin-remove|admin-restore, ...}
 import crypto from 'node:crypto';
 import * as core from '../lib/ratings-core.js';
 import { redisStore } from '../lib/redis-store.js';
@@ -57,8 +57,13 @@ export default async function handler(req, res) {
         return send(r);
       }
       case 'login': {
-        const r = await core.login(ctx, { name: b.name, code: b.code, ipHash });
+        const r = await core.login(ctx, { name: b.name, code: b.code, ipHash, token });
         if (r.ok) { setCookie(res, r.token); delete r.token; }
+        return send(r);
+      }
+      case 'remove-device': case 'reset-devices': {
+        const r = await core.removeDevices(ctx, { token, name: b.name, code: b.code, ipHash, deviceId: b.action === 'remove-device' ? b.id : null });
+        if (r.ok && r.loggedOut) setCookie(res, null);
         return send(r);
       }
       case 'logout': setCookie(res, null); return send(await core.logout(ctx, token));

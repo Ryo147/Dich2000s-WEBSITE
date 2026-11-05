@@ -85,6 +85,67 @@ test('tối đa 2 thiết bị, đăng xuất giải phóng chỗ', async () => 
   assert.ok((await core.login(ctx, { name: 'Ryo', code: a.code, ipHash: 'ip4' })).ok);
 });
 
+test('đăng nhập lại ngay trên trình duyệt đang có phiên hợp lệ thì không tính thêm thiết bị', async () => {
+  const ctx = mk();
+  const a = await core.rate(ctx, { ...base, name: 'Ryo' });
+  for (const ip of ['i1', 'i2', 'i3']) {
+    const r = await core.login(ctx, { name: 'Ryo', code: a.code, ipHash: ip, token: a.token });
+    assert.ok(r.ok && r.token === a.token, 'dùng lại đúng phiên cũ');
+  }
+  assert.equal((await core.myReviews(ctx, a.token)).devices.length, 1);
+  // thiết bị thứ 2 vẫn vào được
+  assert.ok((await core.login(ctx, { name: 'Ryo', code: a.code, ipHash: 'i4' })).ok);
+});
+
+test('đổi sang tài khoản khác trên cùng trình duyệt không để lại thiết bị ma ở tài khoản cũ', async () => {
+  const ctx = mk();
+  const a = await core.rate(ctx, { ...base, name: 'Ryo' });
+  const b = await core.rate(ctx, { ...base, name: 'Khac' });
+  const r = await core.login(ctx, { name: 'Khac', code: b.code, ipHash: 'i1', token: a.token });
+  assert.ok(r.ok);
+  assert.equal((await core.me(ctx, a.token)).name, null);
+  assert.equal((await core.myReviews(ctx, r.token)).devices.length, 2);
+  // tài khoản cũ đã trống chỗ
+  assert.ok((await core.login(ctx, { name: 'Ryo', code: a.code, ipHash: 'i2' })).ok);
+});
+
+test('quản lý thiết bị: xem danh sách, gỡ từng cái và gỡ toàn bộ đều bắt buộc đúng mã', async () => {
+  const ctx = mk();
+  const a = await core.rate(ctx, { ...base, name: 'Ryo' });
+  const d2 = await core.login(ctx, { name: 'Ryo', code: a.code, ipHash: 'i2' });
+  const list = (await core.myReviews(ctx, a.token)).devices;
+  assert.equal(list.length, 2);
+  assert.deepEqual(list.map((d) => d.current), [true, false]);
+  assert.equal(list[0].t, 1000);
+  // sai mã, mã người khác hoặc không có mã đều không gỡ được
+  assert.equal((await core.removeDevices(ctx, { token: a.token, name: 'Ryo', code: 'mot hai ba', ipHash: 'x1', deviceId: list[1].id })).code, 'bad_login');
+  assert.equal((await core.removeDevices(ctx, { token: a.token, name: 'Ryo', code: '', ipHash: 'x1' })).code, 'bad_login');
+  assert.equal((await core.me(ctx, d2.token)).name, 'Ryo');
+  // id lạ hoặc sai kiểu
+  assert.equal((await core.removeDevices(ctx, { token: a.token, name: 'Ryo', code: a.code, ipHash: 'x2', deviceId: 'khong-co' })).code, 'not_found');
+  assert.equal((await core.removeDevices(ctx, { token: a.token, name: 'Ryo', code: a.code, ipHash: 'x2', deviceId: 5 })).code, 'bad_request');
+  // gỡ đúng thiết bị kia: thiết bị này vẫn sống
+  const one = await core.removeDevices(ctx, { token: a.token, name: 'Ryo', code: a.code, ipHash: 'x3', deviceId: list[1].id });
+  assert.ok(one.ok && one.removed === 1 && !one.loggedOut);
+  assert.equal((await core.me(ctx, d2.token)).name, null);
+  assert.equal((await core.me(ctx, a.token)).name, 'Ryo');
+  // gỡ toàn bộ, kể cả thiết bị đang dùng
+  const all = await core.removeDevices(ctx, { token: a.token, name: 'ryo', code: a.code, ipHash: 'x4' });
+  assert.ok(all.ok && all.removed === 1 && all.loggedOut);
+  assert.equal((await core.me(ctx, a.token)).name, null);
+});
+
+test('đã đủ 2 thiết bị và mất cả hai: reset bằng tên + mã không cần phiên rồi đăng nhập lại', async () => {
+  const ctx = mk();
+  const a = await core.rate(ctx, { ...base, name: 'Ryo' });
+  await core.login(ctx, { name: 'Ryo', code: a.code, ipHash: 'i2' }); // token bị mất, như xóa cookie
+  assert.equal((await core.login(ctx, { name: 'Ryo', code: a.code, ipHash: 'i3' })).code, 'device_limit');
+  const r = await core.removeDevices(ctx, { token: null, name: 'Ryo', code: a.code, ipHash: 'i3' });
+  assert.ok(r.ok && r.removed === 2 && !r.loggedOut);
+  assert.equal((await core.me(ctx, a.token)).name, null);
+  assert.ok((await core.login(ctx, { name: 'Ryo', code: a.code, ipHash: 'i3' })).ok);
+});
+
 test('quản trị viên gỡ chữ nhưng sao vẫn tính; người thường không gỡ được', async () => {
   const ctx = mk();
   const adm = await core.createAccount(ctx, 'NhuaInox', core.nameKey('NhuaInox'), { admin: true });

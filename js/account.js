@@ -53,11 +53,25 @@
     if (!data) { // chưa đăng nhập
       var n = el('input', { type: 'text', maxlength: '24', autocomplete: 'nickname', class: INPUT });
       var c = el('input', { type: 'text', autocomplete: 'off', class: INPUT });
+      // Chỉ hiện khi đăng nhập bị chặn vì đủ 2 thiết bị: xác thực bằng chính tên + mã vừa nhập rồi gỡ hết và đăng nhập lại
+      var resetBtn = el('button', { type: 'button', hidden: '', class: BTN, text: T('acc.device.resetlogin'), onclick: function () {
+        if (!window.confirm(T('acc.device.confirmall'))) return;
+        post({ action: 'reset-devices', name: n.value, code: c.value }).then(function (r) {
+          if (!r.ok) return say(errText(r), true);
+          post({ action: 'login', name: n.value, code: c.value }).then(function (l) { if (!l.ok) return say(errText(l), true); load(box); });
+        });
+      } });
       box.appendChild(el('p', { class: 'text-sm text-muted-foreground mb-4', text: T('acc.loggedout') }));
       box.appendChild(el('div', { class: 'space-y-3' }, [field(T('rv.yourname'), n), field(T('rv.code'), c),
-        el('button', { type: 'button', class: BTN, text: T('rv.login'), onclick: function () {
-          post({ action: 'login', name: n.value, code: c.value }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box); });
-        } })]));
+        el('div', { class: 'flex flex-wrap gap-2' }, [
+          el('button', { type: 'button', class: BTN, text: T('rv.login'), onclick: function () {
+            post({ action: 'login', name: n.value, code: c.value }).then(function (r) {
+              if (!r.ok) { resetBtn.hidden = r.code !== 'device_limit'; return say(errText(r), true); }
+              load(box);
+            });
+          } }),
+          resetBtn,
+        ])]));
       box.appendChild(msg);
       return;
     }
@@ -88,6 +102,33 @@
       ]));
     });
     box.appendChild(section(T('acc.myreviews'), [list]));
+
+    // Quản lý thiết bị: tài khoản chỉ có tên + mã 3 từ nên gỡ thiết bị luôn bắt nhập lại mã để xác thực
+    var codeIn = el('input', { type: 'text', autocomplete: 'off', class: INPUT });
+    var removeDevice = function (id) {
+      if (!codeIn.value.trim()) return say(T('acc.device.needcode'), true);
+      if (!id && !window.confirm(T('acc.device.confirmall'))) return;
+      post({ action: id ? 'remove-device' : 'reset-devices', name: data.name, code: codeIn.value, id: id }).then(function (r) {
+        if (!r.ok) return say(errText(r), true);
+        load(box, r.loggedOut ? null : T(id ? 'acc.device.removed' : 'acc.device.removedall'));
+      });
+    };
+    var devs = el('ul', { class: 'space-y-2' });
+    (data.devices || []).forEach(function (d) {
+      devs.appendChild(el('li', { class: 'rounded-lg border border-border p-3 text-sm flex items-center justify-between gap-2' }, [
+        el('div', {}, [
+          el('div', { class: 'font-medium', text: T(d.current ? 'acc.device.this' : 'acc.device.other') }),
+          el('div', { class: 'text-xs text-muted-foreground', text: d.t ? T('acc.device.since', { t: new Date(d.t).toLocaleString() }) : T('acc.device.nosince') }),
+        ]),
+        el('button', { type: 'button', class: BTN, text: T('acc.device.remove'), onclick: function () { removeDevice(d.id); } }),
+      ]));
+    });
+    box.appendChild(section(T('acc.devices'), [
+      el('p', { class: 'text-xs text-muted-foreground mb-2', text: T('acc.devices.hint') }),
+      devs,
+      el('div', { class: 'mt-3' }, [field(T('acc.device.code'), codeIn)]),
+      el('button', { type: 'button', class: BTN + ' mt-2 text-red-400', text: T('acc.device.removeall'), onclick: function () { removeDevice(null); } }),
+    ]));
 
     var out = el('button', { type: 'button', class: BTN, text: T('rv.logout'), onclick: function () {
       post({ action: 'logout' }).then(function () { load(box); });
