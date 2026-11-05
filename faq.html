@@ -33,7 +33,7 @@
         href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="js/speed-insights.js"></script>
+    <script src="js/speed-insights.js?v=570d8ae5"></script>
     <link rel="stylesheet" href="css/style.css?v=dfdbcfa8">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
     <link rel="stylesheet" href="css/staggered-menu.css?v=1b6cd9b2">
@@ -63,7 +63,8 @@
                         cả</button><button class="chip-filter" data-cat="install">Lỗi cài đặt</button><button
                         class="chip-filter" data-cat="game">Lỗi trong game</button><button class="chip-filter"
                         data-cat="viethoa">Lỗi Việt hóa</button><button class="chip-filter"
-                        data-cat="general">Câu hỏi chung</button></div>
+                        data-cat="general">Câu hỏi chung</button><button
+                        class="chip-filter" data-cat="account">Đánh giá &amp; tài khoản</button></div>
             </div>
             <div id="faqResults" class="mt-10 space-y-8"></div>
             <div id="faqEmpty"
@@ -156,8 +157,8 @@
     </footer>
     <div class="toast" id="toast">Đã sao chép!</div>
     <script src="js/live-stats.js?v=c24777c9"></script>
-    <script src="js/main.js"></script>
-    <script src="js/faq.js?v=c818dd2a"></script>
+    <script src="js/main.js?v=ac67ae7c"></script>
+    <script src="js/faq.js?v=d02954d0"></script>
     <script type="application/ld+json">
     {
     "@context": "https://schema.org",
@@ -282,6 +283,46 @@
         "acceptedAnswer": {
             "@type": "Answer",
             "text": "Vào Discord của nhóm và báo lỗi tại kênh #báo-lỗi. Nhóm sẽ tiếp nhận và xử lý. Đối với lỗi do installer bạn có thể báo lỗi cho nhóm tại https://github.com/Ryo147/PatchVietHoaInstaller/issues/new."
+        }
+        }
+        ,{
+        "@type": "Question",
+        "name": "Làm sao để đánh giá một bản Việt hóa?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mở trang game, kéo xuống cuối trang và chọn số sao, nhập tên hiển thị, tích ô đồng ý hiển thị công khai rồi bấm Gửi. Bình luận là tùy chọn. Lần đánh giá đầu tiên tự tạo tài khoản theo tên bạn đặt và cấp một mã 3 từ để đăng nhập lại. Mã chỉ hiện một lần nên hãy lưu ngay."
+        }
+        }
+        ,{
+        "@type": "Question",
+        "name": "Tôi quên mã 3 từ thì làm sao?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nếu bạn vẫn đang đăng nhập ở một thiết bị, vào mục Tài khoản trong menu và bấm Tạo mã 3 từ mới (mã cũ sẽ vô hiệu và các thiết bị khác bị đăng xuất). Nếu đã mất hết đăng nhập, hãy nhắn quản trị viên trên Discord hoặc Facebook của nhóm để được cấp lại mã sau khi xác minh bạn là chủ tài khoản."
+        }
+        }
+        ,{
+        "@type": "Question",
+        "name": "Vì sao tôi không đăng nhập được, báo đã đủ 2 thiết bị?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mỗi tài khoản đăng nhập được tối đa 2 thiết bị. Mỗi trình duyệt, cửa sổ ẩn danh hoặc lần đã xóa cookie được tính là một thiết bị. Vào mục Tài khoản, nhập tên và mã 3 từ để xem và gỡ bớt thiết bị. Thiết bị 21 ngày không dùng sẽ tự bị gỡ."
+        }
+        }
+        ,{
+        "@type": "Question",
+        "name": "Bình luận của tôi bị gỡ, điểm sao có mất không?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Không. Chỉ phần chữ vi phạm nội quy bị gỡ và thay bằng dòng Đã gỡ vì vi phạm nội quy; số sao vẫn được tính. Nhóm không gỡ đánh giá chỉ vì điểm thấp. Xem chi tiết ở trang Nội quy đánh giá."
+        }
+        }
+        ,{
+        "@type": "Question",
+        "name": "Làm sao để đổi tên hoặc xóa tài khoản và đánh giá của tôi?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Vào mục Tài khoản trong menu: bạn đổi được tên (một lần mỗi 7 ngày), xem lại các đánh giá của mình và xóa tài khoản cùng toàn bộ đánh giá. Xóa xong không thể khôi phục."
         }
         }
     ]

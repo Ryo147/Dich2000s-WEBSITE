@@ -6,7 +6,7 @@
 (function () {
   'use strict';
 
-  var CATS = { install: 'Lỗi cài đặt', game: 'Lỗi trong game', viethoa: 'Lỗi Việt hóa', general: 'Câu hỏi chung' };
+  var CATS = { install: 'Lỗi cài đặt', game: 'Lỗi trong game', viethoa: 'Lỗi Việt hóa', general: 'Câu hỏi chung', account: 'Đánh giá & tài khoản' };
 
   var FAQS = [
     { cat: 'install', q: 'Antivirus / Windows Defender chặn installer, phải làm sao?',
@@ -39,6 +39,16 @@
       a: 'Theo dõi trang <b>/projects</b> trên website - mỗi dự án có ghi trạng thái và thông tin dịch giả. Ngoài ra nhóm cũng cập nhật thường xuyên trên Discord.' },
     { cat: 'general', q: 'Tôi muốn đề xuất Việt hóa tựa game mà tôi muốn thì sao?',
       a: 'Vào Discord của nhóm và tìm đến kênh <b>#\u{1F4AD}\u255A\u0111\u1EC1-xu\u1EA5t-vi\u1EC7t-h\u00F3a</b>. Nhóm sẽ xem xét và cân nhắc về các game được các bạn đề xuất.' },
+    { cat: 'account', q: "Làm sao để đánh giá một bản Việt hóa?",
+      a: "Mở trang game, kéo xuống cuối trang và chọn số sao, nhập tên hiển thị, tích ô đồng ý hiển thị công khai rồi bấm Gửi. Bình luận là tùy chọn. Lần đánh giá đầu tiên tự tạo tài khoản theo tên bạn đặt và cấp một mã 3 từ để đăng nhập lại. Mã chỉ hiện một lần nên hãy lưu ngay." },
+    { cat: 'account', q: "Tôi quên mã 3 từ thì làm sao?",
+      a: "Nếu bạn vẫn đang đăng nhập ở một thiết bị, vào mục Tài khoản trong menu và bấm Tạo mã 3 từ mới (mã cũ sẽ vô hiệu và các thiết bị khác bị đăng xuất). Nếu đã mất hết đăng nhập, hãy nhắn quản trị viên trên Discord hoặc Facebook của nhóm để được cấp lại mã sau khi xác minh bạn là chủ tài khoản." },
+    { cat: 'account', q: "Vì sao tôi không đăng nhập được, báo đã đủ 2 thiết bị?",
+      a: "Mỗi tài khoản đăng nhập được tối đa 2 thiết bị. Mỗi trình duyệt, cửa sổ ẩn danh hoặc lần đã xóa cookie được tính là một thiết bị. Vào mục Tài khoản, nhập tên và mã 3 từ để xem và gỡ bớt thiết bị. Thiết bị 21 ngày không dùng sẽ tự bị gỡ." },
+    { cat: 'account', q: "Bình luận của tôi bị gỡ, điểm sao có mất không?",
+      a: "Không. Chỉ phần chữ vi phạm nội quy bị gỡ và thay bằng dòng Đã gỡ vì vi phạm nội quy; số sao vẫn được tính. Nhóm không gỡ đánh giá chỉ vì điểm thấp. Xem chi tiết ở trang Nội quy đánh giá." },
+    { cat: 'account', q: "Làm sao để đổi tên hoặc xóa tài khoản và đánh giá của tôi?",
+      a: "Vào mục Tài khoản trong menu: bạn đổi được tên (một lần mỗi 7 ngày), xem lại các đánh giá của mình và xóa tài khoản cùng toàn bộ đánh giá. Xóa xong không thể khôi phục." },
   ];
 
   var state = { cat: 'all', q: '' };

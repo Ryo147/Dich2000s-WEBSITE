@@ -8,12 +8,7 @@
 
   var BASE = location.pathname.indexOf('/projects/') !== -1 ? '..' : '.';
   var API = BASE + '/api/ratings';
-  var GAMES = {
-    'plague-inc': { name: 'Plague Inc: Evolved', url: 'projects/plague-inc.html' },
-    're2-remake': { name: 'Resident Evil 2 Remake', url: 'projects/re2-remake.html' },
-    'dmc5': { name: 'Devil May Cry 5', url: 'projects/dmc5.html' },
-    'dreamcore_1': { name: 'Dreamcore?', url: 'projects/dreamcore_1.html' },
-  };
+  var GAMES = window.D2K_GAMES || {}; // js/games.js (sinh từ lib/games.js)
   var T = function (k, v) { return window.d2kT ? window.d2kT(k, v) : k; };
 
   function el(tag, attrs, kids) {

@@ -14,3 +14,11 @@ test('mọi ?v= của js/css khớp nội dung file hiện tại (tránh cache i
   }
   assert.deepEqual(stale, []);
 });
+
+test('mọi tham chiếu js/ và css/ trong HTML đều có ?v= (nếu không sẽ bị cache immutable mãi)', () => {
+  const missing = [];
+  for (const f of htmlFiles()) {
+    for (const m of readFileSync(join(ROOT, f), 'utf8').matchAll(/(?:src|href)="((?:\.\.\/|\.\/|\/)?(?:js|css)\/[\w.\-]+\.(?:js|css))"/g)) missing.push(`${f}: ${m[1]}`);
+  }
+  assert.deepEqual(missing, []);
+});

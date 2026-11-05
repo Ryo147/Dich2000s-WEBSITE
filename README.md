@@ -18,13 +18,16 @@ Develop by Claude, GLM / Editing by Nhựa Inox (Ryo147)
 ## Lệnh
 - `npm test`: test lõi đánh giá và kiểm tra `?v=` của js/css.
 - `npm run build:css`: build `css/tailwind.css` (Vercel không tự build; **phải commit file này** khi thêm class Tailwind mới, kể cả class viết trong `js/*.js`).
+- `npm run build:games`: sinh `js/games.js` (cho trình duyệt) từ `lib/games.js`.
 - `npm run bump`: cập nhật `?v=` trong HTML theo nội dung js/css. `/js` và `/css` được cache `immutable`, nên sửa file mà không bump thì người đã vào site vẫn nhận bản cũ. `npm test` sẽ đỏ nếu quên.
 - `npm run optimize:images`: nén ảnh sang WebP.
 
 Quy trình sau khi sửa js/css: `npm run build:css && npm run bump && npm test`.
 
 ## Thêm một game mới vào hệ thống đánh giá
-Slug phải khớp ở 3 nơi: `GAMES` trong `lib/ratings-core.js`, `GAMES` trong `js/reviews.js` và `js/account.js`; trang game cần `data-project-page="<slug>"`.
+1. Thêm một dòng vào `lib/games.js` (nguồn duy nhất: slug, tên, đường dẫn trang).
+2. Tạo trang game với `<main data-project-page="<slug>">`.
+3. `npm run build:games && npm run bump && npm test` (test báo đỏ nếu lệch hoặc thiếu).
 
 ## Tài khoản quản trị
 Tạo bằng script riêng chạy trên máy chủ sở hữu (không để trong repo; `*.local.mjs` và `admin-codes*.txt` đã bị `.gitignore`). Không dán mã hay khóa vào chat, issue hay commit.
