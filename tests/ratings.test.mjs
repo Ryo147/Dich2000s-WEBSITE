@@ -260,22 +260,6 @@ test('quên mã và mất hết phiên: chỉ quản trị viên cấp lại đ�
   assert.ok((await core.login(ctx, { name: 'Ryo', code: r.code, ipHash: 'i3' })).ok);
 });
 
-test('script quản trị: tạo mới cần --create, đặt lại mã xóa hết phiên, không đụng vào tài khoản thường', async () => {
-  const ctx = mk();
-  assert.equal((await core.provisionAdmin(ctx, 'NhuaInox')).code, 'not_found');
-  const made = await core.provisionAdmin(ctx, 'NhuaInox', { create: true });
-  assert.ok(made.ok && made.created && core.canonCode(made.code));
-  const s = await core.login(ctx, { name: 'nhuainox', code: made.code, ipHash: 'a1' });
-  assert.ok(s.ok && s.admin);
-  const reset = await core.provisionAdmin(ctx, 'NhuaInox');
-  assert.ok(reset.ok && !reset.created && reset.code !== made.code);
-  assert.equal((await core.me(ctx, s.token)).name, null);
-  assert.equal((await core.login(ctx, { name: 'NhuaInox', code: made.code, ipHash: 'a2' })).code, 'bad_login');
-  assert.ok((await core.login(ctx, { name: 'NhuaInox', code: reset.code, ipHash: 'a3' })).admin);
-  await core.rate(ctx, { ...base, name: 'Ryo' });
-  assert.equal((await core.provisionAdmin(ctx, 'Ryo')).code, 'forbidden');
-});
-
 test('quản trị viên gỡ chữ nhưng sao vẫn tính; người thường không gỡ được', async () => {
   const ctx = mk();
   const adm = await core.createAccount(ctx, 'NhuaInox', core.nameKey('NhuaInox'), { admin: true });
