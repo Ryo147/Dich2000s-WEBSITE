@@ -21,7 +21,7 @@ const readToken = (req) => {
 const setCookie = (res, token) => res.setHeader('Set-Cookie',
   `${COOKIE}=${token || ''}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${token ? core.LIMITS.sessionSeconds : 0}`);
 
-const STATUS = { bad_login: 401, unauthorized: 401, forbidden: 403, name_taken: 409, device_limit: 409, locked: 429, not_found: 404 };
+const STATUS = { rename_cooldown: 429, bad_login: 401, unauthorized: 401, forbidden: 403, name_taken: 409, device_limit: 409, locked: 429, not_found: 404 };
 
 export default async function handler(req, res) {
   if (!secret()) return res.status(503).json({ ok: false, message: 'Chưa cấu hình AUTH_SECRET.' });
@@ -64,6 +64,8 @@ export default async function handler(req, res) {
       case 'logout': setCookie(res, null); return send(await core.logout(ctx, token));
       case 'me': return send(await core.me(ctx, token));
       case 'delete-account': { const r = await core.deleteAccount(ctx, token); if (r.ok) setCookie(res, null); return send(r); }
+      case 'my-reviews': return send(await core.myReviews(ctx, token));
+      case 'rename': return send(await core.rename(ctx, { token, name: b.name, ipHash }));
       case 'report': return send(await core.report(ctx, { game: b.game, id: b.id, ipHash }));
       case 'admin-reports': return send(await core.adminReports(ctx, token));
       case 'admin-remove': return send(await core.adminSetRemoved(ctx, { token, game: b.game, id: b.id, removed: true }));

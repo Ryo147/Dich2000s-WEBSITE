@@ -3,6 +3,7 @@
 
 <head>
     <script src="js/i18n.js?v=20261105" defer></script>
+    <script src="js/account.js?v=20261105" defer></script>
     <script src="js/consent.js?v=20261105" defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -91,7 +92,7 @@
             <section class="reveal mt-10">
                 <h2 class="font-display text-xl sm:text-2xl font-semibold mb-4">4. Quyền của bạn</h2>
                 <div class="space-y-3 text-muted-foreground leading-relaxed text-sm sm:text-base"><p>Bạn có thể đổi lựa chọn cookie bất cứ lúc nào: <button type="button" onclick="d2kCookieSettings()" class="text-primary underline">Thay đổi lựa chọn cookie</button>. Bạn cũng có thể xóa mã khách bất cứ lúc nào bằng cách xóa dữ liệu trang (site data) của website trong trình duyệt. Lần truy cập sau sẽ tạo mã mới và không còn liên kết với mã cũ.</p>
-<p><b class="text-foreground">Dữ liệu đánh giá (mục 1):</b> khi đã đăng nhập, bạn tự sửa đánh giá của mình bất cứ lúc nào và có nút "Xóa tài khoản và đánh giá của tôi" ở cuối phần đánh giá để xóa tài khoản cùng toàn bộ đánh giá, bình luận. Nếu bạn mất mã và không đăng nhập được, hãy liên hệ nhóm ở mục 6; nhóm sẽ cần bạn chứng minh bạn là chủ tên đó (ví dụ nhắc lại nội dung và thời điểm đánh giá) trước khi xóa giúp.</p>
+<p><b class="text-foreground">Dữ liệu đánh giá (mục 1):</b> khi đã đăng nhập, bạn mở mục "Tài khoản" trong menu để đổi tên hiển thị (1 lần mỗi 7 ngày), xem lại đánh giá của mình, và tự sửa đánh giá bất cứ lúc nào và có nút "Xóa tài khoản và đánh giá của tôi" ở cuối phần đánh giá để xóa tài khoản cùng toàn bộ đánh giá, bình luận. Nếu bạn mất mã và không đăng nhập được, hãy liên hệ nhóm ở mục 6; nhóm sẽ cần bạn chứng minh bạn là chủ tên đó (ví dụ nhắc lại nội dung và thời điểm đánh giá) trước khi xóa giúp.</p>
 <p>Riêng dữ liệu ở mục 2: vì không chứa thông tin nhận dạng trực tiếp, nhóm không có cách kỹ thuật để tra ra hay xóa riêng bản ghi của một người. Các bản ghi này tự hết hạn theo các mốc thời gian ở mục 2 (60 giây, 10 phút, 24 giờ, 75 giây), còn bộ đếm lượt xem chỉ là con số tổng, không gắn với cá nhân nào.</p>
 <p>Bạn vẫn có các quyền theo Luật Bảo vệ dữ liệu cá nhân 2025, gồm được biết, rút lại sự đồng ý, phản đối và khiếu nại về dữ liệu của mình. Cách nhanh nhất để thực hiện là đổi lựa chọn cookie hoặc xóa dữ liệu trang như trên. Nếu cần hỏi thêm, hãy liên hệ nhóm ở mục 6. Nhóm sẽ phản hồi trong 2 ngày làm việc và nói rõ nhóm có thể hay không thể làm gì với yêu cầu của bạn.</p>
 </div>
@@ -188,7 +189,7 @@
     <script src="js/live-stats.js?v=20261105"></script>
     <script src="js/main.js"></script>
 <script type="module">
-  import { initStaggeredMenu } from './js/staggered-menu.js?v=20261104';
+  import { initStaggeredMenu } from './js/staggered-menu.js?v=20261105';
 
   initStaggeredMenu('#menu-root', {
     position: 'right',
@@ -198,6 +199,7 @@
       { label: 'Dự án', ariaLabel: 'Xem các dự án', link: 'projects.html' },
       { label: 'FAQ', ariaLabel: 'Giải quyết thắc mắc', link: 'faq.html' },
       { label: 'Tải Patch', ariaLabel: 'Tải Patch', link: 'download.html' },
+      { label: 'Tài khoản', ariaLabel: 'Cài đặt tài khoản', link: '#account', onClick: () => window.d2kOpenAccount && window.d2kOpenAccount() },
     ],
     socialItems: [
       { label: 'Discord', link: 'https://discord.gg/mxsAU6BDye' },

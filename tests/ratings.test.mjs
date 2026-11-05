@@ -119,3 +119,22 @@ test('báo cáo: mỗi IP một lần; xóa tài khoản xóa đánh giá', asyn
   assert.equal((await core.reviews(ctx, 'dmc5')).count, 0);
   assert.equal((await core.me(ctx, u.token)).name, null);
 });
+
+test('đổi tên: chuyển đánh giá, phiên vẫn dùng được, tên bị chiếm hoặc dành riêng bị từ chối, cooldown 7 ngày', async () => {
+  const ctx = mk();
+  const u = await core.rate(ctx, { ...base, name: 'Ryo' });
+  await core.rate(ctx, { ...base, game: 're2-remake', token: u.token, stars: 3 });
+  await core.rate(ctx, { ...base, name: 'Khac' });
+  assert.equal((await core.rename(ctx, { token: u.token, name: 'khac', ipHash: 'r' })).code, 'name_taken');
+  assert.equal((await core.rename(ctx, { token: u.token, name: 'NhuaInox', ipHash: 'r' })).code, 'reserved_name');
+  const r = await core.rename(ctx, { token: u.token, name: 'Ryo Mới', ipHash: 'r' });
+  assert.ok(r.ok);
+  assert.equal((await core.me(ctx, u.token)).name, 'Ryo Mới');
+  const mine = await core.myReviews(ctx, u.token);
+  assert.deepEqual(mine.reviews.map((x) => x.game).sort(), ['dmc5', 're2-remake']);
+  assert.equal((await core.reviews(ctx, 'dmc5')).reviews.filter((x) => x.name === 'Ryo Mới').length, 1);
+  assert.equal((await core.rename(ctx, { token: u.token, name: 'Ryo Khác', ipHash: 'r' })).code, 'rename_cooldown');
+  assert.equal((await core.rename(ctx, { token: null, name: 'Abc', ipHash: 'r' })).code, 'unauthorized');
+  // tên cũ được nhả ra cho người khác
+  assert.ok((await core.rate(ctx, { ...base, name: 'Ryo' })).ok);
+});
