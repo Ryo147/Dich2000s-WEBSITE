@@ -7,6 +7,8 @@ import { redisStore } from '../lib/redis-store.js';
 
 const ALLOWED_ORIGINS = ['https://dich2000s.vercel.app'];
 const COOKIE = 'd2k_sess';
+// Cookie sống lâu; hạn thật của phiên (21 ngày không dùng) do server quyết định và gia hạn khi dùng
+const COOKIE_SECONDS = 365 * 24 * 60 * 60;
 
 const secret = () => process.env.AUTH_SECRET;
 const clientIp = (req) => {
@@ -19,7 +21,7 @@ const readToken = (req) => {
   return m ? m[1] : null;
 };
 const setCookie = (res, token) => res.setHeader('Set-Cookie',
-  `${COOKIE}=${token || ''}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${token ? core.LIMITS.sessionSeconds : 0}`);
+  `${COOKIE}=${token || ''}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${token ? COOKIE_SECONDS : 0}`);
 
 const STATUS = { rename_cooldown: 429, bad_login: 401, unauthorized: 401, forbidden: 403, name_taken: 409, device_limit: 409, locked: 429, acct_limit: 429, dup_text: 409, not_found: 404 };
 

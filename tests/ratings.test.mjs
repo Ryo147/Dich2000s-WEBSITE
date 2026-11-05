@@ -8,6 +8,7 @@ function memStore() {
     async get(k) { return kv.has(k) ? kv.get(k) : null; },
     async set(k, v, o = {}) { if (o.nx && kv.has(k)) return null; kv.set(k, v); return 'OK'; },
     async del(k) { kv.delete(k); },
+    async expire(k, ttl) { (this.expired ||= []).push([k, ttl]); },
     async incr(k) { const n = (Number(kv.get(k)) || 0) + 1; kv.set(k, n); return n; },
     async hget(k, f) { return (hs.get(k) || {})[f] ?? null; },
     async hset(k, o) { hs.set(k, { ...(hs.get(k) || {}), ...o }); },
@@ -213,6 +214,21 @@ test('chặn liên kết, thông tin liên hệ và quảng cáo, kể cả vi�
   assert.equal((await core.reviews(ctx, 'dmc5')).count, 0);
   // tên cũ trông giống quảng cáo vẫn đăng nhập được (chỉ chặn lúc tạo/đổi tên)
   assert.equal(core.checkName('abc.com', { allowReserved: true }).ok, true);
+});
+
+test('phiên hết hạn sau 21 ngày không hoạt động và được gia hạn mỗi lần dùng', async () => {
+  assert.equal(core.LIMITS.sessionSeconds, 21 * 24 * 60 * 60);
+  const ctx = mk();
+  const a = await core.rate(ctx, { ...base, name: 'Ryo' });
+  ctx.store.expired = [];
+  assert.equal((await core.me(ctx, a.token)).name, 'Ryo');
+  assert.equal(ctx.store.expired.length, 1);
+  assert.equal(ctx.store.expired[0][1], core.LIMITS.sessionSeconds);
+  // phiên đã xóa thì không gia hạn (không hồi sinh)
+  await core.logout(ctx, a.token);
+  ctx.store.expired = [];
+  assert.equal((await core.me(ctx, a.token)).name, null);
+  assert.equal(ctx.store.expired.length, 0);
 });
 
 test('quên mã: còn phiên thì tạo mã mới, mã cũ hết hiệu lực, thiết bị khác bị đăng xuất', async () => {
