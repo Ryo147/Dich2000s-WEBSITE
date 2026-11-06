@@ -425,3 +425,13 @@ test('email: yêu cầu đổi mã và hoàn tất đổi mã gửi cảnh báo;
   const f = await core.finishRotate(ctx, { token, ipHash: 'ip1' });
   assert.ok(f.ok && f.code);
 });
+
+test('email: lần gửi lỗi không tốn hạn mức xác minh của người dùng', async () => {
+  const { ctx, sent, token } = await withMail('Ryo');
+  const ok = ctx.mailer;
+  ctx.mailer = async () => { throw new Error('smtp down'); };
+  for (let i = 0; i < 5; i++) assert.equal((await core.setEmail(ctx, { token, email: 'a@gmail.com', ipHash: 'ip1' })).code, 'mail_fail');
+  ctx.mailer = ok;
+  assert.ok((await core.setEmail(ctx, { token, email: 'a@gmail.com', ipHash: 'ip1' })).ok); // vẫn gửi được sau khi cấu hình sửa xong
+  assert.equal(sent.length, 1);
+});
