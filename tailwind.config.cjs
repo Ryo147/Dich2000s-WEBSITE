@@ -1,7 +1,7 @@
 // Dịch từ js/tailwind-config.js (CDN cũ). Build: npm run build:css
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./*.html', './projects/*.html', './js/**/*.js'],
+  content: ['./*.html', './projects/*.html', './en/**/*.html', './js/**/*.js'],
   theme: {
     extend: {
       colors: {

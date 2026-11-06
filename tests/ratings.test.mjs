@@ -13,6 +13,7 @@ function memStore() {
     async hget(k, f) { return (hs.get(k) || {})[f] ?? null; },
     async hset(k, o) { hs.set(k, { ...(hs.get(k) || {}), ...o }); },
     async hdel(k, f) { const h = hs.get(k); if (h) delete h[f]; },
+    async hincrby(k, f, n) { const h = hs.get(k) || hs.set(k, {}).get(k); h[f] = (Number(h[f]) || 0) + n; return h[f]; },
     async hgetall(k) { return hs.get(k) ? { ...hs.get(k) } : null; },
     async sadd(k, m) { (ss.get(k) || ss.set(k, new Set()).get(k)).add(m); },
     async srem(k, m) { ss.get(k)?.delete(m); },
@@ -452,4 +453,67 @@ test('gỡ một đánh giá của mình: mất khỏi danh sách và điểm tr
   assert.deepEqual(mine.reviews.map((r) => r.game), ['re2-remake']);
   assert.equal((await core.reviews(ctx, 'dmc5')).reviews[0].name, 'Khac');
   assert.ok(b.token);
+});
+
+// ---------- Bình chọn hữu ích ----------
+const counts = async (ctx, game = 'dmc5') => Object.fromEntries((await core.reviews(ctx, game)).reviews.map((r) => [r.name, [r.up, r.down]]));
+async function voteSetup() {
+  const ctx = mk();
+  const a = await core.rate(ctx, { ...base, name: 'Ryo', stars: 5, text: 'Rất hay' });
+  const b = await core.rate(ctx, { ...base, name: 'Khac', stars: 3, text: 'Tạm', ipHash: 'ip2' });
+  return { ctx, a, b, ra: 'ryo', rb: 'khac' };
+}
+
+test('bình chọn: khách theo máy, đổi ý, bỏ phiếu, mỗi máy một phiếu; số liệu hiện ở danh sách', async () => {
+  const { ctx, ra } = await voteSetup();
+  const g = (device, value, ip = 'ipv') => core.vote(ctx, { token: null, device, game: 'dmc5', id: ra, value, ipHash: ip });
+  const d1 = 'device-one-aaaaaaaaaaaaaaaa', d2 = 'device-two-bbbbbbbbbbbbbbbb';
+  assert.deepEqual(await counts(ctx), { Ryo: [0, 0], Khac: [0, 0] });
+  assert.equal((await g(d1, 1)).up, 1);
+  assert.equal((await g(d1, 1)).up, 1); // bấm lại cùng giá trị: không cộng thêm
+  assert.equal((await g(d2, 1)).up, 2);
+  const r = await g(d1, -1); // đổi ý
+  assert.deepEqual([r.up, r.down, r.mine], [1, 1, -1]);
+  assert.deepEqual((await core.myVotes(ctx, { token: null, device: d1, game: 'dmc5' })).votes, { [ra]: -1 });
+  assert.deepEqual((await core.myVotes(ctx, { token: null, device: 'khac-device-cccccccccccccccc', game: 'dmc5' })).votes, {});
+  const z = await g(d1, 0);
+  assert.deepEqual([z.up, z.down], [1, 0]);
+  assert.deepEqual((await counts(ctx)).Ryo, [1, 0]);
+  assert.equal((await g(d1, 5)).code, 'bad_request');
+  assert.equal((await core.vote(ctx, { token: null, device: null, game: 'dmc5', id: ra, value: 1, ipHash: 'ipv' })).code, 'bad_request');
+});
+
+test('bình chọn: không tự bình chọn đánh giá của mình, không bình chọn bình luận đã gỡ hoặc không có chữ', async () => {
+  const { ctx, a, b, ra, rb } = await voteSetup();
+  assert.equal((await core.vote(ctx, { token: a.token, game: 'dmc5', id: ra, value: 1, ipHash: 'ipv' })).code, 'own_review');
+  assert.equal((await core.vote(ctx, { token: a.token, game: 'dmc5', id: rb, value: 1, ipHash: 'ipv' })).up, 1); // tài khoản bình chọn người khác
+  assert.equal((await core.vote(ctx, { token: null, device: 'd'.repeat(30), game: 'dmc5', id: 'khong-co', value: 1, ipHash: 'ipv' })).code, 'not_found');
+  const adm = await core.createAccount(ctx, 'Admin1', core.nameKey('Admin1'), { admin: true });
+  const sess = await core.login(ctx, { name: 'Admin1', code: adm.code, ipHash: 'ipx' });
+  await core.adminSetRemoved(ctx, { token: sess.token, game: 'dmc5', id: rb, removed: true });
+  assert.equal((await core.vote(ctx, { token: a.token, game: 'dmc5', id: rb, value: 1, ipHash: 'ipv' })).code, 'bad_request');
+  assert.ok(b.token);
+});
+
+test('bình chọn: xóa đánh giá hoặc tài khoản thì phiếu liên quan biến mất; đổi tên giữ nguyên phiếu', async () => {
+  const { ctx, a, b, ra, rb } = await voteSetup();
+  const dev = 'device-one-aaaaaaaaaaaaaaaa';
+  await core.vote(ctx, { token: null, device: dev, game: 'dmc5', id: ra, value: 1, ipHash: 'ipv' });
+  await core.vote(ctx, { token: a.token, game: 'dmc5', id: rb, value: -1, ipHash: 'ipv' });
+  assert.deepEqual(await counts(ctx), { Ryo: [1, 0], Khac: [0, 1] });
+  // Ryo đổi tên: phiếu cho đánh giá của Ryo và phiếu Ryo đã bình chọn đều đi theo
+  assert.ok((await core.rename(ctx, { token: a.token, name: 'RyoMoi', ipHash: 'ipr' })).ok);
+  assert.deepEqual(await counts(ctx), { RyoMoi: [1, 0], Khac: [0, 1] });
+  assert.deepEqual((await core.myVotes(ctx, { token: a.token, game: 'dmc5' })).votes, { [rb]: -1 });
+  assert.deepEqual((await core.myVotes(ctx, { token: null, device: dev, game: 'dmc5' })).votes, { ryomoi: 1 });
+  // Ryo xóa tài khoản: phiếu Ryo đã cho Khac biến mất, đánh giá của Ryo cùng phiếu của nó cũng mất
+  assert.ok((await core.deleteAccount(ctx, a.token)).ok);
+  assert.deepEqual(await counts(ctx), { Khac: [0, 0] });
+  assert.deepEqual((await core.myVotes(ctx, { token: null, device: dev, game: 'dmc5' })).votes, {});
+  // gỡ đánh giá: phiếu mất
+  await core.vote(ctx, { token: null, device: dev, game: 'dmc5', id: rb, value: 1, ipHash: 'ipv' });
+  assert.ok((await core.deleteReview(ctx, { token: b.token, game: 'dmc5', ipHash: 'ipb' })).ok);
+  const r2 = await core.rate(ctx, { ...base, token: b.token, name: 'Khac', stars: 4, text: 'Viết lại' });
+  assert.ok(r2.ok);
+  assert.deepEqual(await counts(ctx), { Khac: [0, 0] });
 });

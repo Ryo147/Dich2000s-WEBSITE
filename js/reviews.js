@@ -24,10 +24,10 @@
     return n;
   }
 
-  function api(method, body, query) {
+  function api(method, body, query, quiet) {
     var opt = { method: method, credentials: 'same-origin' };
     if (body) { opt.headers = { 'Content-Type': 'application/json' }; opt.body = JSON.stringify(body); }
-    var done = method === 'POST' ? window.d2kBusy(document.getElementById('reviews')) : null;
+    var done = method === 'POST' && !quiet ? window.d2kBusy(document.getElementById('reviews')) : null;
     return fetch(API + (query || ''), opt).then(function (r) {
       return r.json().catch(function () { return { ok: false, message: T('rv.neterr') }; });
     }).catch(function () { return { ok: false, message: T('rv.neterr') }; }).then(function (r) { if (done) done(); return r; });
@@ -55,11 +55,14 @@
     if (!GAMES[game]) return;
     var sec = el('section', { id: 'reviews', class: 'max-w-4xl mx-auto mt-16 pt-12 border-t border-border', 'aria-labelledby': 'reviews-h' });
     main.appendChild(sec);
-    var state = { me: { name: null, admin: false }, data: null, newCode: null, msg: '', msgBad: false, stars: 0, mine: null };
+    var sortPref = 'new';
+    try { sortPref = localStorage.getItem('d2k_rsort') === 'top' ? 'top' : 'new'; } catch (e) { /* bỏ qua */ }
+    var state = { sort: sortPref, votes: {}, me: { name: null, admin: false }, data: null, newCode: null, msg: '', msgBad: false, stars: 0, mine: null };
 
     function load() {
-      return Promise.all([api('GET', null, '?me=1'), api('GET', null, '?game=' + encodeURIComponent(game))]).then(function (rs) {
+      return Promise.all([api('GET', null, '?me=1'), api('GET', null, '?game=' + encodeURIComponent(game)), api('POST', { action: 'my-votes', game: game }, '', true)]).then(function (rs) {
         state.me = rs[0].ok ? rs[0] : { name: null, admin: false };
+        state.votes = rs[2].ok ? rs[2].votes : {};
         state.data = rs[1].ok ? rs[1] : null;
         state.mine = null;
         if (state.me.name && state.data) {
@@ -129,7 +132,7 @@
               } }),
             ])
           : el('div', {}, [el('label', { class: 'block text-sm mb-1', text: T('rv.yourname') }), nameIn, el('p', { class: 'text-xs text-muted-foreground mt-1', text: T('rv.name.hint') })]),
-        el('div', {}, [el('div', { class: 'text-sm mb-1', text: T('rv.stars') }), starPicker()]),
+        el('div', {}, [starPicker()]),
         el('div', {}, [el('label', { class: 'block text-sm mb-1', text: T('rv.comment') }), textIn]),
         hp,
         el('label', { class: 'flex items-start gap-2 text-sm text-muted-foreground' }, [agree,
@@ -180,10 +183,55 @@
       ]);
     }
 
+    // Nút Hữu ích / Không hữu ích: cập nhật tại chỗ (không vẽ lại cả form để khỏi mất chữ đang gõ)
+    function voteButtons(r) {
+      var own = !!(state.me.name && r.name.toLowerCase() === state.me.name.toLowerCase());
+      var cur = state.votes[r.id] || 0;
+      var BTN = 'rounded-full border px-3 py-1 text-xs disabled:opacity-60 ';
+      var up = el('button', { type: 'button' }), down = el('button', { type: 'button' });
+      function paint() {
+        up.textContent = '👍 ' + T('rv.helpful') + ' (' + r.up + ')';
+        down.textContent = '👎 ' + T('rv.nothelpful') + ' (' + r.down + ')';
+        up.setAttribute('aria-pressed', String(cur === 1)); down.setAttribute('aria-pressed', String(cur === -1));
+        up.className = BTN + (cur === 1 ? 'border-primary text-foreground' : 'border-border hover:bg-card');
+        down.className = BTN + (cur === -1 ? 'border-primary text-foreground' : 'border-border hover:bg-card');
+      }
+      function cast(v) {
+        var next = cur === v ? 0 : v;
+        up.disabled = down.disabled = true;
+        api('POST', { action: 'vote', game: game, id: r.id, value: next }, '', true).then(function (x) {
+          up.disabled = down.disabled = false;
+          if (!x.ok) return say(errText(x), true);
+          cur = x.mine; state.votes[r.id] = cur; r.up = x.up; r.down = x.down; paint();
+        });
+      }
+      up.addEventListener('click', function () { cast(1); });
+      down.addEventListener('click', function () { cast(-1); });
+      if (own) { up.disabled = down.disabled = true; up.title = down.title = T('rv.vote.own'); }
+      paint();
+      return el('div', { class: 'flex flex-wrap gap-2' }, [up, down]);
+    }
+
+    function sortBar() {
+      var sel = el('select', { class: 'rounded-lg border border-border bg-background px-2 py-1 text-sm', 'aria-label': T('rv.sort') }, [
+        el('option', { value: 'new', text: T('rv.sort.new') }), el('option', { value: 'top', text: T('rv.sort.top') }),
+      ]);
+      sel.value = state.sort;
+      sel.addEventListener('change', function () {
+        state.sort = sel.value === 'top' ? 'top' : 'new';
+        try { localStorage.setItem('d2k_rsort', state.sort); } catch (e) { /* bỏ qua */ }
+        render();
+      });
+      return el('div', { class: 'mt-8 flex items-center gap-2 text-sm text-muted-foreground' }, [el('span', { text: T('rv.sort') }), sel]);
+    }
+
     function list() {
-      var box = el('ul', { class: 'mt-8 space-y-4' });
-      ((state.data && state.data.reviews) || []).forEach(function (r) {
-        var actions = el('div', { class: 'flex gap-3 text-xs text-muted-foreground' });
+      var box = el('ul', { class: 'mt-3 space-y-4' });
+      var rows = ((state.data && state.data.reviews) || []).slice();
+      if (state.sort === 'top') rows.sort(function (a, b) { return (b.up - b.down) - (a.up - a.down) || b.ts - a.ts; });
+      rows.forEach(function (r) {
+        var actions = el('div', { class: 'flex flex-wrap items-center gap-3 text-xs text-muted-foreground' });
+        if (!r.removed && r.text) actions.appendChild(voteButtons(r));
         actions.appendChild(el('button', { type: 'button', class: 'underline hover:text-foreground', text: T('rv.report'), onclick: function (e) {
           var b = e.currentTarget;
           api('POST', { action: 'report', game: game, id: r.id }).then(function (x) { if (x.ok) { b.textContent = T('rv.reported'); b.disabled = true; } });
@@ -216,6 +264,7 @@
         el('h2', { id: 'reviews-h', class: 'font-display text-2xl sm:text-3xl font-semibold mb-6', text: T('rv.title') }),
         summary(), codeBox(), form(), loginBox(), del,
         (msgP = el('p', { role: 'status' })),
+        sortBar(),
         list(),
       ].forEach(function (n) { if (n) sec.appendChild(n); });
       paintMsg();
