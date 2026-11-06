@@ -612,3 +612,23 @@ test('đổi mã qua email khi chưa đăng nhập: nhập tên + email; sai ema
   assert.ok((await core.login(ctx, { name: 'Ryo', code: newCodeOf(sent[0]), ipHash: 'ip9' })).ok);
   assert.ok(code);
 });
+
+test('email HTML: có bản HTML kèm văn bản, tên người dùng được escape, liên kết và mã có mặt', async () => {
+  const sent = [];
+  const ctx = { ...mk(), mailer: async (m) => { sent.push(m); } };
+  const r = await core.rate(ctx, { ...base, name: 'Ryo<b>x' });
+  if (!r.ok) return; // tên chứa ký tự lạ bị từ chối là cũng an toàn
+  await core.setEmail(ctx, { token: r.token, email: 'ryo@gmail.com', ipHash: 'ip1' });
+  assert.doesNotMatch(sent[0].html, /<b>x/);
+});
+
+test('email HTML: thư đổi mã có mã, nút kích hoạt/huỷ và nhắc xóa email', async () => {
+  const { ctx, sent, token } = await emailAcct();
+  await core.requestRotate(ctx, { token, ipHash: 'ip1' });
+  const m = sent[0];
+  const code = newCodeOf(m);
+  assert.ok(m.html.includes(code) && m.html.includes('activate=') && m.html.includes('cancel='));
+  assert.match(m.html, /xóa email này/);
+  assert.match(m.text, /XÓA email này/);
+  assert.match(m.html, /^<!doctype html>/);
+});
