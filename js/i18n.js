@@ -10,7 +10,7 @@
     vi: {
       'lang.switch': 'English',
       'cookie.text': 'Website dùng Google Analytics (cookie phân tích) và một mã khách ngẫu nhiên để đếm lượt xem, số người đang online. Chỉ khi bạn bấm Chấp nhận thì các công cụ này mới chạy; nếu từ chối, không có dữ liệu nào được gửi đi.',
-      'cookie.policy': 'Xem chính sách bảo mật', 'cookie.aria': 'Thông báo cookie',
+      'busy': 'Đang xử lý, vui lòng chờ…', 'cookie.policy': 'Xem chính sách bảo mật', 'cookie.aria': 'Thông báo cookie',
       'toast.copied': 'Đã sao chép!', 'toast.copyfail': 'Không thể sao chép, vui lòng copy thủ công.',
       'lb.close': 'Đóng', 'lb.prev': 'Ảnh trước', 'lb.next': 'Ảnh sau', 'lb.alt': 'Xem ảnh phóng to',
       'dl.win': 'Tải về cho Windows', 'dl.linux': 'Tải về cho Linux', 'dl.noold': 'Chưa có bản cũ nào.', 'dl.pre': 'bản thử nghiệm', 'dl.notes': 'Ghi chú',
@@ -67,7 +67,7 @@
     en: {
       'lang.switch': 'Tiếng Việt',
       'cookie.text': 'This site uses Google Analytics (analytics cookies) and a random visitor ID to count views and people online. These only run if you click Accept; if you decline, no data is sent.',
-      'cookie.policy': 'Read the privacy policy', 'cookie.aria': 'Cookie notice',
+      'busy': 'Working, please wait…', 'cookie.policy': 'Read the privacy policy', 'cookie.aria': 'Cookie notice',
       'toast.copied': 'Copied!', 'toast.copyfail': 'Could not copy, please copy manually.',
       'lb.close': 'Close', 'lb.prev': 'Previous image', 'lb.next': 'Next image', 'lb.alt': 'Enlarged image',
       'dl.win': 'Download for Windows', 'dl.linux': 'Download for Linux', 'dl.noold': 'No older versions yet.', 'dl.pre': 'pre-release', 'dl.notes': 'Release notes',
@@ -145,6 +145,37 @@
     var phs = (root || document).querySelectorAll('[data-i18n-ph]');
     for (var j = 0; j < phs.length; j++) phs[j].setAttribute('placeholder', t(phs[j].getAttribute('data-i18n-ph')));
   }
+
+
+  // Trạng thái "đang xử lý" cho thao tác gọi máy chủ: khóa nút/ô nhập trong scope ngay lập tức (chống bấm liên tục)
+  // và hiện dòng báo đang chờ nếu quá 200 ms. Trả về hàm done() để gỡ.
+  window.d2kBusy = function (scope) {
+    if (!scope) return function () {};
+    if (!document.getElementById('d2k-busy-css')) {
+      var st = document.createElement('style');
+      st.id = 'd2k-busy-css';
+      st.textContent = '.d2k-spin{display:inline-block;width:1em;height:1em;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:d2kspin .7s linear infinite;vertical-align:-.15em;margin-right:.5em}@keyframes d2kspin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.d2k-spin{animation:none}}';
+      document.head.appendChild(st);
+    }
+    var locked = [].filter.call(scope.querySelectorAll('button, input, textarea, select'), function (e) { return !e.disabled; });
+    locked.forEach(function (e) { e.disabled = true; });
+    scope.setAttribute('aria-busy', 'true');
+    var note = null;
+    var timer = setTimeout(function () {
+      note = document.createElement('p');
+      note.setAttribute('role', 'status');
+      note.className = 'text-sm text-muted-foreground mb-3';
+      note.innerHTML = '<span class="d2k-spin" aria-hidden="true"></span>';
+      note.appendChild(document.createTextNode(t('busy')));
+      scope.insertBefore(note, scope.firstChild);
+    }, 200);
+    return function done() {
+      clearTimeout(timer);
+      locked.forEach(function (e) { e.disabled = false; });
+      scope.removeAttribute('aria-busy');
+      if (note && note.parentNode) note.parentNode.removeChild(note);
+    };
+  };
 
   window.d2kT = t;
   window.d2kLang = function () { return lang; };

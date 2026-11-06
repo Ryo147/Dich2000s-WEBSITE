@@ -24,9 +24,11 @@
   }
 
   function post(body) {
+    var done = window.d2kBusy(document.getElementById('account-root'));
     return fetch(API, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
       .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
-      .catch(function () { return { ok: false, message: T('rv.neterr') }; });
+      .catch(function () { return { ok: false, message: T('rv.neterr') }; })
+      .then(function (r) { done(); return r; });
   }
 
   function errText(r) {

@@ -27,9 +27,10 @@
   function api(method, body, query) {
     var opt = { method: method, credentials: 'same-origin' };
     if (body) { opt.headers = { 'Content-Type': 'application/json' }; opt.body = JSON.stringify(body); }
+    var done = method === 'POST' ? window.d2kBusy(document.getElementById('reviews')) : null;
     return fetch(API + (query || ''), opt).then(function (r) {
       return r.json().catch(function () { return { ok: false, message: T('rv.neterr') }; });
-    }).catch(function () { return { ok: false, message: T('rv.neterr') }; });
+    }).catch(function () { return { ok: false, message: T('rv.neterr') }; }).then(function (r) { if (done) done(); return r; });
   }
 
   function errText(r) {
