@@ -110,6 +110,10 @@
           el('span', { class: 'text-primary', 'aria-label': T('rv.star', { n: r.stars }), text: '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars) }),
         ]),
         r.text ? el('p', { class: 'mt-1 whitespace-pre-wrap break-words ' + (r.removed ? 'italic text-muted-foreground' : ''), text: r.text }) : null,
+        el('div', { class: 'mt-2' }, [el('button', { type: 'button', class: 'text-xs underline text-red-400 hover:text-red-300', text: T('acc.review.delete'), onclick: function () {
+          if (!window.confirm(T('acc.review.delete.confirm', { game: g.name }))) return;
+          post({ action: 'delete-review', game: r.game }).then(function (x) { if (!x.ok) return say(errText(x), true); load(box, T('acc.review.deleted')); });
+        } })]),
       ]));
     });
     box.appendChild(section(T('acc.myreviews'), [list]));

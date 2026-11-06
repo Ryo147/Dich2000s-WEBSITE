@@ -435,3 +435,21 @@ test('email: lần gửi lỗi không tốn hạn mức xác minh của người
   assert.ok((await core.setEmail(ctx, { token, email: 'a@gmail.com', ipHash: 'ip1' })).ok); // vẫn gửi được sau khi cấu hình sửa xong
   assert.equal(sent.length, 1);
 });
+
+test('gỡ một đánh giá của mình: mất khỏi danh sách và điểm trung bình, tài khoản còn; người khác không gỡ được của mình', async () => {
+  const ctx = mk();
+  const a = await core.rate(ctx, { ...base, name: 'Ryo', stars: 5 });
+  const b = await core.rate(ctx, { ...base, name: 'Khac', stars: 1, text: 'Khác', ipHash: 'ip2' });
+  await core.rate(ctx, { ...base, token: a.token, game: 're2-remake', stars: 4, text: 'Hay 2' });
+  assert.equal((await core.deleteReview(ctx, { token: null, game: 'dmc5', ipHash: 'ip1' })).code, 'unauthorized');
+  assert.equal((await core.deleteReview(ctx, { token: a.token, game: 'khong-co', ipHash: 'ip1' })).code, 'bad_request');
+  assert.ok((await core.deleteReview(ctx, { token: a.token, game: 'dmc5', ipHash: 'ip1' })).ok);
+  const l = await core.reviews(ctx, 'dmc5');
+  assert.equal(l.count, 1);
+  assert.equal(l.avg, 1);
+  assert.equal((await core.deleteReview(ctx, { token: a.token, game: 'dmc5', ipHash: 'ip1' })).code, 'not_found');
+  const mine = await core.myReviews(ctx, a.token); // tài khoản và đánh giá game khác còn nguyên
+  assert.deepEqual(mine.reviews.map((r) => r.game), ['re2-remake']);
+  assert.equal((await core.reviews(ctx, 'dmc5')).reviews[0].name, 'Khac');
+  assert.ok(b.token);
+});

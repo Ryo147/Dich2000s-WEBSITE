@@ -73,6 +73,7 @@ export default async function handler(req, res) {
       case 'me': return send(await core.me(ctx, token));
       case 'delete-account': { const r = await core.deleteAccount(ctx, token); if (r.ok) setCookie(res, null); return send(r); }
       case 'my-reviews': return send(await core.myReviews(ctx, token));
+      case 'delete-review': return send(await core.deleteReview(ctx, { token, game: b.game, ipHash }));
       case 'rename': return send(await core.rename(ctx, { token, name: b.name, ipHash }));
       case 'rotate-request': return send(await core.requestRotate(ctx, { token, ipHash }));
       case 'rotate-cancel': return send(await core.cancelRotate(ctx, token));
