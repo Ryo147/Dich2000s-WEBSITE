@@ -1,6 +1,6 @@
 // Một hàm duy nhất cho toàn bộ hệ thống đánh giá (giữ trong giới hạn số hàm của gói Hobby).
 // GET  ?game=<slug> | ?featured=1 | ?me=1
-// POST {action: rate|login|logout|me|delete-account|remove-device|reset-devices|rotate-request|rotate-cancel|rotate-finish|set-email|verify-email|remove-email|admin-reset-code|report|admin-reports|admin-remove|admin-restore, ...}
+// POST {action: rate|login|logout|me|delete-account|remove-device|reset-devices|rotate-request|rotate-cancel|rotate-finish|rotate-mail-request|rotate-mail-activate|rotate-mail-cancel|set-email|verify-email|remove-email|admin-reset-code|report|admin-reports|admin-remove|admin-restore, ...}
 import crypto from 'node:crypto';
 import * as core from '../lib/ratings-core.js';
 import { redisStore } from '../lib/redis-store.js';
@@ -85,6 +85,9 @@ export default async function handler(req, res) {
       case 'my-votes': return send(await core.myVotes(ctx, { token, device: readDevice(req), game: b.game }));
       case 'rename': return send(await core.rename(ctx, { token, name: b.name, ipHash }));
       case 'rotate-request': return send(await core.requestRotate(ctx, { token, ipHash }));
+      case 'rotate-mail-request': return send(await core.rotateMailRequest(ctx, { name: b.name, email: b.email, ipHash }));
+      case 'rotate-mail-activate': return send(await core.rotateMailLink(ctx, { token: b.token, kind: 'a', ipHash }));
+      case 'rotate-mail-cancel': return send(await core.rotateMailLink(ctx, { token: b.token, kind: 'c', ipHash }));
       case 'rotate-cancel': return send(await core.cancelRotate(ctx, token));
       case 'rotate-finish': return send(await core.finishRotate(ctx, { token, ipHash }));
       case 'set-email': return send(await core.setEmail(ctx, { token, email: b.email, ipHash }));

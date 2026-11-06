@@ -69,6 +69,18 @@
           } }),
           resetBtn,
         ])]));
+      if (box.d2kMail) { // máy chủ đã bật email: quên mã thì nhận mã mới qua email đã xác minh
+        var fn = el('input', { type: 'text', maxlength: '24', autocomplete: 'nickname', class: INPUT });
+        var fe = el('input', { type: 'email', maxlength: '254', autocomplete: 'email', class: INPUT });
+        box.appendChild(el('section', { class: 'mt-8' }, [
+          el('h3', { class: 'font-semibold mb-2', text: T('acc.forgot.mail.title') }),
+          el('p', { class: 'text-xs text-muted-foreground mb-2', text: T('acc.forgot.mail.hint') }),
+          el('div', { class: 'space-y-3' }, [field(T('rv.yourname'), fn), field(T('acc.email.label'), fe),
+            el('button', { type: 'button', class: BTN, text: T('acc.forgot.mail.btn'), onclick: function () {
+              post({ action: 'rotate-mail-request', name: fn.value, email: fe.value }).then(function (r) { if (!r.ok) return say(errText(r), true); say(T('acc.forgot.mail.sent'), false); });
+            } })]),
+        ]));
+      }
       box.appendChild(el('p', { class: 'text-xs text-muted-foreground mt-4', text: T('acc.forgot') }));
       box.appendChild(el('a', { href: 'https://discord.gg/mxsAU6BDye', target: '_blank', rel: 'noopener noreferrer', class: 'text-xs text-primary hover:underline', text: T('acc.forgot.link') }));
       box.appendChild(msg);
@@ -166,15 +178,18 @@
 
     var rot = data.rotate;
     var when = rot ? new Date(rot.readyAt).toLocaleString(window.d2kLang && window.d2kLang() === 'en' ? 'en-GB' : 'vi-VN') : '';
-    var rotKids = [el('p', { class: 'text-xs text-muted-foreground mb-2', text: T('acc.rotate.hint') })];
+    var byMail = !!(data.mail && data.email && !data.admin);
+    var rotKids = [el('p', { class: 'text-xs text-muted-foreground mb-2', text: T(byMail ? 'acc.rotate.mail.hint' : 'acc.rotate.hint') })];
     var cancelBtn = el('button', { type: 'button', class: BTN, text: T('acc.rotate.cancel'), onclick: function () {
       post({ action: 'rotate-cancel' }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box, T('acc.rotate.cancelled')); });
     } });
     if (!rot) {
-      rotKids.push(el('button', { type: 'button', class: BTN, text: T('acc.rotate.btn'), onclick: function () {
-        if (!window.confirm(T('acc.rotate.confirm'))) return;
-        post({ action: 'rotate-request' }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box, T('acc.rotate.requested')); });
+      rotKids.push(el('button', { type: 'button', class: BTN, text: T(byMail ? 'acc.rotate.mail.btn' : 'acc.rotate.btn'), onclick: function () {
+        if (!window.confirm(byMail ? T('acc.rotate.mail.confirm', { email: data.email }) : T('acc.rotate.confirm'))) return;
+        post({ action: 'rotate-request' }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box, T(byMail ? 'acc.rotate.mail.requested' : 'acc.rotate.requested')); });
       } }));
+    } else if (rot.mail) {
+      rotKids.push(el('p', { class: 'text-sm mb-2', text: T('acc.rotate.mail.wait', { time: when }) }), cancelBtn);
     } else if (!rot.mine) {
       rotKids.push(el('p', { class: 'text-sm text-red-400 mb-2', role: 'alert', text: T('acc.rotate.other', { time: when }) }), cancelBtn);
     } else if (Date.now() < rot.readyAt) {
@@ -212,7 +227,13 @@
   }
 
   function load(box, note, code, bad) {
-    post({ action: 'my-reviews' }).then(function (r) { render(box, r.ok ? r : null, note, code, bad); });
+    post({ action: 'my-reviews' }).then(function (r) {
+      if (r.ok) return render(box, r, note, code, bad);
+      // chưa đăng nhập: hỏi máy chủ có bật email không để quyết định hiện mục "quên mã qua email"
+      fetch(API + '?me=1', { credentials: 'same-origin' }).then(function (x) { return x.json(); }).catch(function () { return {}; }).then(function (m) {
+        box.d2kMail = !!m.mail; render(box, null, note, code, bad);
+      });
+    });
   }
 
   function init() {
@@ -223,6 +244,12 @@
     if (v) { // liên kết trong email xác minh
       try { history.replaceState(null, '', location.pathname); } catch (e) { /* bỏ qua */ }
       post({ action: 'verify-email', token: v[1] }).then(function (r) { load(root, r.ok ? T('acc.email.verified') : errText(r), null, !r.ok); });
+    } else if ((v = /[?&](activate|cancel)=([A-Za-z0-9_-]+)/.exec(location.search))) { // liên kết trong email đổi mã
+      try { history.replaceState(null, '', location.pathname); } catch (e) { /* bỏ qua */ }
+      var act = v[1] === 'activate';
+      post({ action: act ? 'rotate-mail-activate' : 'rotate-mail-cancel', token: v[2] }).then(function (r) {
+        load(root, r.ok ? T(act ? 'acc.rotate.mail.activated' : 'acc.rotate.mail.cancelled') : errText(r), null, !r.ok);
+      });
     } else load(root);
     window.addEventListener('d2k-lang', function () { load(root); });
   }

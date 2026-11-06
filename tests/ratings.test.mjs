@@ -411,21 +411,6 @@ test('email: gỡ email, xoá tài khoản giải phóng email; đổi tên gi�
   assert.ok((await core.verifyEmail(ctx, { token: tokenOf(sent.at(-1)), ipHash: 'ip3' })).ok);
 });
 
-test('email: yêu cầu đổi mã và hoàn tất đổi mã gửi cảnh báo; mail lỗi không làm hỏng thao tác', async () => {
-  const { ctx, sent, token } = await withMail('Ryo');
-  await core.setEmail(ctx, { token, email: 'a@gmail.com', ipHash: 'ip1' });
-  await core.verifyEmail(ctx, { token: tokenOf(sent[0]), ipHash: 'ip1' });
-  const n0 = sent.length;
-  await core.requestRotate(ctx, { token, ipHash: 'ip1' });
-  assert.equal(sent.length, n0 + 1);
-  assert.match(sent.at(-1).subject, /mã 3 từ mới/);
-  await core.requestRotate(ctx, { token, ipHash: 'ip1' }); // lặp lại không gửi thêm
-  assert.equal(sent.length, n0 + 1);
-  ctx.now = () => 1000 + 25 * 60 * 60 * 1000;
-  ctx.mailer = async () => { throw new Error('smtp down'); };
-  const f = await core.finishRotate(ctx, { token, ipHash: 'ip1' });
-  assert.ok(f.ok && f.code);
-});
 
 test('email: lần gửi lỗi không tốn hạn mức xác minh của người dùng', async () => {
   const { ctx, sent, token } = await withMail('Ryo');
@@ -516,4 +501,114 @@ test('bình chọn: xóa đánh giá hoặc tài khoản thì phiếu liên quan
   const r2 = await core.rate(ctx, { ...base, token: b.token, name: 'Khac', stars: 4, text: 'Viết lại' });
   assert.ok(r2.ok);
   assert.deepEqual(await counts(ctx), { Khac: [0, 0] });
+});
+
+// ---------- Đổi mã qua email ----------
+async function emailAcct(name = 'Ryo') {
+  const sent = [];
+  const ctx = { ...mk(), mailer: async (m) => { sent.push(m); } };
+  const r = await core.rate(ctx, { ...base, name });
+  await core.setEmail(ctx, { token: r.token, email: 'ryo@gmail.com', ipHash: 'ip1' });
+  await core.verifyEmail(ctx, { token: tokenOf(sent[0]), ipHash: 'ip1' });
+  sent.length = 0;
+  return { ctx, sent, token: r.token, code: r.code, name };
+}
+const newCodeOf = (m) => /Mã 3 từ mới: (.+)\n/.exec(m.text)[1].trim();
+const linkOf = (m, k) => new RegExp(`${k}=([A-Za-z0-9_-]+)`).exec(m.text)[1];
+const DAY = 24 * 60 * 60 * 1000;
+
+test('đổi mã qua email: yêu cầu gửi mã mới vào mail (chưa có hiệu lực), thiết bị đang đăng nhập không tự hoàn tất được', async () => {
+  const { ctx, sent, token, code } = await emailAcct();
+  const r = await core.requestRotate(ctx, { token, ipHash: 'ip1' });
+  assert.ok(r.ok && r.rotate.mail);
+  assert.equal(sent.length, 1);
+  assert.equal(sent[0].to, 'ryo@gmail.com');
+  assert.match(sent[0].text, /XÓA email này/);
+  const nc = newCodeOf(sent[0]);
+  assert.ok(core.canonCode(nc));
+  assert.equal((await core.finishRotate(ctx, { token, ipHash: 'ip1' })).code, 'forbidden');
+  // mã cũ vẫn dùng được, mã mới chưa
+  assert.equal((await core.login(ctx, { name: 'Ryo', code: nc, ipHash: 'ip9' })).ok, false);
+  assert.ok((await core.login(ctx, { name: 'Ryo', code, ipHash: 'ip9' })).ok);
+  const mine = await core.myReviews(ctx, token);
+  assert.ok(mine.rotate && mine.rotate.mail && mine.rotate.mine);
+});
+
+test('đổi mã qua email: kích hoạt ngay bằng liên kết trong mail, mã cũ và mọi phiên cũ vô hiệu, mail xác nhận không chứa mã', async () => {
+  const { ctx, sent, token, code } = await emailAcct();
+  await core.requestRotate(ctx, { token, ipHash: 'ip1' });
+  const nc = newCodeOf(sent[0]);
+  assert.equal((await core.rotateMailLink(ctx, { token: 'x'.repeat(30), kind: 'a', ipHash: 'ip1' })).code, 'bad_token');
+  assert.equal((await core.rotateMailLink(ctx, { token: linkOf(sent[0], 'cancel'), kind: 'a', ipHash: 'ip1' })).code, 'bad_token'); // liên kết huỷ không kích hoạt được
+  assert.ok((await core.rotateMailLink(ctx, { token: linkOf(sent[0], 'activate'), kind: 'a', ipHash: 'ip1' })).ok);
+  assert.equal(await core.sessionAccount(ctx, token), null);
+  assert.equal((await core.login(ctx, { name: 'Ryo', code, ipHash: 'ip9' })).ok, false);
+  assert.ok((await core.login(ctx, { name: 'Ryo', code: nc, ipHash: 'ip9' })).ok);
+  assert.match(sent.at(-1).subject, /có hiệu lực/);
+  assert.doesNotMatch(sent.at(-1).text, new RegExp(nc));
+  assert.equal((await core.rotateMailLink(ctx, { token: linkOf(sent[0], 'activate'), kind: 'a', ipHash: 'ip1' })).code, 'bad_token'); // dùng một lần
+});
+
+test('đổi mã qua email: sau 24 giờ mã mới tự có hiệu lực ở lần dùng tài khoản đầu tiên', async () => {
+  const { ctx, sent, token, code } = await emailAcct();
+  await core.requestRotate(ctx, { token, ipHash: 'ip1' });
+  const nc = newCodeOf(sent[0]);
+  ctx.now = () => 1000 + DAY - 1;
+  assert.ok(await core.sessionAccount(ctx, token)); // chưa đến hạn
+  ctx.now = () => 1000 + DAY;
+  assert.equal(await core.sessionAccount(ctx, token), null); // phiên cũ bị đăng xuất
+  assert.equal((await core.login(ctx, { name: 'Ryo', code, ipHash: 'ip9' })).ok, false);
+  assert.ok((await core.login(ctx, { name: 'Ryo', code: nc, ipHash: 'ip9' })).ok);
+});
+
+test('đổi mã qua email: huỷ bằng nút (đã đăng nhập) hoặc liên kết trong mail thì mã trong mail vô dụng', async () => {
+  const { ctx, sent, token, code } = await emailAcct();
+  await core.requestRotate(ctx, { token, ipHash: 'ip1' });
+  assert.ok((await core.cancelRotate(ctx, token)).ok);
+  assert.equal((await core.myReviews(ctx, token)).rotate, null);
+  assert.equal((await core.rotateMailLink(ctx, { token: linkOf(sent[0], 'activate'), kind: 'a', ipHash: 'ip1' })).code, 'bad_token');
+  await core.requestRotate(ctx, { token, ipHash: 'ip1' });
+  assert.ok((await core.rotateMailLink(ctx, { token: linkOf(sent[1], 'cancel'), kind: 'c', ipHash: 'ip1' })).ok);
+  ctx.now = () => 1000 + 2 * DAY;
+  assert.equal((await core.login(ctx, { name: 'Ryo', code: newCodeOf(sent[1]), ipHash: 'ip9' })).ok, false);
+  assert.ok((await core.login(ctx, { name: 'Ryo', code, ipHash: 'ip9' })).ok);
+});
+
+test('đổi mã qua email: yêu cầu mới thay yêu cầu cũ; tối đa 3 lần mỗi ngày; mail lỗi không đổi gì', async () => {
+  const { ctx, sent, token, code } = await emailAcct();
+  await core.requestRotate(ctx, { token, ipHash: 'ip1' });
+  await core.requestRotate(ctx, { token, ipHash: 'ip1' });
+  assert.equal((await core.rotateMailLink(ctx, { token: linkOf(sent[0], 'activate'), kind: 'a', ipHash: 'ip1' })).code, 'bad_token');
+  assert.ok((await core.rotateMailLink(ctx, { token: linkOf(sent[1], 'activate'), kind: 'a', ipHash: 'ip1' })).ok);
+  const r = await core.login(ctx, { name: 'Ryo', code: newCodeOf(sent[1]), ipHash: 'ip9' });
+  assert.ok(r.ok);
+  await core.requestRotate(ctx, { token: r.token, ipHash: 'ip1' });
+  assert.equal((await core.requestRotate(ctx, { token: r.token, ipHash: 'ip1' })).code, 'email_limit');
+  assert.ok(code);
+});
+
+test('đổi mã qua email: gửi mail lỗi thì báo lỗi, không tạo yêu cầu, mã cũ không đổi', async () => {
+  const { ctx, token, code } = await emailAcct();
+  ctx.mailer = async () => { throw new Error('smtp down'); };
+  assert.equal((await core.requestRotate(ctx, { token, ipHash: 'ip1' })).code, 'mail_fail');
+  assert.equal((await core.myReviews(ctx, token)).rotate, null);
+  ctx.now = () => 1000 + 2 * DAY;
+  assert.ok((await core.login(ctx, { name: 'Ryo', code, ipHash: 'ip9' })).ok);
+});
+
+test('đổi mã qua email khi chưa đăng nhập: nhập tên + email; sai email hoặc tài khoản không có email thì không gửi nhưng phản hồi giống nhau', async () => {
+  const { ctx, sent, code } = await emailAcct();
+  const ask = (name, email) => core.rotateMailRequest(ctx, { name, email, ipHash: 'ipq' });
+  assert.deepEqual(await ask('Ryo', 'ai-do@gmail.com'), { ok: true, sent: true });
+  assert.equal(sent.length, 0);
+  await core.rate(ctx, { ...base, name: 'KhongMail', ipHash: 'ip3' });
+  assert.deepEqual(await ask('KhongMail', 'ryo@gmail.com'), { ok: true, sent: true });
+  assert.deepEqual(await ask('KhongTonTai', 'ryo@gmail.com'), { ok: true, sent: true });
+  assert.equal(sent.length, 0);
+  assert.deepEqual(await ask('Ryo', ' RYO@gmail.com '), { ok: true, sent: true });
+  assert.equal(sent.length, 1);
+  assert.equal((await ask('Ryo', 'sai-dinh-dang')).code, 'bad_email');
+  assert.ok((await core.rotateMailLink(ctx, { token: linkOf(sent[0], 'activate'), kind: 'a', ipHash: 'ipq' })).ok);
+  assert.ok((await core.login(ctx, { name: 'Ryo', code: newCodeOf(sent[0]), ipHash: 'ip9' })).ok);
+  assert.ok(code);
 });
