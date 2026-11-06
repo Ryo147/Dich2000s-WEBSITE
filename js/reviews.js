@@ -41,7 +41,7 @@
 
   function stars(n, size) {
     var box = el('span', { class: 'inline-flex gap-0.5 text-primary', role: 'img', 'aria-label': T('rv.star', { n: n }) });
-    for (var i = 1; i <= 5; i++) box.appendChild(el('span', { 'aria-hidden': 'true', text: i <= Math.round(n) ? '★' : '☆', style: size ? 'font-size:' + size : '' }));
+    for (var i = 1; i <= 5; i++) box.appendChild(el('i', { 'aria-hidden': 'true', class: (i <= Math.round(n) ? 'fa-solid' : 'fa-regular') + ' fa-star', style: size ? 'font-size:' + size : '' }));
     return box;
   }
 
@@ -95,7 +95,7 @@
       for (var s = 5; s >= 1; s--) {
         var pct = d.count ? Math.round((d.dist[s - 1] / d.count) * 100) : 0;
         bars.appendChild(el('div', { class: 'flex items-center gap-2 text-xs text-muted-foreground' }, [
-          el('span', { class: 'w-8', text: s + '★' }),
+          el('span', { class: 'w-8 inline-flex items-center gap-0.5' }, [String(s), el('i', { class: 'fa-solid fa-star text-[10px]', 'aria-hidden': 'true' })]),
           el('div', { class: 'flex-1 h-2 rounded-full bg-border overflow-hidden' }, [el('div', { class: 'h-full bg-primary', style: 'width:' + pct + '%' })]),
           el('span', { class: 'w-8 text-right', text: String(d.dist[s - 1]) }),
         ]));
@@ -110,8 +110,8 @@
         row.appendChild(el('button', {
           type: 'button', role: 'radio', 'aria-checked': String(state.stars === i), 'aria-label': T('rv.star', { n: i }),
           class: 'text-3xl leading-none px-1 rounded focus-visible:outline focus-visible:outline-2 ' + (i <= state.stars ? 'text-primary' : 'text-muted-foreground/50'),
-          text: '★', onclick: function () { state.stars = i; render(); },
-        }));
+          onclick: function () { state.stars = i; render(); },
+        }, [el('i', { class: 'fa-solid fa-star', 'aria-hidden': 'true' })]));
       }
       return row;
     }
@@ -189,9 +189,14 @@
       var cur = state.votes[r.id] || 0;
       var BTN = 'rounded-full border px-3 py-1 text-xs disabled:opacity-60 ';
       var up = el('button', { type: 'button' }), down = el('button', { type: 'button' });
+      function label(b, style, glyph, text) {
+        b.textContent = '';
+        b.appendChild(el('i', { class: style + ' ' + glyph + ' mr-1.5', 'aria-hidden': 'true' }));
+        b.appendChild(document.createTextNode(text));
+      }
       function paint() {
-        up.textContent = '👍 ' + T('rv.helpful') + ' (' + r.up + ')';
-        down.textContent = '👎 ' + T('rv.nothelpful') + ' (' + r.down + ')';
+        label(up, cur === 1 ? 'fa-solid' : 'fa-regular', 'fa-thumbs-up', T('rv.helpful') + ' (' + r.up + ')');
+        label(down, cur === -1 ? 'fa-solid' : 'fa-regular', 'fa-thumbs-down', T('rv.nothelpful') + ' (' + r.down + ')');
         up.setAttribute('aria-pressed', String(cur === 1)); down.setAttribute('aria-pressed', String(cur === -1));
         up.className = BTN + (cur === 1 ? 'border-primary text-foreground' : 'border-border hover:bg-card');
         down.className = BTN + (cur === -1 ? 'border-primary text-foreground' : 'border-border hover:bg-card');

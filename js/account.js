@@ -107,7 +107,7 @@
       list.appendChild(el('li', { class: 'rounded-lg border border-border p-3 text-sm' }, [
         el('div', { class: 'flex items-center justify-between gap-2' }, [
           el('a', { href: window.d2kHref(g.url) + '#reviews', class: 'font-medium text-primary hover:underline', text: g.name }),
-          el('span', { class: 'text-primary', 'aria-label': T('rv.star', { n: r.stars }), text: '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars) }),
+          el('span', { class: 'text-primary inline-flex gap-0.5', role: 'img', 'aria-label': T('rv.star', { n: r.stars }) }, [1, 2, 3, 4, 5].map(function (i) { return el('i', { class: (i <= r.stars ? 'fa-solid' : 'fa-regular') + ' fa-star', 'aria-hidden': 'true' }); })),
         ]),
         r.text ? el('p', { class: 'mt-1 whitespace-pre-wrap break-words ' + (r.removed ? 'italic text-muted-foreground' : ''), text: r.text }) : null,
         el('div', { class: 'mt-2' }, [el('button', { type: 'button', class: 'text-xs underline text-red-400 hover:text-red-300', text: T('acc.review.delete'), onclick: function () {
