@@ -178,7 +178,7 @@
 
     var rot = data.rotate;
     var when = rot ? new Date(rot.readyAt).toLocaleString(window.d2kLang && window.d2kLang() === 'en' ? 'en-GB' : 'vi-VN') : '';
-    var byMail = !!(data.mail && data.email && !data.admin);
+    var byMail = !!(data.mail && data.email);
     var rotKids = [el('p', { class: 'text-xs text-muted-foreground mb-2', text: T(byMail ? 'acc.rotate.mail.hint' : 'acc.rotate.hint') })];
     var cancelBtn = el('button', { type: 'button', class: BTN, text: T('acc.rotate.cancel'), onclick: function () {
       post({ action: 'rotate-cancel' }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box, T('acc.rotate.cancelled')); });

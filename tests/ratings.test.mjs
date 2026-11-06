@@ -613,6 +613,30 @@ test('đổi mã qua email khi chưa đăng nhập: nhập tên + email; sai ema
   assert.ok(code);
 });
 
+test('quản trị viên đã xác minh email quên mã và mất hết phiên: nhận mã qua mail, kích hoạt rồi đăng nhập lại', async () => {
+  const sent = [];
+  const ctx = { ...mk(), mailer: async (m) => { sent.push(m); } };
+  const adm = await core.createAccount(ctx, 'NhuaInox', core.nameKey('NhuaInox'), { admin: true });
+  const s = await core.login(ctx, { name: 'NhuaInox', code: adm.code, ipHash: 'ia' });
+  await core.setEmail(ctx, { token: s.token, email: 'qtv@gmail.com', ipHash: 'ia' });
+  await core.verifyEmail(ctx, { token: tokenOf(sent[0]), ipHash: 'ia' });
+  sent.length = 0;
+  await core.logout(ctx, s.token); // mất hết phiên
+  assert.deepEqual(await core.rotateMailRequest(ctx, { name: 'nhuainox', email: 'QTV@gmail.com', ipHash: 'ipq' }), { ok: true, sent: true });
+  assert.equal(sent.length, 1);
+  assert.equal(sent[0].to, 'qtv@gmail.com');
+  const nc = newCodeOf(sent[0]);
+  assert.equal((await core.login(ctx, { name: 'NhuaInox', code: nc, ipHash: 'ib' })).ok, false); // chưa có hiệu lực
+  assert.ok((await core.rotateMailLink(ctx, { token: linkOf(sent[0], 'activate'), kind: 'a', ipHash: 'ipq' })).ok);
+  const back = await core.login(ctx, { name: 'NhuaInox', code: nc, ipHash: 'ib' });
+  assert.ok(back.ok && back.admin);
+  assert.equal((await core.login(ctx, { name: 'NhuaInox', code: adm.code, ipHash: 'ic' })).code, 'bad_login');
+  // sai email thì vẫn không gửi
+  sent.length = 0;
+  await core.rotateMailRequest(ctx, { name: 'NhuaInox', email: 'ai-do@gmail.com', ipHash: 'ipq' });
+  assert.equal(sent.length, 0);
+});
+
 test('email HTML: có bản HTML kèm văn bản, tên người dùng được escape, liên kết và mã có mặt', async () => {
   const sent = [];
   const ctx = { ...mk(), mailer: async (m) => { sent.push(m); } };
