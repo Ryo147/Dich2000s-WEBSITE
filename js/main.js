@@ -7,6 +7,9 @@
 (function () {
   'use strict';
 
+  // i18n.js nạp đồng bộ trong <head> nên d2kT luôn có sẵn ở đây
+  function d2kText(k) { return window.d2kT ? window.d2kT(k) : k; }
+
   // Nav scroll state and mobile menu are now handled by StaggeredMenu
   // (see js/staggered-menu.js, initialized per-page near the end of <body>).
 
@@ -54,12 +57,12 @@
       var text = btn.getAttribute('data-copy');
       if (navigator.clipboard) {
         navigator.clipboard.writeText(text).then(function () {
-          window.showToast('Đã sao chép!');
+          window.showToast(d2kText('toast.copied'));
         }).catch(function () {
-          window.showToast('Không thể sao chép, vui lòng copy thủ công.');
+          window.showToast(d2kText('toast.copyfail'));
         });
       } else {
-        window.showToast('Không thể sao chép, vui lòng copy thủ công.');
+        window.showToast(d2kText('toast.copyfail'));
       }
     });
   });
@@ -203,10 +206,10 @@
     overlay.className = 'lightbox-overlay';
     overlay.innerHTML =
       '<div class="lightbox-img-wrap">' +
-      '<button type="button" class="lightbox-close" aria-label="Đóng">&times;</button>' +
-      '<button type="button" class="lightbox-nav lightbox-prev" aria-label="Ảnh trước">&lsaquo;</button>' +
-      '<img src="" alt="Xem ảnh phóng to">' +
-      '<button type="button" class="lightbox-nav lightbox-next" aria-label="Ảnh sau">&rsaquo;</button>' +
+      '<button type="button" class="lightbox-close" aria-label="' + d2kText('lb.close') + '">&times;</button>' +
+      '<button type="button" class="lightbox-nav lightbox-prev" aria-label="' + d2kText('lb.prev') + '">&lsaquo;</button>' +
+      '<img src="" alt="' + d2kText('lb.alt') + '">' +
+      '<button type="button" class="lightbox-nav lightbox-next" aria-label="' + d2kText('lb.next') + '">&rsaquo;</button>' +
       '<div class="lightbox-counter"></div>' +
       '</div>';
     document.body.appendChild(overlay);
@@ -326,7 +329,7 @@
       windows: 'https://github.com/Ryo147/PatchVietHoaInstaller/releases/latest/download/PatchVietHoaInstaller_win-x64.exe',
       linux: 'https://github.com/Ryo147/PatchVietHoaInstaller/releases/latest/download/PatchVietHoaInstaller_linux-x64.zip',
     };
-    var LABELS = { windows: 'Tải về cho Windows', linux: 'Tải về cho Linux' };
+    var LABELS = { windows: d2kText('dl.win'), linux: d2kText('dl.linux') };
 
     function detectOS() {
       var ua = navigator.userAgent || '';
@@ -409,7 +412,7 @@
       if (!old.length) {
         var none = document.createElement('li');
         none.className = 'py-3 text-sm text-muted-foreground';
-        none.textContent = 'Chưa có bản cũ nào.';
+        none.textContent = d2kText('dl.noold');
         ul.appendChild(none);
         return;
       }
@@ -424,13 +427,13 @@
         if (r.date) {
           var d = document.createElement('span');
           d.className = 'text-xs text-muted-foreground ml-2';
-          d.textContent = new Date(r.date).toLocaleDateString('vi-VN');
+          d.textContent = new Date(r.date).toLocaleDateString(document.documentElement.lang === 'en' ? 'en-GB' : 'vi-VN');
           left.appendChild(d);
         }
         if (r.pre) {
           var b = document.createElement('span');
           b.className = 'ml-2 px-2 py-0.5 rounded-full text-[11px] font-mono bg-secondary text-muted-foreground';
-          b.textContent = 'bản thử nghiệm';
+          b.textContent = d2kText('dl.pre');
           left.appendChild(b);
         }
         var right = document.createElement('div');
@@ -441,7 +444,7 @@
           right.appendChild(pill(a.n + (a.s ? ' · ' + a.s + ' MB' : ''), href));
         });
         var notes = safeUrl(r.url);
-        if (notes) right.appendChild(pill('Ghi chú', notes));
+        if (notes) right.appendChild(pill(d2kText('dl.notes'), notes));
         li.appendChild(left);
         li.appendChild(right);
         ul.appendChild(li);
@@ -449,7 +452,7 @@
     }
 
     function paint(data) {
-      el.textContent = Number(data.count).toLocaleString('vi-VN');
+      el.textContent = Number(data.count).toLocaleString(document.documentElement.lang === 'en' ? 'en-GB' : 'vi-VN');
       // không có tag: giữ số phiên bản viết sẵn trong HTML
       if (data.tag) {
         document.querySelectorAll('[data-release-version]').forEach(function (n) { n.textContent = data.tag; });

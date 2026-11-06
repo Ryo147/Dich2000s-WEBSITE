@@ -9,10 +9,11 @@ import { fileURLToPath } from 'node:url';
 export const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 export const REF = /((?:js|css)\/[\w.\-]+\.(?:js|css))\?v=([\w]+)/g;
 
-export const htmlFiles = () => [
-  ...readdirSync(ROOT).filter((f) => f.endsWith('.html')),
-  ...readdirSync(join(ROOT, 'projects')).map((f) => 'projects/' + f).filter((f) => f.endsWith('.html')),
-];
+// Trang tiếng Việt ở gốc + projects/, bản tiếng Anh tương ứng ở en/ + en/projects/
+export const htmlFiles = () => ['', 'en'].flatMap((d) => [
+  ...(existsSync(join(ROOT, d)) ? readdirSync(join(ROOT, d)) : []).filter((f) => f.endsWith('.html')).map((f) => (d ? d + '/' : '') + f),
+  ...(existsSync(join(ROOT, d, 'projects')) ? readdirSync(join(ROOT, d, 'projects')) : []).filter((f) => f.endsWith('.html')).map((f) => (d ? d + '/' : '') + 'projects/' + f),
+]);
 export const hashOf = (rel) => createHash('sha1').update(readFileSync(join(ROOT, rel))).digest('hex').slice(0, 8);
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

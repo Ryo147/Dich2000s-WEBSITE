@@ -35,3 +35,12 @@ Tạo bằng script riêng chạy trên máy chủ sở hữu (không để tron
 
 ## Lưu ý
 - `api/ratings.js` chỉ nhận POST từ `https://dich2000s.vercel.app` (chống CSRF). Đổi tên miền hoặc test trên bản preview thì sửa `ALLOWED_ORIGINS`.
+
+
+## Tiếng Anh (thư mục `en/`)
+
+- Mỗi trang tiếng Việt có bản tiếng Anh cùng tên trong `en/` (và `en/projects/`), là HTML tĩnh viết tay, đường dẫn tài nguyên dùng gốc `/` (ví dụ `/css/...`).
+- Ngôn ngữ giao diện do đường dẫn quyết định (`/en/...` là tiếng Anh). Nút "English / Tiếng Việt" ở chân trang chuyển sang trang tương ứng.
+- FAQ tiếng Anh nằm ở `js/faq.en.js` (song song với `js/faq.js`). Chuỗi giao diện dùng chung (đánh giá, tài khoản, cookie) ở `js/i18n.js`.
+- Sửa nội dung một trang thì sửa cả hai bản. `npm test` có kiểm tra bản en/ đủ trang, đúng canonical/hreflang, đường dẫn gốc và cấu trúc thẻ khớp bản Việt.
+- `privacy.html` và `noi-quy.html` bản tiếng Anh chỉ để tham khảo; bản tiếng Việt là bản có giá trị.

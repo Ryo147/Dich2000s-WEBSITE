@@ -6,7 +6,7 @@
 (function () {
   'use strict';
 
-  var BASE = location.pathname.indexOf('/projects/') !== -1 ? '..' : '.';
+  var BASE = ''; // gốc site; trang /en/... dùng chung API
   var API = BASE + '/api/ratings';
   var GAMES = window.D2K_GAMES || {}; // js/games.js (sinh từ lib/games.js)
   var T = function (k, v) { return window.d2kT ? window.d2kT(k, v) : k; };
@@ -132,8 +132,8 @@
         el('div', {}, [el('label', { class: 'block text-sm mb-1', text: T('rv.comment') }), textIn]),
         hp,
         el('label', { class: 'flex items-start gap-2 text-sm text-muted-foreground' }, [agree,
-          el('span', {}, [T('rv.consent') + ' ', el('a', { href: BASE + '/privacy.html', class: 'underline', text: T('rv.consent.link') }), '.'])]),
-        el('p', { class: 'text-xs text-muted-foreground' }, [T('rv.rules') + ' ', el('a', { href: BASE + '/noi-quy.html', class: 'underline', text: T('rv.rules.link') })]),
+          el('span', {}, [T('rv.consent') + ' ', el('a', { href: window.d2kHref('privacy.html'), class: 'underline', text: T('rv.consent.link') }), '.'])]),
+        el('p', { class: 'text-xs text-muted-foreground' }, [T('rv.rules') + ' ', el('a', { href: window.d2kHref('noi-quy.html'), class: 'underline', text: T('rv.rules.link') })]),
         el('button', { type: 'submit', class: 'rounded-full bg-primary text-primary-foreground font-semibold px-6 py-2.5', text: state.mine ? T('rv.update') : T('rv.submit') }),
       ]);
       f.addEventListener('submit', function (e) {

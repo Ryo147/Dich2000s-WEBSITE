@@ -105,16 +105,15 @@
   function showBanner() {
     if (document.getElementById('d2k-consent')) return;
     injectStyle();
-    var base = location.pathname.indexOf('/projects/') !== -1 ? '../' : '';
     var box = document.createElement('div');
     box.id = 'd2k-consent';
     box.className = 'd2k-banner';
     box.setAttribute('role', 'region');
-    box.setAttribute('aria-label', 'Thông báo cookie');
-    var T = window.d2kT || function (k) { return k; }; // i18n.js luôn nạp trước (defer, đúng thứ tự)
+    var T = window.d2kT || function (k) { return k; };
+    box.setAttribute('aria-label', T('cookie.aria')); // i18n.js luôn nạp trước (defer, đúng thứ tự)
     box.innerHTML =
       '<p>' + T('cookie.text') + ' ' +
-      '<a href="' + base + 'privacy.html">' + T('cookie.policy') + '</a>.</p>' +
+      '<a href="' + window.d2kHref('privacy.html') + '">' + T('cookie.policy') + '</a>.</p>' +
       '<div class="d2k-btns"><button type="button" class="d2k-no">' + T('cookie.no') + '</button>' +
       '<button type="button" class="d2k-yes">' + T('cookie.yes') + '</button></div>';
     box.querySelector('.d2k-yes').addEventListener('click', function () { choose('granted'); });

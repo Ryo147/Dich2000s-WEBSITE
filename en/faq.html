@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="/js/i18n.js?v=375f87cf"></script>
+    <script src="/js/consent.js?v=67bfb31d" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Frequently Asked Questions - Dịch 2000s</title>
+    <meta name="description" content="Frequently asked questions about installing and playing the Vietnamese localizations by Dịch 2000s.">
+    <meta name="keywords" content="game localization faq, Vietnamese patch, patch install error, antivirus blocks patch, Vietnamese font, patch not detected, Dịch 2000s faq">
+    <meta name="robots" content="index, follow, max-snippet:-1">
+    <link rel="canonical" href="https://dich2000s.vercel.app/en/faq">
+    <link rel="alternate" hreflang="vi" href="https://dich2000s.vercel.app/faq">
+    <link rel="alternate" hreflang="en" href="https://dich2000s.vercel.app/en/faq">
+    <link rel="alternate" hreflang="x-default" href="https://dich2000s.vercel.app/faq">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dịch 2000s">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://dich2000s.vercel.app/en/faq">
+    <meta property="og:title" content="FAQ — Frequently Asked Questions | Dịch 2000s">
+    <meta property="og:description" content="Answers to common problems when installing and playing Dịch 2000s game localizations.">
+    <meta property="og:image" content="https://dich2000s.vercel.app/assets/FullWidthLogo.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="FAQ — Dịch 2000s">
+    <meta name="twitter:description" content="Common questions about installing and playing Vietnamese game patches.">
+    <meta name="theme-color" content="#0a0a0b">
+    <meta name="color-scheme" content="dark">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/logo.png">
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="/js/speed-insights.js?v=570d8ae5"></script>
+    <link rel="stylesheet" href="/css/style.css?v=dfdbcfa8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <link rel="stylesheet" href="/css/staggered-menu.css?v=1b6cd9b2">
+    <link rel="stylesheet" href="/css/tailwind.css?v=fdd82dac">
+</head>
+
+<body class="bg-background text-foreground">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground">Skip to main content</a>
+    <div id="menu-root"></div>
+    <main id="main-content" class="flex-1 pt-28 sm:pt-32 pb-20 sm:pb-28 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="reveal">
+                <div class="section-label mb-4">Support</div>
+                <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight">Frequently asked
+                    <span class="text-primary">questions</span></h1>
+                <p class="text-muted-foreground text-base sm:text-lg max-w-2xl leading-relaxed mt-5">Common errors and
+                    questions when installing and playing the Vietnamese patches.</p>
+            </div>
+            <div class="reveal mt-8" style="transition-delay:120ms">
+                <div class="relative"><i
+                        class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"></i><input
+                        id="faqSearch" class="faq-search" type="text"
+                        placeholder="Search questions... (e.g. antivirus, wrong path, font error)"></div>
+            </div>
+            <div class="reveal mt-5" style="transition-delay:180ms">
+                <div class="flex flex-wrap gap-2" id="faqChips"><button class="chip-filter active" data-cat="all">All</button><button class="chip-filter" data-cat="install">Installation errors</button><button
+                        class="chip-filter" data-cat="game">In-game errors</button><button class="chip-filter"
+                        data-cat="viethoa">Localization errors</button><button class="chip-filter"
+                        data-cat="general">General questions</button><button
+                        class="chip-filter" data-cat="account">Reviews &amp; accounts</button></div>
+            </div>
+            <div id="faqResults" class="mt-10 space-y-8"></div>
+            <div id="faqEmpty"
+                style="display:none;text-align:center;padding:50px 0;font-family:'JetBrains Mono',monospace;color:var(--muted-foreground);font-size:14px;letter-spacing:0.05em">
+                // No matching results found</div>
+            <div class="reveal mt-12 bg-card border border-border rounded-2xl p-8 text-center">
+                <div class="section-label mb-3" style="justify-content:center">Still can't find an answer?</div>
+                <p class="font-display text-lg sm:text-xl mb-6">Contact us directly on Discord and we will help you out.
+                </p><a href="https://discord.gg/mxsAU6BDye" target="_blank" rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"><i
+                        class="fa-brands fa-discord"></i> Join Discord</a>
+            </div>
+        </div>
+    </main>
+    <footer id="site-footer" class="border-t border-border bg-card/40 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+            <div class="grid gap-10 md:grid-cols-3">
+                <div class="md:col-span-2">
+                    <a href="/en/" class="flex items-center gap-3 mb-4"><img src="/assets/logo.png"
+                            alt="Dịch 2000s" class="w-9 h-9 object-contain">
+                        <div class="leading-none text-left">
+                            <div class="font-display text-lg font-bold">DỊCH 2000s</div>
+                            <div class="text-[10px] text-muted-foreground tracking-[0.18em] uppercase mt-0.5">Translating the
+                                2000s</div>
+                        </div>
+                    </a>
+                    <p class="text-muted-foreground max-w-md leading-relaxed text-sm">Every word, every line, for
+                        every Vietnamese gamer.</p>
+                    <a href="mailto:dich2000s.vn.localizer@gmail.com" class="inline-flex items-center gap-2 mt-3 text-sm text-muted-foreground hover:text-primary transition-colors"><i class="fa-solid fa-envelope text-xs"></i>dich2000s.vn.localizer@gmail.com</a>
+                    <div class="flex items-center gap-2 mt-5">
+                        <a href="https://www.facebook.com/Dich2000s" target="_blank" rel="noopener noreferrer"
+                            aria-label="Facebook"
+                            class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://discord.gg/mxsAU6BDye" target="_blank" rel="noopener noreferrer"
+                            aria-label="Discord"
+                            class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"><i
+                                class="fa-brands fa-discord"></i></a>
+                        <a href="https://github.com/Ryo147/PatchVietHoaInstaller" target="_blank"
+                            rel="noopener noreferrer" aria-label="GitHub"
+                            class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"><i
+                                class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-display text-sm font-semibold text-primary mb-4">Explore</div>
+                    <ul class="space-y-2.5">
+                        <li><a href="/en/#about"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">About</a></li>
+                        <li><a href="/en/projects.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">Projects</a>
+                        </li>
+                        <li><a href="/en/faq.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">FAQ</a>
+                        </li>
+                        <li><a href="/en/download.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">Get the Patch</a></li>
+                        <li><a href="/en/privacy.html"
+                                class="text-sm text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</a></li>
+                        <li><a href="/en/noi-quy.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Review Rules</a></li>
+                        <li><button type="button" data-i18n="cookie.settings" onclick="d2kCookieSettings()" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Cookie settings</button></li>
+                        <li><button type="button" data-i18n="lang.switch" onclick="d2kSetLang(d2kLang()==='en'?'vi':'en')" class="text-sm text-muted-foreground hover:text-foreground transition-colors" lang="en">English</button></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                class="pt-8 mt-10 border-t border-border flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="text-xs text-muted-foreground">&copy; Dịch 2000s • 2026</div>
+                <div class="flex items-center gap-5 text-xs font-mono">
+                    <span class="inline-flex items-center gap-1.5 text-muted-foreground"><span
+                            class="relative flex h-2 w-2"><span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                                style="background:var(--status-done)"></span><span
+                                class="relative inline-flex rounded-full h-2 w-2"
+                                style="background:var(--status-done)"></span></span><i
+                            class="fa-solid fa-users text-xs"></i><span data-stat="online">&mdash;</span><span
+                            class="opacity-60">online now</span></span>
+                    <span class="inline-flex items-center gap-1.5 text-muted-foreground"><i
+                            class="fa-solid fa-eye text-xs"></i><span data-stat="views-global">&mdash;</span><span
+                            class="opacity-60">views</span></span>
+                </div>
+                <div class="text-xs text-muted-foreground md:text-right max-w-md leading-relaxed">We are just a small game
+                    localization group, so both the website and the software were coded by Claude x GLM-5.2. If anything
+                    is not to your liking, please bear with us and give gentle feedback. We will keep working to
+                    improve in the future.</div>
+            </div>
+        </div>
+    </footer>
+    <div class="toast" id="toast">Copied!</div>
+    <script src="/js/live-stats.js?v=261e0c26"></script>
+    <script src="/js/main.js?v=1f4f1fa2"></script>
+    <script src="/js/faq.en.js?v=b85d77ff"></script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "inLanguage": "en",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Antivirus / Windows Defender blocks the installer. What should I do?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "This is normal because the installer is not digitally signed yet. Add an exception for the install folder or the .exe file in your antivirus software, then run it again."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "The installer reports a hash verification error / file check failed",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "This is usually caused by a download that broke midway (unstable network) or by your antivirus silently modifying the file before the installer checks it. Delete the downloaded file, temporarily turn off real-time protection, then download it again from scratch."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Installation finished but the installer cannot detect the game folder",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Check that the path points to the game's root folder, the one containing its .exe file. If you installed through Steam, the path usually looks like .../steamapps/common/game name."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "The installer keeps failing partway through downloading the update",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "It may be an unstable connection or a slow CDN (Content Delivery Network). If it still fails after several attempts, try switching networks or using a VPN, then try again."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "After patching, the game reports missing files or will not start",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "This is usually because Steam automatically updated the game to a new version. Check whether your current game version matches the version the patch supports. If it does not, uninstall the patch and wait for the team to release a new compatible patch."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Vietnamese text overflows, covers the UI or gets cut off",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Some dialogue boxes in the original game were designed for English (which is shorter than Vietnamese with diacritics), so long sentences sometimes overflow. This is a known issue with a few lines of dialogue. The team will adjust the length of the translated lines in later updates."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "I launch the game but still see English, not Vietnamese",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Check the game's own Language settings and make sure it is switched to the option the patch applies to. If that does not work, try patching again from scratch through the installer."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "After patching, text or UI shows blotchy pink-purple (magenta) colors",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "This is the color most game engines show when a resource (font, material, shader) is missing or loaded incorrectly. If you play a legitimate copy, the cause is usually that the patch was missing files during installation (the network dropped midway, or antivirus blocked part of it). Try uninstalling the patch and reinstalling it in full from the installer. If you play a cracked copy, it is very likely that the crack compressed or stripped some of the original resources, so the file structure no longer matches the patch, which was built on the original version. To comply with current laws, the translation team does not provide any solution or link related to cracked games."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I update the Vietnamese patch to a new version?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Follow these steps: 1. Remove the current Vietnamese patch. 2. Restore the game files from Steam (Verify files) to re-download the whole game. 3. Right-click the app in the nav bar and choose to check for Vietnamese patch updates. 4. When you are notified that a new Vietnamese patch is available, download it and enjoy."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I report a typo or a mistranslated line?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Report it through Discord (the #báo-lỗi channel) or message the team's Facebook fanpage. To help the team find and fix it quickly, include the game name and patch version you are using, a screenshot of the problem, and the correct line you suggest, if any."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "I think a translated term is inappropriate or inconsistent. How do I give feedback?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Report it through Discord or the fanpage, the same way as reporting a typo, and also include the original term in the game, how it is currently translated, where the term appears, and the translation you suggest along with your reasons. The team will review it and make it consistent if it makes sense."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is the translation free?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Every Dịch 2000s patch is free and will always be free, with no fees of any kind. If you see anyone selling our patches, that is not the team's doing."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How can I see how far along a project is?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Check the /projects page on the website. Each project lists its status and translator information. The team also posts regular updates on Discord."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What if I want to suggest a game for Vietnamese localization?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Join the team's Discord and head to the #đề-xuất-việt-hóa channel. The team will review and consider the games you suggest."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I report a translation error or a technical error in the patch?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Join the team's Discord and report the error in the #báo-lỗi channel. The team will receive and handle it. For installer errors, you can report them to the team at https://github.com/Ryo147/PatchVietHoaInstaller/issues/new."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I rate a Vietnamese patch?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Open the game's page, scroll to the bottom, choose a star rating, enter a display name, tick the box agreeing to public display, then click Submit. A comment is optional. Your first review automatically creates an account under the name you chose and issues a 3-word code for signing in again. The code is shown only once, so save it right away."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do I need to provide an email?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. Creating an account through a review does not require an email. You can add an email yourself (optional) on the Account page to get notified when a 3-word code change is requested. The email must be verified through a link sent to your inbox, is never shown publicly and can be removed at any time."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What if I forget my 3-word code?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "If you are still signed in on a device, go to Account in the menu and click Request a new 3-word code. To protect against someone borrowing your device, the new code can only be created after a 24-hour wait. During that time the old code still works, and every signed-in device sees a notice so you can cancel the request if it was not you. When it completes, the old code is invalidated and other devices are signed out. If you have added and verified an email on the Account page, you will get an email when a code change is requested. If you have lost every sign-in, message an admin on the team's Discord or Facebook to have a code reissued after verifying that you own the account."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Why can't I sign in, and it says 2 devices are already in use?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Each account can be signed in on at most 2 devices. Each browser, incognito window or cleared-cookies session counts as one device. Go to Account and enter your name and 3-word code to view and remove devices. A device unused for 21 days is removed automatically."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "My comment was removed. Do I lose my star rating?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. Only the text that violates the rules is removed and replaced with the line Removed for violating the rules; your stars are still counted. The team does not remove reviews just because of a low score. See the Review rules page for details."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I change my name or delete my account and reviews?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Go to Account in the menu: you can change your name (once every 7 days), review your past reviews, and delete your account along with all your reviews. Deletion cannot be undone."
+                }
+            }
+        ]
+    }
+    </script>
+<script type="module">
+  import { initStaggeredMenu } from '/js/staggered-menu.js?v=ed564f88';
+
+  initStaggeredMenu('#menu-root', {
+    position: 'right',
+    isFixed: true,
+    items: [
+      { label: 'Home', ariaLabel: 'Go to the home page', link: '/en/' },
+      { label: 'Projects', ariaLabel: 'View the projects', link: '/en/projects.html' },
+      { label: 'FAQ', ariaLabel: 'Get answers to your questions', link: '/en/faq.html' },
+      { label: 'Get the Patch', ariaLabel: 'Get the Patch', link: '/en/download.html' },
+      { label: 'Account', ariaLabel: 'Account settings', link: '/en/tai-khoan.html' },
+    ],
+    socialItems: [
+      { label: 'Discord', link: 'https://discord.gg/mxsAU6BDye' },
+      { label: 'Facebook', link: 'https://facebook.com/Dich2000s' },
+      { label: 'Email', link: 'mailto:dich2000s.vn.localizer@gmail.com' },
+    ],
+    displaySocials: true,
+    displayItemNumbering: true,
+    menuButtonColor: '#fff',
+    openMenuButtonColor: '#fff',
+    changeMenuColorOnOpen: true,
+    colors: ['#C77DFF', '#ff7a2f'],
+    logoUrl: '/assets/FullWidthLogo.png',
+    accentColor: '#ff7a2f',
+  });
+</script>
+</body>
+
+</html>

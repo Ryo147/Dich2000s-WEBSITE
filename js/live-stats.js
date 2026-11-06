@@ -8,7 +8,7 @@
 (function () {
   'use strict';
 
-  var API_BASE = location.pathname.indexOf('/projects/') !== -1 ? '..' : '.';
+  var API_BASE = ''; // gốc site (trang /en/... cũng gọi /api/...)
   var HEARTBEAT_INTERVAL_MS = 30000;
   var POLL_INTERVAL_MS = 30000;
   var VISITOR_KEY = 'd2k_vid';
@@ -46,7 +46,7 @@
 
   function formatNum(n) {
     if (typeof n !== 'number' || isNaN(n)) return '—';
-    return n.toLocaleString('vi-VN');
+    return n.toLocaleString(document.documentElement.lang === 'en' ? 'en-GB' : 'vi-VN');
   }
 
   function paintStats(stats) {

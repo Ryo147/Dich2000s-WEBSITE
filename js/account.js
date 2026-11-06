@@ -6,7 +6,7 @@
 (function () {
   'use strict';
 
-  var BASE = location.pathname.indexOf('/projects/') !== -1 ? '..' : '.';
+  var BASE = ''; // gốc site; trang /en/... dùng chung API
   var API = BASE + '/api/ratings';
   var GAMES = window.D2K_GAMES || {}; // js/games.js (sinh từ lib/games.js)
   var T = function (k, v) { return window.d2kT ? window.d2kT(k, v) : k; };
@@ -104,7 +104,7 @@
       var g = GAMES[r.game] || { name: r.game, url: 'projects.html' };
       list.appendChild(el('li', { class: 'rounded-lg border border-border p-3 text-sm' }, [
         el('div', { class: 'flex items-center justify-between gap-2' }, [
-          el('a', { href: BASE + '/' + g.url + '#reviews', class: 'font-medium text-primary hover:underline', text: g.name }),
+          el('a', { href: window.d2kHref(g.url) + '#reviews', class: 'font-medium text-primary hover:underline', text: g.name }),
           el('span', { class: 'text-primary', 'aria-label': T('rv.star', { n: r.stars }), text: '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars) }),
         ]),
         r.text ? el('p', { class: 'mt-1 whitespace-pre-wrap break-words ' + (r.removed ? 'italic text-muted-foreground' : ''), text: r.text }) : null,

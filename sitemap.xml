@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+<urlset xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://dich2000s.vercel.app/</loc>
@@ -72,5 +73,75 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://dich2000s.vercel.app/assets/dreamcore/Dreamcore.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://dich2000s.vercel.app/en/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://dich2000s.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dich2000s.vercel.app/en/"/>
+  </url>
+  <url>
+    <loc>https://dich2000s.vercel.app/en/projects</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://dich2000s.vercel.app/projects"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dich2000s.vercel.app/en/projects"/>
+  </url>
+  <url>
+    <loc>https://dich2000s.vercel.app/en/faq</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://dich2000s.vercel.app/faq"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dich2000s.vercel.app/en/faq"/>
+  </url>
+  <url>
+    <loc>https://dich2000s.vercel.app/en/download</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://dich2000s.vercel.app/download"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dich2000s.vercel.app/en/download"/>
+  </url>
+  <url>
+    <loc>https://dich2000s.vercel.app/en/privacy</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://dich2000s.vercel.app/privacy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dich2000s.vercel.app/en/privacy"/>
+  </url>
+  <url>
+    <loc>https://dich2000s.vercel.app/en/noi-quy</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://dich2000s.vercel.app/noi-quy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dich2000s.vercel.app/en/noi-quy"/>
+  </url>
+  <url>
+    <loc>https://dich2000s.vercel.app/en/projects/plague-inc</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://dich2000s.vercel.app/projects/plague-inc"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dich2000s.vercel.app/en/projects/plague-inc"/>
+  </url>
+  <url>
+    <loc>https://dich2000s.vercel.app/en/projects/re2-remake</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://dich2000s.vercel.app/projects/re2-remake"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dich2000s.vercel.app/en/projects/re2-remake"/>
+  </url>
+  <url>
+    <loc>https://dich2000s.vercel.app/en/projects/dmc5</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://dich2000s.vercel.app/projects/dmc5"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dich2000s.vercel.app/en/projects/dmc5"/>
+  </url>
+  <url>
+    <loc>https://dich2000s.vercel.app/en/projects/dreamcore_1</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://dich2000s.vercel.app/projects/dreamcore_1"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dich2000s.vercel.app/en/projects/dreamcore_1"/>
   </url>
 </urlset>

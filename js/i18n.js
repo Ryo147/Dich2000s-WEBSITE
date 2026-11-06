@@ -10,7 +10,10 @@
     vi: {
       'lang.switch': 'English',
       'cookie.text': 'Website dùng Google Analytics (cookie phân tích) và một mã khách ngẫu nhiên để đếm lượt xem, số người đang online. Chỉ khi bạn bấm Chấp nhận thì các công cụ này mới chạy; nếu từ chối, không có dữ liệu nào được gửi đi.',
-      'cookie.policy': 'Xem chính sách bảo mật',
+      'cookie.policy': 'Xem chính sách bảo mật', 'cookie.aria': 'Thông báo cookie',
+      'toast.copied': 'Đã sao chép!', 'toast.copyfail': 'Không thể sao chép, vui lòng copy thủ công.',
+      'lb.close': 'Đóng', 'lb.prev': 'Ảnh trước', 'lb.next': 'Ảnh sau', 'lb.alt': 'Xem ảnh phóng to',
+      'dl.win': 'Tải về cho Windows', 'dl.linux': 'Tải về cho Linux', 'dl.noold': 'Chưa có bản cũ nào.', 'dl.pre': 'bản thử nghiệm', 'dl.notes': 'Ghi chú',
       'cookie.no': 'Từ chối', 'cookie.yes': 'Chấp nhận', 'cookie.settings': 'Cài đặt cookie',
       'rv.title': 'Đánh giá bản Việt hóa', 'rv.none': 'Chưa có đánh giá nào. Hãy là người đầu tiên!',
       'rv.count': '{n} đánh giá', 'rv.avg': 'Trung bình {n} / 5',
@@ -64,7 +67,10 @@
     en: {
       'lang.switch': 'Tiếng Việt',
       'cookie.text': 'This site uses Google Analytics (analytics cookies) and a random visitor ID to count views and people online. These only run if you click Accept; if you decline, no data is sent.',
-      'cookie.policy': 'Read the privacy policy',
+      'cookie.policy': 'Read the privacy policy', 'cookie.aria': 'Cookie notice',
+      'toast.copied': 'Copied!', 'toast.copyfail': 'Could not copy, please copy manually.',
+      'lb.close': 'Close', 'lb.prev': 'Previous image', 'lb.next': 'Next image', 'lb.alt': 'Enlarged image',
+      'dl.win': 'Download for Windows', 'dl.linux': 'Download for Linux', 'dl.noold': 'No older versions yet.', 'dl.pre': 'pre-release', 'dl.notes': 'Release notes',
       'cookie.no': 'Decline', 'cookie.yes': 'Accept', 'cookie.settings': 'Cookie settings',
       'rv.title': 'Rate this Vietnamese localization', 'rv.none': 'No reviews yet. Be the first!',
       'rv.count': '{n} reviews', 'rv.avg': 'Average {n} / 5',
@@ -124,8 +130,8 @@
     },
   };
 
-  var lang = 'vi';
-  try { lang = localStorage.getItem('d2k_lang') === 'en' ? 'en' : 'vi'; } catch (e) { /* bỏ qua */ }
+  // Ngôn ngữ do ĐƯỜNG DẪN quyết định: /en/... là tiếng Anh, còn lại tiếng Việt (mỗi bản là một trang tĩnh riêng, có hreflang).
+  var lang = /^\/en(\/|$)/.test(location.pathname) ? 'en' : 'vi';
 
   function t(key, vars) {
     var s = (DICT[lang] && DICT[lang][key]) || DICT.vi[key] || key;
@@ -143,13 +149,18 @@
   window.d2kT = t;
   window.d2kLang = function () { return lang; };
   window.d2kApplyI18n = apply;
+  // Đường dẫn trang tương ứng ở ngôn ngữ kia: /faq <-> /en/faq, / <-> /en/
+  function otherPath(p) {
+    if (lang === 'en') return p.replace(/^\/en(?=\/|$)/, '') || '/';
+    return '/en' + (p === '/' ? '/' : p);
+  }
   window.d2kSetLang = function (l) {
-    lang = l === 'en' ? 'en' : 'vi';
-    try { localStorage.setItem('d2k_lang', lang); } catch (e) { /* bỏ qua */ }
-    document.documentElement.lang = lang;
-    apply();
-    window.dispatchEvent(new CustomEvent('d2k-lang', { detail: lang }));
+    var want = l === 'en' ? 'en' : 'vi';
+    if (want === lang) return;
+    location.href = otherPath(location.pathname) + location.search + location.hash;
   };
+  // Link tới trang khác của site ở đúng ngôn ngữ hiện tại, ví dụ d2kHref('privacy.html')
+  window.d2kHref = function (page) { return (lang === 'en' ? '/en/' : '/') + page; };
 
   document.documentElement.lang = lang;
   function init() { apply(); }
