@@ -10,6 +10,7 @@ function memStore() {
     async del(k) { kv.delete(k); },
     async expire(k, ttl) { (this.expired ||= []).push([k, ttl]); },
     async incr(k) { const n = (Number(kv.get(k)) || 0) + 1; kv.set(k, n); return n; },
+    async decr(k) { const n = (Number(kv.get(k)) || 0) - 1; kv.set(k, n); return n; },
     async hget(k, f) { return (hs.get(k) || {})[f] ?? null; },
     async hset(k, o) { hs.set(k, { ...(hs.get(k) || {}), ...o }); },
     async hdel(k, f) { const h = hs.get(k); if (h) delete h[f]; },
@@ -749,4 +750,33 @@ test('quản trị viên cấp lại mã hoặc gỡ email thì yêu cầu đổ
   assert.equal((await core.rotateMailLink(e2.ctx, { token: act2, kind: 'a', ipHash: 'ip1' })).code, 'bad_token');
   e2.ctx.now = () => 1000 + DAY + 1;
   assert.ok((await core.login(e2.ctx, { name: 'Bella', code: reset.code, ipHash: 'ip3' })).ok);
+});
+
+// ---------- Bước 3: IPv6, email, hạn mức mail ----------
+import { normIp } from '../lib/ip.js';
+test('IPv6 gộp theo /64, IPv4 và IPv4-mapped giữ nguyên', () => {
+  assert.equal(normIp('2001:db8:1:2:aaaa:bbbb:cccc:dddd'), normIp('2001:db8:1:2::1'));
+  assert.notEqual(normIp('2001:db8:1:2::1'), normIp('2001:db8:1:3::1'));
+  assert.equal(normIp('::ffff:1.2.3.4'), '1.2.3.4');
+  assert.equal(normIp('1.2.3.4'), '1.2.3.4');
+  assert.equal(normIp('::1'), normIp('0:0:0:0::5'));
+});
+
+test('email: từ chối dạng lạ (nháy kép, ngoặc, dấu ;, <>, dấu cách) và chấp nhận dạng thường', () => {
+  for (const bad of ['"a;b"@x.com', 'a@b@c.com', 'a b@x.com', '<a>@x.com', 'a@x', 'a@-x.com', 'a@x..com', 'a@x.c'])
+    assert.equal(core.checkEmail(bad).ok, false, bad);
+  for (const good of ['a@x.co', 'ten.ho+tag@gmail.com', 'A@Sub.Domain.VN'])
+    assert.equal(core.checkEmail(good).ok, true, good);
+});
+
+test('hạn mức mail được giữ chỗ trước khi gửi: yêu cầu song song không vượt giới hạn', async () => {
+  const { ctx, sent, token, code } = await emailAcct();
+  let release; const gate = new Promise((r) => { release = r; });
+  ctx.mailer = async (m) => { await gate; sent.push(m); };
+  const ps = Array.from({ length: 8 }, (_, i) => core.setEmail(ctx, { token, code, email: `p${i}@gmail.com`, ipHash: 'ip1' }));
+  await new Promise((r) => setTimeout(r, 50));
+  release();
+  const rs = await Promise.all(ps);
+  assert.equal(rs.filter((r) => r.ok).length, 2); // emailAcct đã dùng 1 trong 3 lượt/ngày
+  assert.equal(rs.filter((r) => r.code === 'email_limit').length, 6);
 });

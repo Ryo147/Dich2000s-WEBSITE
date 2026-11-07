@@ -3,6 +3,7 @@
 // POST {action: rate|login|logout|me|delete-account|remove-device|reset-devices|rotate-request|rotate-cancel|rotate-finish|rotate-mail-request|rotate-mail-activate|rotate-mail-cancel|set-email|verify-email|remove-email|admin-reset-code|report|admin-reports|admin-remove|admin-restore, ...}
 import crypto from 'node:crypto';
 import * as core from '../lib/ratings-core.js';
+import { normIp } from '../lib/ip.js';
 import { redisStore } from '../lib/redis-store.js';
 import { makeMailer } from '../lib/mailer.js';
 
@@ -14,7 +15,7 @@ const COOKIE_SECONDS = 365 * 24 * 60 * 60;
 const secret = () => process.env.AUTH_SECRET;
 const clientIp = (req) => {
   const f = req.headers['x-forwarded-for'];
-  return (typeof f === 'string' && f.split(',')[0].trim()) || (req.socket && req.socket.remoteAddress) || 'unknown';
+  return normIp((typeof f === 'string' && f.split(',')[0].trim()) || (req.socket && req.socket.remoteAddress) || 'unknown');
 };
 const ipHashOf = (req) => crypto.createHmac('sha256', secret()).update('ip:' + clientIp(req)).digest('hex').slice(0, 24);
 const readToken = (req) => {

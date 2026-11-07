@@ -1,5 +1,6 @@
 import { Redis } from '@upstash/redis';
 import crypto from 'crypto';
+import { normIp } from '../lib/ip.js';
 
 const redis = Redis.fromEnv();
 
@@ -31,19 +32,20 @@ const BOT_UA_PATTERNS = [
 
 function getClientIp(req) {
   const fwd = req.headers['x-forwarded-for'];
-  if (typeof fwd === 'string' && fwd.length) return fwd.split(',')[0].trim();
-  return (req.socket && req.socket.remoteAddress) || 'unknown';
+  if (typeof fwd === 'string' && fwd.length) return normIp(fwd.split(',')[0].trim());
+  return normIp((req.socket && req.socket.remoteAddress) || 'unknown');
 }
 
 function hashValue(value) {
-  const salt = process.env.STATS_SALT || 'd2k-default-salt-change-me';
+  const salt = process.env.STATS_SALT || process.env.AUTH_SECRET; // không còn muối mặc định công khai trong repo
+  if (!salt) throw new Error('thiếu STATS_SALT/AUTH_SECRET');
   return crypto.createHash('sha256').update(salt + ':' + value).digest('hex').slice(0, 24);
 }
 
 function isAllowedOrigin(req) {
   const origin = req.headers.origin || req.headers.referer || '';
   if (!origin) return true; // 1 số trình duyệt không gửi Origin cho same-origin fetch — lớp khác sẽ xử lý
-  return ALLOWED_ORIGINS.some((o) => origin.indexOf(o) === 0);
+  try { return ALLOWED_ORIGINS.includes(new URL(origin).origin); } catch { return false; } // so khớp nguyên origin, không dùng tiền tố (dich2000s.vercel.app.evil.com)
 }
 
 function isLikelyBot(req) {
