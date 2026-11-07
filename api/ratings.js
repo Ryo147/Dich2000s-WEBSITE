@@ -75,7 +75,7 @@ export default async function handler(req, res) {
       }
       case 'logout': setCookie(res, null); return send(await core.logout(ctx, token));
       case 'me': return send(await core.me(ctx, token));
-      case 'delete-account': { const r = await core.deleteAccount(ctx, token); if (r.ok) setCookie(res, null); return send(r); }
+      case 'delete-account': { const r = await core.deleteAccount(ctx, { token, code: b.code, ipHash }); if (r.ok) setCookie(res, null); return send(r); }
       case 'my-reviews': return send(await core.myReviews(ctx, token));
       case 'delete-review': return send(await core.deleteReview(ctx, { token, game: b.game, ipHash }));
       case 'vote': {

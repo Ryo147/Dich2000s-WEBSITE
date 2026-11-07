@@ -223,7 +223,9 @@
     } });
     var del = data.admin ? null : el('button', { type: 'button', class: BTN + ' text-red-400', text: T('rv.delete'), onclick: function () {
       if (!window.confirm(T('rv.delete.confirm'))) return;
-      post({ action: 'delete-account' }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box); });
+      var dc = window.prompt(T('acc.device.code'));
+      if (!dc || !dc.trim()) return;
+      post({ action: 'delete-account', code: dc }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box); });
     } });
     box.appendChild(el('div', { class: 'mt-6 flex flex-wrap gap-2' }, [out, del]));
     box.appendChild(msg);

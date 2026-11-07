@@ -318,7 +318,7 @@ test('báo cáo: mỗi IP một lần; xóa tài khoản xóa đánh giá', asyn
   const id = core.nameKey('Khach');
   assert.ok((await core.report(ctx, { game: 'dmc5', id, ipHash: 'r1' })).ok);
   assert.ok((await core.report(ctx, { game: 'dmc5', id, ipHash: 'r1' })).duplicate);
-  assert.ok((await core.deleteAccount(ctx, u.token)).ok);
+  assert.ok((await core.deleteAccount(ctx, { token: u.token, code: u.code, ipHash: 'ip1' })).ok);
   assert.equal((await core.reviews(ctx, 'dmc5')).count, 0);
   assert.equal((await core.me(ctx, u.token)).name, null);
 });
@@ -406,7 +406,7 @@ test('email: gỡ email, xoá tài khoản giải phóng email; đổi tên gi�
   assert.equal((await core.myReviews(ctx, token)).email, null);
   await core.setEmail(ctx, { token, code, email: 'a@gmail.com', ipHash: 'ip1' });
   await core.verifyEmail(ctx, { token: tokenOf(sent.at(-1)), ipHash: 'ip1' });
-  await core.deleteAccount(ctx, token);
+  await core.deleteAccount(ctx, { token, code, ipHash: 'ip1' });
   const r2 = await core.rate(ctx, { ...base, name: 'Khac', ipHash: 'ip3' });
   await core.setEmail(ctx, { token: r2.token, code: r2.code, email: 'a@gmail.com', ipHash: 'ip3' });
   assert.ok((await core.verifyEmail(ctx, { token: tokenOf(sent.at(-1)), ipHash: 'ip3' })).ok);
@@ -493,7 +493,7 @@ test('bình chọn: xóa đánh giá hoặc tài khoản thì phiếu liên quan
   assert.deepEqual((await core.myVotes(ctx, { token: a.token, game: 'dmc5' })).votes, { [rb]: -1 });
   assert.deepEqual((await core.myVotes(ctx, { token: null, device: dev, game: 'dmc5' })).votes, { ryomoi: 1 });
   // Ryo xóa tài khoản: phiếu Ryo đã cho Khac biến mất, đánh giá của Ryo cùng phiếu của nó cũng mất
-  assert.ok((await core.deleteAccount(ctx, a.token)).ok);
+  assert.ok((await core.deleteAccount(ctx, { token: a.token, code: a.code, ipHash: 'ip1' })).ok);
   assert.deepEqual(await counts(ctx), { Khac: [0, 0] });
   assert.deepEqual((await core.myVotes(ctx, { token: null, device: dev, game: 'dmc5' })).votes, {});
   // gỡ đánh giá: phiếu mất
@@ -716,16 +716,18 @@ test('phiên ma bị vô hiệu khi đổi mã, khi quản trị viên cấp l�
   await core.adminResetCode(ctx, { token: a.token, name: 'Ryo' });
   assert.equal((await core.me(ctx, g1)).name, null);
   // đổi mã tự phục vụ: thiết bị hiện tại vẫn đăng nhập, phiên ma thì không
-  const l = await core.login(ctx, { name: 'Ryo', code: (await core.adminResetCode(ctx, { token: a.token, name: 'Ryo' })).code, ipHash: 'ib' });
+  const rc = (await core.adminResetCode(ctx, { token: a.token, name: 'Ryo' })).code;
+  const l = await core.login(ctx, { name: 'Ryo', code: rc, ipHash: 'ib' });
   const g2 = await ghostOf(ctx, 'Ryo');
   await core.requestRotate(ctx, { token: l.token, ipHash: 'ib' });
   ctx.now = () => 1000 + DAY + 1;
-  assert.ok((await core.finishRotate(ctx, { token: l.token, ipHash: 'ib' })).ok);
+  const fin = await core.finishRotate(ctx, { token: l.token, ipHash: 'ib' });
+  assert.ok(fin.ok);
   assert.equal((await core.me(ctx, l.token)).name, 'Ryo');
   assert.equal((await core.me(ctx, g2)).name, null);
   // xóa rồi đăng ký lại cùng tên
   const g3 = await ghostOf(ctx, 'Ryo');
-  assert.ok((await core.deleteAccount(ctx, l.token)).ok);
+  assert.ok((await core.deleteAccount(ctx, { token: l.token, code: fin.code, ipHash: 'ib' })).ok);
   ctx.now = () => 1000 + 2 * DAY;
   await core.rate(ctx, { ...base, name: 'Ryo', ipHash: 'ip7' });
   assert.equal((await core.me(ctx, g3)).name, null);
@@ -779,4 +781,15 @@ test('hạn mức mail được giữ chỗ trước khi gửi: yêu cầu song 
   const rs = await Promise.all(ps);
   assert.equal(rs.filter((r) => r.ok).length, 2); // emailAcct đã dùng 1 trong 3 lượt/ngày
   assert.equal(rs.filter((r) => r.code === 'email_limit').length, 6);
+});
+
+test('xóa tài khoản phải nhập lại mã; quản trị viên cấp lại mã thì chủ email được báo', async () => {
+  const { ctx, sent, token, code } = await emailAcct();
+  assert.equal((await core.deleteAccount(ctx, { token, ipHash: 'ip1' })).code, 'bad_login'); // chỉ có cookie
+  assert.equal((await core.me(ctx, token)).name, 'Ryo');
+  const adm = await core.createAccount(ctx, 'NhuaInox', core.nameKey('NhuaInox'), { admin: true });
+  const as = await core.login(ctx, { name: 'NhuaInox', code: adm.code, ipHash: 'ia' });
+  await core.adminResetCode(ctx, { token: as.token, name: 'Ryo' });
+  assert.ok(sent.some((m) => m.to === 'ryo@gmail.com' && /cấp lại/.test(m.subject)));
+  assert.ok(code);
 });
