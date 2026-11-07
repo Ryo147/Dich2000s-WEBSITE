@@ -163,14 +163,18 @@
       var emKids = [el('p', { class: 'text-xs text-muted-foreground mb-2', text: T('acc.email.hint') })];
       if (data.email) emKids.push(el('p', { class: 'text-sm mb-2', text: T('acc.email.current', { email: data.email }) }));
       if (data.pendingEmail) emKids.push(el('p', { class: 'text-sm mb-2', text: T('acc.email.pending', { email: data.pendingEmail }) }));
+      var emCode = el('input', { type: 'text', autocomplete: 'off', class: INPUT });
       emKids.push(field(T('acc.email.label'), emIn));
+      emKids.push(field(T('acc.device.code'), emCode));
       emKids.push(el('div', { class: 'mt-2 flex flex-wrap gap-2' }, [
         el('button', { type: 'button', class: BTN, text: T('acc.email.send'), onclick: function () {
-          post({ action: 'set-email', email: emIn.value }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box, T('acc.email.sent')); });
+          if (!emCode.value.trim()) return say(T('acc.device.needcode'), true);
+          post({ action: 'set-email', email: emIn.value, code: emCode.value }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box, T('acc.email.sent')); });
         } }),
         data.email || data.pendingEmail ? el('button', { type: 'button', class: BTN + ' text-red-400', text: T('acc.email.remove'), onclick: function () {
           if (!window.confirm(T('acc.email.remove.confirm'))) return;
-          post({ action: 'remove-email' }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box, T('acc.email.removed')); });
+          if (!emCode.value.trim()) return say(T('acc.device.needcode'), true);
+          post({ action: 'remove-email', code: emCode.value }).then(function (r) { if (!r.ok) return say(errText(r), true); load(box, T('acc.email.removed')); });
         } }) : null,
       ]));
       box.appendChild(section(T('acc.email'), emKids));

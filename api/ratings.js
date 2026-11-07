@@ -90,9 +90,9 @@ export default async function handler(req, res) {
       case 'rotate-mail-cancel': return send(await core.rotateMailLink(ctx, { token: b.token, kind: 'c', ipHash }));
       case 'rotate-cancel': return send(await core.cancelRotate(ctx, token));
       case 'rotate-finish': return send(await core.finishRotate(ctx, { token, ipHash }));
-      case 'set-email': return send(await core.setEmail(ctx, { token, email: b.email, ipHash }));
+      case 'set-email': return send(await core.setEmail(ctx, { token, email: b.email, code: b.code, ipHash }));
       case 'verify-email': return send(await core.verifyEmail(ctx, { token: b.token, ipHash }));
-      case 'remove-email': return send(await core.removeEmail(ctx, token));
+      case 'remove-email': return send(await core.removeEmail(ctx, { token, code: b.code, ipHash }));
       case 'admin-reset-code': return send(await core.adminResetCode(ctx, { token, name: b.name }));
       case 'report': return send(await core.report(ctx, { game: b.game, id: b.id, ipHash }));
       case 'admin-reports': return send(await core.adminReports(ctx, token));
