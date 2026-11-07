@@ -695,3 +695,58 @@ test('tự có hiệu lực sau 24 giờ rồi đăng nhập: tài khoản khôn
   await ctx.store.set('acct:ryo', JSON.stringify({ ...raw, _rotated: true }));
   assert.equal((await core.me(ctx, l.token)).name, 'Ryo');
 });
+
+// ---------- Phiên "ma" và yêu cầu đổi mã còn treo ----------
+import crypto from 'node:crypto';
+async function ghostOf(ctx, name) {
+  const acct = JSON.parse(await ctx.store.get(`acct:${core.nameKey(name)}`));
+  const g = 'ghost-token-' + name;
+  await ctx.store.set(`sess:${crypto.createHash('sha256').update(g).digest('hex')}`, JSON.stringify({ k: core.nameKey(name), t: 1, v: acct.salt, c: acct.created }));
+  return g; // phiên không có trong acct.devices, như khi đăng nhập song song
+}
+
+test('phiên ma bị vô hiệu khi đổi mã, khi quản trị viên cấp lại mã, và khi tên được đăng ký lại sau khi xóa tài khoản', async () => {
+  const ctx = mk();
+  const adm = await core.createAccount(ctx, 'NhuaInox', core.nameKey('NhuaInox'), { admin: true });
+  const a = await core.login(ctx, { name: 'NhuaInox', code: adm.code, ipHash: 'ia' });
+  const u = await core.rate(ctx, { ...base, name: 'Ryo' });
+  const g1 = await ghostOf(ctx, 'Ryo');
+  assert.equal((await core.me(ctx, g1)).name, 'Ryo');
+  await core.adminResetCode(ctx, { token: a.token, name: 'Ryo' });
+  assert.equal((await core.me(ctx, g1)).name, null);
+  // đổi mã tự phục vụ: thiết bị hiện tại vẫn đăng nhập, phiên ma thì không
+  const l = await core.login(ctx, { name: 'Ryo', code: (await core.adminResetCode(ctx, { token: a.token, name: 'Ryo' })).code, ipHash: 'ib' });
+  const g2 = await ghostOf(ctx, 'Ryo');
+  await core.requestRotate(ctx, { token: l.token, ipHash: 'ib' });
+  ctx.now = () => 1000 + DAY + 1;
+  assert.ok((await core.finishRotate(ctx, { token: l.token, ipHash: 'ib' })).ok);
+  assert.equal((await core.me(ctx, l.token)).name, 'Ryo');
+  assert.equal((await core.me(ctx, g2)).name, null);
+  // xóa rồi đăng ký lại cùng tên
+  const g3 = await ghostOf(ctx, 'Ryo');
+  assert.ok((await core.deleteAccount(ctx, l.token)).ok);
+  ctx.now = () => 1000 + 2 * DAY;
+  await core.rate(ctx, { ...base, name: 'Ryo', ipHash: 'ip7' });
+  assert.equal((await core.me(ctx, g3)).name, null);
+  assert.ok(u);
+});
+
+test('quản trị viên cấp lại mã hoặc gỡ email thì yêu cầu đổi mã đang chờ bị huỷ (mã trong mail cũ không bật lại được)', async () => {
+  const { ctx, sent, token, code } = await emailAcct();
+  await core.requestRotate(ctx, { token, ipHash: 'ip1' });
+  const act = linkOf(sent[0], 'activate');
+  assert.ok((await core.removeEmail(ctx, { token, code, ipHash: 'ip1' })).ok);
+  assert.equal((await core.rotateMailLink(ctx, { token: act, kind: 'a', ipHash: 'ip1' })).code, 'bad_token');
+  ctx.now = () => 1000 + DAY + 1;
+  assert.ok((await core.login(ctx, { name: 'Ryo', code, ipHash: 'ip2' })).ok); // mã cũ vẫn dùng được
+  // quản trị viên cấp lại
+  const e2 = await emailAcct('Bella');
+  const adm = await core.createAccount(e2.ctx, 'NhuaInox', core.nameKey('NhuaInox'), { admin: true });
+  const as = await core.login(e2.ctx, { name: 'NhuaInox', code: adm.code, ipHash: 'ia' });
+  await core.requestRotate(e2.ctx, { token: e2.token, ipHash: 'ip1' });
+  const act2 = linkOf(e2.sent[0], 'activate');
+  const reset = await core.adminResetCode(e2.ctx, { token: as.token, name: 'Bella' });
+  assert.equal((await core.rotateMailLink(e2.ctx, { token: act2, kind: 'a', ipHash: 'ip1' })).code, 'bad_token');
+  e2.ctx.now = () => 1000 + DAY + 1;
+  assert.ok((await core.login(e2.ctx, { name: 'Bella', code: reset.code, ipHash: 'ip3' })).ok);
+});
